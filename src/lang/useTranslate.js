@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import useProvider from '../store/useProvider'
+import useProvider from '@store/useProvider'
 import vi from './translations/vi'
 import en from './translations/en'
 

@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from 'react'
-import useUSer from '../store/useUser'
+import useUSer from '@store/useUser'
 import axios from 'axios'
 import useHandleError from './useHandleError'
-import { isFunction } from '../utils/checkType'
-import useTranslate from '../lang/useTranslate'
+import { isFunction } from '@utils/checkType'
+import useTranslate from '@lang'
 import { message as antdMessage } from 'antd'
-import { PORT } from '../configs/app.config'
+import { PORT } from '@configs/app.config'
 
 const useRequest = (prefixPath = '') => {
     const t = useTranslate()

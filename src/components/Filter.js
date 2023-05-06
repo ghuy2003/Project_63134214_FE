@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import useTranslate from '../lang/useTranslate'
-import { isFunction } from '../utils/checkType'
+import useTranslate from '@lang'
+import { isFunction } from '@utils/checkType'
 
 import { Row, Col, Space, Button, Input } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

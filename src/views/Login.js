@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import useTranslate from '../lang/useTranslate'
-import useAuth from '../api/useAuth'
+import useTranslate from '@lang'
+import useAuth from '@api/useAuth'
 import { useNavigate } from 'react-router-dom'
-import useUser from '../store/useUser'
+import useUser from '@store/useUser'
 
 import { Row, Col, Input, Button } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
-import '../assets/styles/scss/custom-input.scss'
+import '@styles/scss/custom-input.scss'
 
 const Login = () => {
 	const t = useTranslate()

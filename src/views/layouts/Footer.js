@@ -1,5 +1,5 @@
 import React from 'react'
-import useTranslate from '../../lang/useTranslate'
+import useTranslate from '@lang'
 
 import { Layout } from 'antd'
 

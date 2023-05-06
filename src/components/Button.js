@@ -1,6 +1,6 @@
 import React from 'react'
-import useTranslate from '../lang/useTranslate'
-import useModal from '../utils/hooks/useModal'
+import useTranslate from '@lang'
+import useModal from '@utils/hooks/useModal'
 import { isFunction } from '../utils/checkType'
 
 import { Button as AntdButton, Tooltip, Popconfirm, Modal as AntdModal } from 'antd'

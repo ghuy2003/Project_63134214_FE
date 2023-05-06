@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { v4 } from 'uuid'
-import { isFunction } from '../utils/checkType'
+import { isFunction } from '@utils/checkType'
 
 import { Breadcrumb as AntdBreadcrumb, Button } from 'antd'
 import { HomeOutlined } from '@ant-design/icons'
