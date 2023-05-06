@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react'
-import useProvider from '../store/useProvider'
+import useProvider from '@store/useProvider'
 
 import { Dropdown, Button } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLanguage } from '@fortawesome/free-solid-svg-icons'
-import { LANG } from '../configs/app.config'
+import { LANG } from '@configs/app.config'
 
 const LangSelect = () => {
 	const { lang, setLang } = useProvider()

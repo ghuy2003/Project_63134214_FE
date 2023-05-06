@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { io } from 'socket.io-client'
 
-import { PORT } from '../configs/app.config'
+import { PORT } from '@configs/app.config'
 
 const useSocket = () => {
     const token = useSelector(state => state.user.token)

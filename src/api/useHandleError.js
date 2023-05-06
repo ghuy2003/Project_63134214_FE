@@ -1,8 +1,8 @@
-import useTranslate from '../lang/useTranslate'
+import useTranslate from '@lang'
 import { useNavigate } from 'react-router-dom'
 import { message, notification } from 'antd'
 
-import { HTTP_STATUS } from '../configs/app.config'
+import { HTTP_STATUS } from '@configs/app.config'
 
 const {
     BAD_REQUEST,

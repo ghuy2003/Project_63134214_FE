@@ -1,13 +1,13 @@
 import React from 'react'
-import useSider from '../../store/useSider'
-import useUser from '../../store/useUser'
-import useTranslate from '../../lang/useTranslate'
+import useSider from '@store/useSider'
+import useUser from '@store/useUser'
+import useTranslate from '@lang'
 import { useNavigate } from 'react-router-dom'
 
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
 import { Layout, Button, Row, Col, Avatar, Space, Typography, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
-import LangSelect from '../../components/LangSelect'
+import LangSelect from '@components/LangSelect'
 
 const { Text } = Typography
 

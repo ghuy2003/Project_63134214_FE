@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import useTranslate from '../lang/useTranslate'
-import useListener from '../store/useListener'
+import useTranslate from '@lang'
+import useListener from '@store/useListener'
 
 import { Row, Col } from 'antd'
-import Breadcrumb from '../components/Breadcrumb'
+import Breadcrumb from '@components/Breadcrumb'
 
 const Home = () => {
 	const t = useTranslate()
@@ -15,7 +15,13 @@ const Home = () => {
 
 	return (
 		<Row gutter={[10, 10]}>
-			
+			<Col span={24}>
+				<Breadcrumb
+					data={[
+						{ label: t('home').toUpperFirst() }
+					]}
+				/>
+			</Col>
 		</Row>
 	)
 }

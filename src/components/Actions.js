@@ -1,6 +1,6 @@
 import React from 'react'
-import useTranslate from '../lang/useTranslate'
-import { isFunction } from '../utils/checkType'
+import useTranslate from '@lang'
+import { isFunction } from '@utils/checkType'
 
 import { Space } from 'antd'
 import Button from './Button'

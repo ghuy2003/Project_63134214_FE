@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { isFunction, isString } from '../utils/checkType'
+import { isFunction, isString } from '@utils/checkType'
 import { v4 } from 'uuid'
 
 const useListener = create((set, get) => ({

@@ -1,8 +1,8 @@
-import useTranslate from '../lang/useTranslate'
+import useTranslate from '@lang'
 
-import Layout from '../views/layouts/Layout'
-import Login from '../views/Login'
-import Home from '../views/Home'
+import Layout from '@views/layouts/Layout'
+import Login from '@views/Login'
+import Home from '@views/Home'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  } from '@fortawesome/free-regular-svg-icons'
 import { faHome, faGear, faUserCog } from '@fortawesome/free-solid-svg-icons'
