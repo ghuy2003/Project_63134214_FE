@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Layout } from 'antd'
 
 const Body = ({ children }) => {
@@ -14,6 +13,7 @@ const Body = ({ children }) => {
             }}
         >
             {children}
+
         </Layout.Content>
     )
 }
