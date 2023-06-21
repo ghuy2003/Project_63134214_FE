@@ -1,12 +1,12 @@
 import { Button, Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import Adminacction from '@components/Adminacction/Adminacction';
+import { faCircleMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import Styles from './DeleteDevice.module.scss'
+import Styles from './DeleteChoose.module.scss'
+import FormInput from '@components/FormInput/FormInput';
 const cx = classNames.bind(Styles)
-const DeleteDevice = () => {
+const DeleteChoose = () => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [modalText, setModalText] = useState('Content of the modal');
@@ -28,7 +28,10 @@ const DeleteDevice = () => {
   return (
     <>
             <div className={cx('delete__btn')} onClick={showModal}>
-                <Adminacction titlephara={'Delete'} children={<FontAwesomeIcon icon={faTrash} style={{color: '#d30a0ac7', fontSize: "1.3rem"}} />} />
+                    <Button type="primary" style={{borderRadius: '20px', backgroundColor: "rgba(211, 10, 10, 0.78)"}}>
+                        <FontAwesomeIcon icon={faCircleMinus} style={{marginRight: '5px'}} />
+                        Delete
+                    </Button>
             </div>
             <Modal
                 title="Delete Device"
@@ -47,4 +50,4 @@ const DeleteDevice = () => {
     </>
   );
 };
-export default DeleteDevice;
+export default DeleteChoose;

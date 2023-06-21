@@ -5,8 +5,9 @@ import { isArray } from '@utils/checkType'
 
 import { Layout, Menu } from 'antd'
 import useRoutes from '@configs/useRoutes.config'
-
-const Sider = () => {
+import MenuSidebar from '@components/MenuSidebar/MenuSidebar'
+import classNames from 'classnames';
+const Sider = ({items}) => {
     const { collapsed, width, isHide, setCollapsed } = useSider()
     const location = useLocation()
     const navigate = useNavigate()
@@ -48,13 +49,27 @@ const Sider = () => {
             collapsed={collapsed}
             onCollapse={setCollapsed}
             width={isHide ? 0 : width}
+            className='aside__bar'
+            style={{width: 'max-content', minWidth: 'max-content', flex: 'none'}}
         >
-            <Menu
+            {/* <Menu
                 theme="dark"
                 selectedKeys={selectedKey}
                 onSelect={handleSelect}
                 mode="inline"
                 items={routes}
+                onClick={handleClick}
+            /> */}
+
+
+            <Menu
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                mode="inline"
+                theme="dark"
+                inlineCollapsed={collapsed}
+                items={items}
+                className='menu__sidebar'
                 onClick={handleClick}
             />
         </Layout.Sider>

@@ -7,7 +7,6 @@ const useAuth = () => {
         endpoint: 'auth/login',
         data: { username, password }
     })
-
     return {
         login,
         cancel

@@ -2,10 +2,12 @@ import classNames from "classnames/bind"
 import Styles from './ManagerDevice.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faPlus, faSquarePen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { Form, Radio, Space, Table, Row, Button, Modal } from 'antd'; 
+import { Form, Radio, Space, Table, Row, Button, Modal, Col } from 'antd'; 
 import { useState } from 'react';
 import EditDevice from "@components/EditDevice/EditDevice";
 import DeleteDevice from "@components/DeleteDevice/DeleteDevice";
+import AddDevice from "@components/AddDevice/AddDevice";
+import DeleteChoose from "@components/DeleteChoose/DeleteChoose";
 const cx = classNames.bind(Styles)
 
   const ManagerDevice = () => {
@@ -158,10 +160,21 @@ const cx = classNames.bind(Styles)
     return (
       <div style={{height: '100%', width: '100%'}}>
             <Row className={cx('table__header')}>
-              <Button type="primary" style={{borderRadius: '20px', backgroundColor: "rgb(37 174 53)"}}>
-                <FontAwesomeIcon icon={faPlus} style={{marginRight: '5px'}} />
-                  Add Device
-                </Button>
+              <Col
+                xs={{
+                  span: 2,
+                  offset: 1,
+                }}
+                lg={{
+                  span: 3,
+                  offset: 4,
+                }}
+              >
+                <DeleteChoose />
+              </Col>
+              <Col>
+                  <AddDevice />
+              </Col>
             </Row>
 
 

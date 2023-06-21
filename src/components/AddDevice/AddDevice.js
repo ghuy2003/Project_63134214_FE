@@ -1,13 +1,12 @@
 import { Button, Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquarePen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import Adminacction from '@components/Adminacction/Adminacction';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
-import FormInput from '@components/FormInput/FormInput';
 import classNames from 'classnames/bind';
-import Styles from './EditDevice.module.scss'
+import Styles from './AddDevice.module.scss'
+import FormInput from '@components/FormInput/FormInput';
 const cx = classNames.bind(Styles)
-const EditDevice = () => {
+const AddDevice = () => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [modalText, setModalText] = useState('Content of the modal');
@@ -23,31 +22,30 @@ const EditDevice = () => {
     }, 2000);
     };
     const handleCancel = () => {
-    console.log('Clicked cancel button');
+        console.log('Clicked cancel button');
     setOpen(false);
     };
   return (
     <>
-            <div className={cx('edit__btn')} onClick={showModal}>
-                <Adminacction titlephara={'Edit'} children={<FontAwesomeIcon icon={faSquarePen} style={{color: "rgb(221 221 38 / 72%)", fontSize: '1.3rem'}}/> } />
+            <div className={cx('delete__btn')} onClick={showModal}>
+                    <Button type="primary" style={{borderRadius: '20px', backgroundColor: "rgb(37 174 53)"}}>
+                        <FontAwesomeIcon icon={faPlus} style={{marginRight: '5px'}} />
+                        Add Device
+                    </Button>
             </div>
             <Modal
-                okButtonProps={{style: {backgroundColor: '#8938DE'}}}
+                title="Add New Device"
                 open={open}
                 onOk={handleOk}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
-                okText="Update"
-                className='edit__form'
+                okText="Add New"
+                className='add__form'
+                okButtonProps={{ style: { backgroundColor: 'rgb(37, 174, 53)', } }} 
             >
-                <p className={cx('form__title')}>Update Device</p>
                 <FormInput />
             </Modal>
     </>
   );
 };
-
-
-
-
-export default EditDevice;
+export default AddDevice;
