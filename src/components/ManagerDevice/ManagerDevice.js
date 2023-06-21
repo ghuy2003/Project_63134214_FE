@@ -2,81 +2,12 @@ import classNames from "classnames/bind"
 import Styles from './ManagerDevice.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faPlus, faSquarePen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { Form, Radio, Space, Table, Row, Button } from 'antd'; 
+import { Form, Radio, Space, Table, Row, Button, Modal } from 'antd'; 
 import { useState } from 'react';
-import Adminacction from "@components/Adminacction/Adminacction";
+import EditDevice from "@components/EditDevice/EditDevice";
+import DeleteDevice from "@components/DeleteDevice/DeleteDevice";
 const cx = classNames.bind(Styles)
-const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'Id',
-      sorter: true,
-    },
-    {
-      title: 'Mac',
-      dataIndex: 'mac',
-    },
-    {
-      title :'Name',
-      dataIndex: 'name'
-    },
-    {
-      title :'Application ID',
-      dataIndex: 'applicationID'
-    },
-    {
-      title :'Description',
-      dataIndex: 'description'
-    },
-    {
-      title :'CreateAt',
-      dataIndex: 'createAt'
-    },
-    {
-      title :'UpdateAt',
-      dataIndex: 'UpdateAt'
-    },
-    // {
-    //   title: 'Address',
-    //   dataIndex: 'address',
-    //   filters: [
-    //     {
-    //       text: 'London',
-    //       value: 'London',
-    //     },
-    //     {
-    //       text: 'New York',
-    //       value: 'New York',
-    //     },
-    //   ],
-    //   onFilter: (value, record) => record.address.indexOf(value) === 0,
-    // },
-    {
-      title: 'Action',
-      key: 'action',
-      render: () => (
-        <Space size="middle">
-            <a><Adminacction titlephara={'Edit'} children={<FontAwesomeIcon icon={faSquarePen} style={{color: "rgb(221 221 38 / 72%)", fontSize: '1.3rem'}}/> } /></a>
-            <a><Adminacction titlephara={'Delete'} children={<FontAwesomeIcon icon={faTrash} style={{color: '#d30a0ac7', fontSize: "1.3rem"}} />}/></a>
-        </Space>
-      ),
-    },
-  ];
-  const data = [];
-  for (let i = 1; i <= 50; i++) {
-    data.push({
-      key: i,
-      name: 'John Brown',
-      age: Number(`${i}2`),
-      address: `New York No. ${i} Lake Park`,
-      description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
-    });
-  }
-  const defaultExpandable = {
-    expandedRowRender: (record) => <p>{record.description}</p>,
-  };
-  const defaultTitle = () => 'Here is title';
-  const defaultFooter = () => 'Here is footer';
+
   const ManagerDevice = () => {
     const [bordered, setBordered] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -93,6 +24,65 @@ const columns = [
     const [ellipsis, setEllipsis] = useState(false);
     const [yScroll, setYScroll] = useState(false);
     const [xScroll, setXScroll] = useState();
+
+
+    const columns = [
+      {
+        title: 'ID',
+        dataIndex: 'Id',
+        sorter: true,
+      },
+      {
+        title: 'Mac',
+        dataIndex: 'mac',
+      },
+      {
+        title :'Name',
+        dataIndex: 'name'
+      },
+      {
+        title :'Application ID',
+        dataIndex: 'applicationID'
+      },
+      {
+        title :'Description',
+        dataIndex: 'description'
+      },
+      {
+        title :'CreateAt',
+        dataIndex: 'createAt'
+      },
+      {
+        title :'UpdateAt',
+        dataIndex: 'UpdateAt'
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: () => (
+          <Space size="middle">
+              <a><EditDevice /></a>
+              <a><DeleteDevice /></a>
+          </Space>
+        ),
+      },
+    ];
+    const data = [];
+    for (let i = 1; i <= 50; i++) {
+      data.push({
+        key: i,
+        name: 'John Brown',
+        age: Number(`${i}2`),
+        address: `New York No. ${i} Lake Park`,
+        description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
+      });
+    }
+    const defaultExpandable = {
+      expandedRowRender: (record) => <p>{record.description}</p>,
+    };
+    const defaultTitle = () => 'Here is title';
+    const defaultFooter = () => 'Here is footer';
+    // handleFunction
     const handleBorderChange = (enable) => {
       setBordered(enable);
     };
@@ -132,6 +122,12 @@ const columns = [
     const handleDataChange = (newHasData) => {
       setHasData(newHasData);
     };
+    const handleEdit = (e) => {
+        
+    }
+
+
+    // 
     const scroll = {};
     if (yScroll) {
       scroll.y = 300;
@@ -148,7 +144,7 @@ const columns = [
       tableColumns[tableColumns.length - 1].fixed = 'right';
     }
     const tableProps = {
-      bordered: true,
+      bordered,
       loading,
       size,
       expandable,
