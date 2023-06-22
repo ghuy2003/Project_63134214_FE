@@ -1,1 +1,1 @@
-export { default } from './EditDevice'
+export { default } from './Download'

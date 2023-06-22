@@ -1,25 +1,36 @@
 import classNames from "classnames/bind";
 import Styles from './FirmWare.module.scss'
-import { Table, Space } from 'antd';
+import { Table, Space, Row, Col } from 'antd';
 import qs from 'qs';
 import { useEffect, useState } from 'react';
 import Download from "@components/Download/Download";
+import UploadFile from "@components/UploadFile/UploadFile";
+import EditDevice from "@components/EditDevice/EditDevice";
+import EditName from "@components/EditNamefile/EditNameFile";
 const cx = classNames.bind(Styles);
 const columns = [
   {
     title: 'File',
     dataIndex: 'Name',
-    sorter: true,
     width: '40%',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    width: '20%',
   },
   {
     title: 'Edit name',
     dataIndex: 'file',
-    sorter: true,
-    width: '40%',
+    width: '20%',
+    render: () => (
+      <Space size="middle">
+          <a><EditName /></a>
+      </Space>
+    ),
   },
   {
-    title: 'Download',
+    title: 'Action',
     dataIndex: 'email',
     render: () => (
       <Space size="middle">
@@ -73,14 +84,23 @@ const FirmWare  = () => {
     }
   };
   return (
-    <Table
-      columns={columns}
-      rowKey={(record) => record.login.uuid}
-      dataSource={data}
-      pagination={tableParams.pagination}
-      loading={loading}
-      onChange={handleTableChange}
-    />
+
+
+    <>
+    
+           <Row className={cx('firmware__header')}>
+                <UploadFile />
+            </Row>
+    
+            <Table
+              columns={columns}
+              rowKey={(record) => record.login.uuid}
+              dataSource={data}
+              pagination={tableParams.pagination}
+              loading={loading}
+              onChange={handleTableChange}
+            />
+    </>
   );
 };
 export default FirmWare ;

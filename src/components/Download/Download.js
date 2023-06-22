@@ -1,4 +1,5 @@
 import { Button, Modal } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faSquarePen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import Adminacction from '@components/Adminacction/Adminacction';
@@ -28,21 +29,9 @@ const Download = () => {
     };
   return (
     <>
-            <div className={cx('edit__btn')} onClick={showModal}>
-                <Adminacction titlephara={'Download'} children={<FontAwesomeIcon icon={faDownload} style={{color: "rgb(2 13 30)", fontSize: '1.3rem'}}/> } />
-            </div>
-            <Modal
-                okButtonProps={{style: {backgroundColor: '#8938DE'}}}
-                open={open}
-                onOk={handleOk}
-                confirmLoading={confirmLoading}
-                onCancel={handleCancel}
-                okText="Update"
-                className='edit__form'
-            >
-                <p className={cx('form__title')}>Update Device</p>
-                <FormInput />
-            </Modal>
+         <Button type="primary" icon={<DownloadOutlined />} size={'large'}>
+            Download
+          </Button>
     </>
   );
 };

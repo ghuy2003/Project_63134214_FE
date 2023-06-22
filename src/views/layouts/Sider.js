@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useSider from '@store/useSider'
 import { isArray } from '@utils/checkType'
-
 import { Layout, Menu } from 'antd'
 import useRoutes from '@configs/useRoutes.config'
 import MenuSidebar from '@components/MenuSidebar/MenuSidebar'
