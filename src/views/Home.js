@@ -18,11 +18,7 @@ const Home = () => {
 		
 			<Row gutter={[10, 10]}>
 				<Col span={24}>
-					<Breadcrumb
-						data={[
-							{ label: t('home').toUpperFirst() }
-						]}
-					/>
+				
 				</Col>
 			</Row>
 		</>

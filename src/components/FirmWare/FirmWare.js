@@ -1,31 +1,31 @@
 import classNames from "classnames/bind";
 import Styles from './FirmWare.module.scss'
-import { Table } from 'antd';
+import { Table, Space } from 'antd';
 import qs from 'qs';
 import { useEffect, useState } from 'react';
+import Download from "@components/Download/Download";
 const cx = classNames.bind(Styles);
 const columns = [
   {
     title: 'File',
     dataIndex: 'Name',
     sorter: true,
-    width: '20%',
+    width: '40%',
   },
   {
     title: 'Edit name',
     dataIndex: 'file',
     sorter: true,
-    width: '20%',
-  },
-  {
-    title: 'Upload',
-    dataIndex: 'upload',
-   
-    width: '20%',
+    width: '40%',
   },
   {
     title: 'Download',
     dataIndex: 'email',
+    render: () => (
+      <Space size="middle">
+          <a><Download /></a>
+      </Space>
+    ),
   },
 ];
 const getRandomuserParams = (params) => ({

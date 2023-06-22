@@ -68,7 +68,7 @@ const Sider = ({items}) => {
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}
-                items={items}
+                items={routes}
                 className='menu__sidebar'
                 onClick={handleClick}
             />
