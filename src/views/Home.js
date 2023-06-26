@@ -13,7 +13,6 @@ const Home = () => {
 
 	return (
 		<>
-		
 			<Row gutter={[10, 10]}>
 				<Col span={24}>
 				

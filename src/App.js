@@ -17,7 +17,6 @@ const App = () => {
 		<Route {...route}>{renderRoute(route.children)}</Route> :
 		<Route {...route} />
 	))
-
 	useEffect(() => {
 		token ? setReady(true) : navigate('/login')
 		setReady(true)

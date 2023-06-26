@@ -14,7 +14,7 @@ const useRequest = (prefixPath = '') => {
     const [controller, setController] = useState(new AbortController())
 
     const createRequest = () => axios.create({
-        baseURL: `${window.location.protocol}//${window.location.hostname}:${PORT}/api/${prefixPath}`,
+        baseURL: `${process.env.REACT_APP_API_KEY}/api/${prefixPath}`,
         timeout: 5000,
         headers: {
             Accept: 'application/json',
