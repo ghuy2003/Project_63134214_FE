@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 const useSider = create(set => ({
-    width: 260,
+    width: 270,
     collapsed: false,
     setCollapsed: (value) => set({ collapsed: value }),
     collapse: () => set({ collapsed: true }),
