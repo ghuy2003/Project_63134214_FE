@@ -1,52 +1,50 @@
-import classNames from 'classnames/bind'
-import Styles from './formInput.module.scss'
-import {
-    Button,
-    Cascader,
-    DatePicker,
-    Form,
-    Input,
-    Select,
-    TreeSelect,
-} from 'antd';
-const cx = classNames.bind(Styles)
-    const FormInput = () => {
-    const { TextArea } = Input;
-    return (
-      <Form
-        labelCol={{
-          span: 6,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        layout="horizontal"
-        size={'large'}
-        style={{
-          maxWidth: 600,
-        }}
-        className={cx('form__input')}
-      >
-        <Form.Item label="Id">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Mac">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Name">
-          <Input />
-        </Form.Item>
-        <Form.Item label="Application ID">
-          <Input />
-        </Form.Item>
+import React from 'react'
+import useTranslate from '@lang'
 
-        <Form.Item label="Description">
-            <TextArea rows={3} />
-        </Form.Item>
-      </Form>
-    );
-  };
+import { Form, Input, Space, Typography } from 'antd'
+
+const { TextArea } = Input
+const { Text } = Typography
+
+const AddonBefore = ({ title = '', width = 100, align = 'center' }) => {
+	return (
+		<div style={{ width, textAlign: align }}>
+			<Text>
+				{title}
+			</Text>
+		</div>
+	)
+}
+
+const FormInput = () => {
+	const t = useTranslate()
+
+	return (
+		<Form>
+			<Space
+				direction='vertical'
+				style={{ width: '100%' }}
+			>
+				<Input
+					addonBefore={<AddonBefore title='ID' />}
+				/>
+				<Input
+					addonBefore={<AddonBefore title='Mac' />}
+				/>
+				<Input
+					addonBefore={<AddonBefore title='Name' />}
+				/>
+				<Input
+					addonBefore={<AddonBefore title='Application ID' />}
+				/>
+				<TextArea
+					placeholder={t('description')}
+				/>
+			</Space>
+		</Form>
+	)
+}
 
 
 
-  export default FormInput;
+export default FormInput

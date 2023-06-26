@@ -29,14 +29,14 @@ const isArray = type => typeOf(type) === ARRAY
 const isObject = type => typeOf(type) === OBJECT
 
 export {
-    typeOf,
-    isNumber,
-    isFunction,
-    isAsyncFunction,
-    isNull,
-    isUndefined,
-    isString,
-    isBoolean,
-    isArray,
-    isObject
+	typeOf,
+	isNumber,
+	isFunction,
+	isAsyncFunction,
+	isNull,
+	isUndefined,
+	isString,
+	isBoolean,
+	isArray,
+	isObject
 }

@@ -1,50 +1,58 @@
-import { Button, Modal } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import Adminacction from '@components/Adminacction/Adminacction';
-import { useState } from 'react';
-import classNames from 'classnames/bind';
-import Styles from './DeleteDevice.module.scss'
-const cx = classNames.bind(Styles)
-const DeleteDevice = () => {
-    const [open, setOpen] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
-    const [modalText, setModalText] = useState('Content of the modal');
-    const showModal = () => {
-    setOpen(true);
-    };
-    const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
-    setConfirmLoading(true);
-    setTimeout(() => {
-        setOpen(false);
-        setConfirmLoading(false);
-    }, 2000);
-    };
-    const handleCancel = () => {
-        console.log('Clicked cancel button');
-    setOpen(false);
-    };
-  return (
-    <>
-            <div className={cx('delete__btn')} onClick={showModal}>
-                <Adminacction titlephara={'Delete'} children={<FontAwesomeIcon icon={faTrash} style={{color: '#d30a0ac7', fontSize: "1.3rem"}} />} />
-            </div>
-            <Modal
-                title="Delete Device"
-                open={open}
-                onOk={handleOk}
-                confirmLoading={confirmLoading}
-                onCancel={handleCancel}
-                okText="Delete"
-                className='delete__form'
-                okButtonProps={{ style: { backgroundColor: 'rgb(255, 37, 37)', } }} 
-            >
-                <p className={cx('delete__title')}>Are you sure want to delete this device ?</p>
+import React, { useState } from 'react'
+import useTranslate from '@lang'
 
-                <p className={cx('delete__sub-title')}>This action can destroy your data!</p>
-            </Modal>
-    </>
-  );
-};
-export default DeleteDevice;
+import { Button, Modal, Space, Typography } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+
+const { Text } = Typography
+
+const DeleteDevice = () => {
+	const t = useTranslate()
+	const [open, setOpen] = useState(false)
+	const [confirmLoading, setConfirmLoading] = useState(false)
+
+	const showModal = () => {
+		setOpen(true)
+	}
+
+	const handleOk = () => {
+		setConfirmLoading(true)
+		setTimeout(() => {
+			setOpen(false)
+			setConfirmLoading(false)
+		}, 2000)
+	}
+
+	const handleCancel = () => {
+		console.log('Clicked cancel button')
+		setOpen(false)
+	}
+
+	return (
+		<>
+			<Button
+				type='primary'
+				danger
+				icon={<FontAwesomeIcon icon={faTrashCan} />}
+				onClick={showModal}
+			/>
+			<Modal
+				title={t('delete sevice').toCapitalize()}
+				open={open}
+				onOk={handleOk}
+				confirmLoading={confirmLoading}
+				onCancel={handleCancel}
+				okText={t('delete')}
+				cancelText={t('cancel')}
+				okButtonProps={{ danger: true }}
+			>
+				<Space direction='vertical'>
+					<Text strong>{t('are you sure want to delete this device').toUpperFirst() + ' ?'}</Text>
+					<Text strong>{t('this action can destroy your data').toUpperFirst() + ' !'}</Text>
+				</Space>
+			</Modal>
+		</>
+	)
+}
+export default DeleteDevice
