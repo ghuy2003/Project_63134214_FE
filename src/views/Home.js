@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import useTranslate from '@lang'
 import useListener from '@store/useListener'
-import ManagerDevice from '@components/ManagerDevice/ManagerDevice'
 import { Row, Col } from 'antd'
-import Breadcrumb from '@components/Breadcrumb'
 
 const Home = () => {
 	const t = useTranslate()

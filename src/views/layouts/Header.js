@@ -3,7 +3,6 @@ import useSider from '@store/useSider'
 import useUser from '@store/useUser'
 import useTranslate from '@lang'
 import { useNavigate } from 'react-router-dom'
-
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
 import { Layout, Button, Row, Col, Avatar, Space, Typography, Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
@@ -16,12 +15,18 @@ const Header = () => {
     const navigate = useNavigate()
     const { toggle, isHide } = useSider()
     const { username } = useUser()
-
+    const {resetData} = useUser();
+    const handleLogout = async () => {
+		await resetData();
+        navigate('/login')
+	}
     const items = [
         {
             key: 1,
             label: t('logout').toCapitalize(),
-            onClick: () => navigate('/login')
+            onClick:  () => {
+                handleLogout()
+            }
         }
     ]
 

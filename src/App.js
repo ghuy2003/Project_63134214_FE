@@ -19,18 +19,20 @@ const App = () => {
 	))
 
 	useEffect(() => {
-		// token ? setReady(true) : navigate('/login')
+		token ? setReady(true) : navigate('/login')
 		setReady(true)
 	}, [])
-
+	console.log(token);
 	return (
-		<>{ready && (
-			<AppContext.Provider value={{}}>
-				<Routes>
-					{renderRoute(routes)}
-				</Routes>
-			</AppContext.Provider>
-		)}</>
+		<>
+			{ready && (
+				<AppContext.Provider value={{}}>
+					<Routes>
+						{renderRoute(routes)}
+					</Routes>
+				</AppContext.Provider>
+			)}
+		</>
 	)
 }
 

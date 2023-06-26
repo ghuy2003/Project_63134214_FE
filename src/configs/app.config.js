@@ -7,7 +7,7 @@ const HTTP_STATUS = Object.freeze({
     SERVER_ERROR: 500
 })
 
-const PORT = '3002'
+const PORT = '3003'
 
 const LANG = Object.freeze({
     vi: 'Tiếng Việt',
