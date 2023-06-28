@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import Styles from './FirmWare.module.scss'
+import Styles from './Applications.module.scss'
 import { Table, Space, Row, Col } from 'antd';
 import qs from 'qs';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ import EditDevice from "@components/EditDevice/EditDevice";
 import EditName from "@components/EditNamefile/EditNameFile";
 import DeleteChoose from "@components/DeleteChoose/DeleteChoose";
 import AddDevice from "@components/AddDevice/AddDevice";
-import useFirmware from "@api/useFirmwares";
+import useApplication from "@api/useApplication";
 const cx = classNames.bind(Styles);
 
 const columns = [
@@ -23,12 +23,12 @@ const columns = [
     dataIndex: 'Name'
   },
   {
-    title :'Data',
-    dataIndex: 'Data'
+    title :'Firmware ID',
+    dataIndex: 'FirmwareID'
   },
   {
-    title :'LocalLink',
-    dataIndex: 'LocalLink'
+    title :'Version',
+    dataIndex: 'Version'
   },
   {
     title :'Description',
@@ -53,7 +53,7 @@ const columns = [
     ),
   },
 ];
-const FirmWare  = () => {
+const Application  = () => {
   const [bordered, setBordered] = useState(true);
   const [loading, setLoading] = useState(false);
   const [size, setSize] = useState('large');
@@ -74,10 +74,10 @@ const FirmWare  = () => {
 
  
   
-  const { getFirms } = useFirmware();
+  const { getApplication } = useApplication();
   const handleGetAllDevice = async () => {
     handleLoadingChange(true)
-    const {success, data} = await getFirms();
+    const {success, data} = await getApplication();
     if(success) {
       setData([...data])
       handleLoadingChange(false)
@@ -195,8 +195,6 @@ const FirmWare  = () => {
       </div>
     );
 };
-export default FirmWare ;
-
-
+export default Application ;
 
 
