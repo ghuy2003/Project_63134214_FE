@@ -11,79 +11,79 @@ import LangSelect from '@components/LangSelect'
 const { Text } = Typography
 
 const Header = () => {
-    const t = useTranslate()
-    const navigate = useNavigate()
-    const { toggle, isHide } = useSider()
-    const { username } = useUser()
-    const {resetData} = useUser();
-    const handleLogout = async () => {
-		await resetData();
-        navigate('/login')
+	const t = useTranslate()
+	const navigate = useNavigate()
+	const { toggle, isHide } = useSider()
+	const { username } = useUser()
+	const {resetData} = useUser()
+	const handleLogout = async () => {
+		await resetData()
+		navigate('/login')
 	}
-    const items = [
-        {
-            key: 1,
-            label: t('logout').toCapitalize(),
-            onClick:  () => {
-                handleLogout()
-            }
-        }
-    ]
+	const items = [
+		{
+			key: 1,
+			label: t('logout').toCapitalize(),
+			onClick:  () => {
+				handleLogout()
+			}
+		}
+	]
 
-    return (
-        <Layout.Header
-            style={{
-                height: 'unset',
-                lineHeight: 'unset',
-                backgroundColor: '#fff',
-                padding: 10,
-                boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.1)',
-                zIndex: 1
-            }}
-        >
-            <Row
-                gutter={10}
-                justify='center'
-                align='middle'
-            >
-                <Col span={8}>
-                    <Space>
-                        <Button
-                            type='text'
-                            onClick={toggle}
-                            icon={isHide ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        />
-                        <Avatar
-                            shape='square'
-                            size='small'
-                            icon={<UserOutlined />}
-                        />
-                        <Dropdown
-                            menu={{ items }}
-                        >
-                            <Space>
-                                <Text>{username}</Text>
-                                <DownOutlined style={{ fontSize: 10 }} />
-                            </Space>
-                        </Dropdown>
-                    </Space>
-                </Col>
-                <Col span={8}>
-                </Col>
-                <Col span={8}>
-                    <Row
-                        gutter={10}
-                        justify='end'
-                        align='middle'
-                    >
-                        <Col>
-                            <LangSelect />
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        </Layout.Header>
-    )
+	return (
+		<Layout.Header
+			style={{
+				height: 'unset',
+				lineHeight: 'unset',
+				backgroundColor: '#fff',
+				padding: 10,
+				boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.1)',
+				zIndex: 1
+			}}
+		>
+			<Row
+				gutter={10}
+				justify='center'
+				align='middle'
+			>
+				<Col span={8}>
+					<Space>
+						<Button
+							type='text'
+							onClick={toggle}
+							icon={isHide ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+						/>
+						<Avatar
+							shape='square'
+							size='small'
+							icon={<UserOutlined />}
+						/>
+						<Dropdown
+							menu={{ items }}
+						>
+							<Space>
+								<Text>{username}</Text>
+								<DownOutlined style={{ fontSize: 10 }} />
+							</Space>
+						</Dropdown>
+					</Space>
+				</Col>
+				<Col span={8}>
+				</Col>
+				<Col span={8}>
+					<Row
+						gutter={10}
+						justify='end'
+						align='middle'
+					>
+						<Col>
+							<LangSelect />
+						</Col>
+					</Row>
+				</Col>
+			</Row>
+		</Layout.Header>
+	)
 }
 
 export default Header

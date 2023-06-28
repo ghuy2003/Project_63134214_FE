@@ -1,53 +1,57 @@
-import { Button, Modal } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquarePen, faTrash } from '@fortawesome/free-solid-svg-icons'
-import Adminacction from '@components/Adminacction/Adminacction';
-import { useState } from 'react';
-import FormInput from '@components/FormInput/FormInput';
-import classNames from 'classnames/bind';
-import Styles from './EditDevice.module.scss'
-const cx = classNames.bind(Styles)
+import React, { useState } from 'react'
+import useTranslate from '@lang'
+
+import { Button, Modal } from 'antd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
+import FormInput from '@components/FormInput/FormInput'
+
 const EditDevice = () => {
-    const [open, setOpen] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
-    const [modalText, setModalText] = useState('Content of the modal');
-    const showModal = () => {
-    setOpen(true);
-    };
-    const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
-    setConfirmLoading(true);
-    setTimeout(() => {
-        setOpen(false);
-        setConfirmLoading(false);
-    }, 2000);
-    };
-    const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setOpen(false);
-    };
-  return (
-    <>
-            <div className={cx('edit__btn')} onClick={showModal}>
-                <Adminacction titlephara={'Edit'} children={<FontAwesomeIcon icon={faSquarePen} style={{color: "rgb(221 221 38 / 72%)", fontSize: '1.3rem'}}/> } />
-            </div>
-            <Modal
-                okButtonProps={{style: {backgroundColor: '#8938DE'}}}
-                open={open}
-                onOk={handleOk}
-                confirmLoading={confirmLoading}
-                onCancel={handleCancel}
-                okText="Update"
-                className='edit__form'
-            >
-                <p className={cx('form__title')}>Update Device</p>
-                <FormInput />
-            </Modal>
-    </>
-  );
-};
+	const t = useTranslate()
+	const [open, setOpen] = useState(false)
+	const [confirmLoading, setConfirmLoading] = useState(false)
+
+	const showModal = () => {
+		setOpen(true)
+	}
+
+	const handleOk = () => {
+		setConfirmLoading(true)
+		setTimeout(() => {
+			setOpen(false)
+			setConfirmLoading(false)
+		}, 2000)
+	}
+
+	const handleCancel = () => {
+		console.log('Clicked cancel button')
+		setOpen(false)
+	}
+	
+	return (
+		<>
+			<Button
+				type='primary'
+				icon={<FontAwesomeIcon icon={faPen} />}
+				onClick={showModal}
+			/>
+			<Modal
+				title={t('update device').toCapitalize()}
+				open={open}
+				onOk={handleOk}
+				confirmLoading={confirmLoading}
+				onCancel={handleCancel}
+				okText={t('update')}
+				okButtonProps={{ style: { backgroundColor: 'green' } }}
+				cancelButtonProps={{ type: 'primary', danger: true }}
+			>
+				<FormInput />
+			</Modal>
+		</>
+	)
+}
 
 
 
 
-export default EditDevice;
+export default EditDevice

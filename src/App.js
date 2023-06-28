@@ -14,13 +14,22 @@ const App = () => {
 
 	const renderRoute = (routes) => routes.map(route => (
 		'children' in route ?
-		<Route {...route}>{renderRoute(route.children)}</Route> :
-		<Route {...route} />
+			<Route {...route}>{renderRoute(route.children)}</Route> :
+			<Route {...route} />
 	))
+<<<<<<< HEAD
 	// useEffect(() => {
 	// 	token ? setReady(true) : navigate('/login')
 	// 	setReady(true)
 	// }, [])
+=======
+
+	useEffect(() => {
+		// token ? setReady(true) : navigate('/login')
+		setReady(true)
+	}, [])
+
+>>>>>>> 3e3a86623bf2c935d5c32704c25a64f3543f1c69
 	return (
 		<>
 			{ready && (

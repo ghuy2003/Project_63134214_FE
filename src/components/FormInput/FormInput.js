@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import classNames from 'classnames/bind'
 import Styles from './formInput.module.scss'
 import {
@@ -61,7 +62,55 @@ const cx = classNames.bind(Styles)
     </Form>
   );
 };
+=======
+import React from 'react'
+import useTranslate from '@lang'
+
+import { Form, Input, Space, Typography } from 'antd'
+
+const { TextArea } = Input
+const { Text } = Typography
+
+const AddonBefore = ({ title = '', width = 100, align = 'center' }) => {
+	return (
+		<div style={{ width, textAlign: align }}>
+			<Text>
+				{title}
+			</Text>
+		</div>
+	)
+}
+
+const FormInput = () => {
+	const t = useTranslate()
+
+	return (
+		<Form>
+			<Space
+				direction='vertical'
+				style={{ width: '100%' }}
+			>
+				<Input
+					addonBefore={<AddonBefore title='ID' />}
+				/>
+				<Input
+					addonBefore={<AddonBefore title='Mac' />}
+				/>
+				<Input
+					addonBefore={<AddonBefore title='Name' />}
+				/>
+				<Input
+					addonBefore={<AddonBefore title='Application ID' />}
+				/>
+				<TextArea
+					placeholder={t('description')}
+				/>
+			</Space>
+		</Form>
+	)
+}
+>>>>>>> 3e3a86623bf2c935d5c32704c25a64f3543f1c69
 
 
 
-  export default FormInput;
+export default FormInput
