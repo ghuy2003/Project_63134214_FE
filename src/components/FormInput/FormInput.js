@@ -4,7 +4,9 @@ import {Form, Input} from 'antd'
 import React from 'react'
 import { useEffect, useState } from 'react'
 const cx = classNames.bind(Styles)
-const FormInput = ( props ) => {
+const FormInput = ( props) => {
+
+	
 	const   { TextArea } = Input
 	const  [ID, setId] = useState('')
 	const  [Mac, setMac] = useState('')
