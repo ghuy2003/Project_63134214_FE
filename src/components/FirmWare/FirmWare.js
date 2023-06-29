@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import Styles from './FirmWare.module.scss'
 import React from 'react'
-
+import DeleteDevice from '@components/DeleteDevice/DeleteDevice'
 import { Table, Space, Row, Col } from 'antd'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
@@ -50,7 +50,7 @@ const columns = [
 		render: () => (
 			<Space size='middle'>
 				<a><EditDevice /></a>
-				<a><Download /></a>
+				<a><DeleteDevice /></a>
 			</Space>
 		),
 	},

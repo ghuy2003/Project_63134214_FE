@@ -30,17 +30,19 @@ const AddDevice = () => {
 		setOpen(true)
 	}
 	const handleOk = async () => {
-		const {data} = await createDevice({ ID, Mac, Name, Description, ApplicationID })
-		setConfirmLoading(true)
-		setTimeout(() => {
-			setOpen(false)
-			setConfirmLoading(false)
-			setId('')
-			setMac('')
-			setName('')
-			setapplication('')
-			setdescription('')
-		}, 2000)
+		const {success,data} = await createDevice({ ID, Mac, Name, Description, ApplicationID })
+
+		console.log(data)
+		// setConfirmLoading(true)
+		// setTimeout(() => {
+		// 	setOpen(false)
+		// 	setConfirmLoading(false)
+		// 	setId('')
+		// 	setMac('')
+		// 	setName('')
+		// 	setapplication('')
+		// 	setdescription('')
+		// }, 2000)
 	}
 	const handleCancel = () => {
 		setOpen(false)

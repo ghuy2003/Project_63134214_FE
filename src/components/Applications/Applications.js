@@ -11,6 +11,7 @@ import EditName from '@components/EditNamefile/EditNameFile'
 import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
 import AddDevice from '@components/AddDevice/AddDevice'
 import useApplication from '@api/useApplication'
+import DeleteDevice from '@components/DeleteDevice/DeleteDevice'
 const cx = classNames.bind(Styles)
 
 const columns = [
@@ -49,7 +50,7 @@ const columns = [
 		render: () => (
 			<Space size='middle'>
 				<a><EditDevice /></a>
-				<a><Download /></a>
+				<a><DeleteDevice /></a>
 			</Space>
 		),
 	},

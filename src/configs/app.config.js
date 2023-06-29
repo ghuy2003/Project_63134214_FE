@@ -7,9 +7,9 @@ const HTTP_STATUS = Object.freeze({
 	SERVER_ERROR: 500
 })
 
-const PROTOCOL = 'https'
-const HOST = 'iot-server-oo4a.onrender.com'
-// const HOST = 'localhost'
+const PROTOCOL = 'http'
+// const HOST = 'iot-server-oo4a.onrender.com'
+const HOST = 'localhost'
 const PORT = '3003'
 
 const LANG = Object.freeze({
