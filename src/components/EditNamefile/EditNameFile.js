@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import { Button, Modal } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
