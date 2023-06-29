@@ -2,6 +2,7 @@ import { Tooltip } from 'antd'
 import { useMemo, useState } from 'react'
 import Styles from './Admin.module.scss'
 import classNames from 'classnames/bind'
+import React from 'react'
 const buttonWidth = 70
 const btnProps = {
 	style: {

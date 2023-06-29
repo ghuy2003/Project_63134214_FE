@@ -45,33 +45,8 @@ const useRequest = (prefixPath = '') => {
 		)
 	}, [request, t])
 
-<<<<<<< HEAD
-    const createPostRequest = useCallback(({ endpoint, data, ...props }) => {
-        console.log(data);
-        return (
-            request
-            .post(endpoint, data, { ...props })
-            .then(res => {
-                const { data } = res
-                const { message } = data
-                message && antdMessage.success(t(message))
-                return {
-                    success: true,
-                    data
-                }
-            })
-            .catch(err => {
-                const data = handleError(err)
-                return {
-                    success: false,
-                    data
-                }
-            })
-            .finally(() => {})
-        )
-    }, [request, t])
-=======
 	const createPostRequest = useCallback(({ endpoint, data, ...props }) => {
+		console.log(data)
 		return (
 			request
 				.post(endpoint, data, { ...props })
@@ -94,7 +69,6 @@ const useRequest = (prefixPath = '') => {
 				.finally(() => {})
 		)
 	}, [request, t])
->>>>>>> 3e3a86623bf2c935d5c32704c25a64f3543f1c69
 
 	const cancel = () => {
 		controller.abort()

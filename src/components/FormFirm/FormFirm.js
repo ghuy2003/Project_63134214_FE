@@ -4,6 +4,7 @@ import {
 	Form,
 	Input,
 } from 'antd'
+import React from 'react'
 const cx = classNames.bind(Styles)
 const FormFirm = () => {
 	const { TextArea } = Input

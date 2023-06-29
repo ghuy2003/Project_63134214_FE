@@ -6,6 +6,7 @@ import { useState } from 'react'
 import classNames from 'classnames/bind'
 import Styles from './UploadFile.module.scss'
 import FormInput from '@components/FormInput/FormInput'
+import React from 'react'
 const cx = classNames.bind(Styles)
 const UploadFile = () => {
 

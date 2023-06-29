@@ -6,6 +6,7 @@ import Adminacction from '@components/Adminacction/Adminacction'
 import { useState } from 'react'
 import classNames from 'classnames/bind'
 import Styles from './EditNameFile.module.scss'
+import React from 'react'
 const cx = classNames.bind(Styles)
 const EditName = () => {
 	const [open, setOpen] = useState(false)

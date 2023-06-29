@@ -7,6 +7,7 @@ import { useState } from 'react'
 import FormInput from '@components/FormInput/FormInput'
 import classNames from 'classnames/bind'
 import Styles from './Download.module.scss'
+import React from 'react'
 const cx = classNames.bind(Styles)
 const Download = () => {
 	const [open, setOpen] = useState(false)

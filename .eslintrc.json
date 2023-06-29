@@ -34,6 +34,9 @@
         ],
         "react/jsx-key": "off",
         "react/display-name": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "react/no-children-prop": [{
+            "allowFunctions": true
+          }]
     }
 }

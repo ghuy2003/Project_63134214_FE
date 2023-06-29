@@ -9,6 +9,7 @@ const HTTP_STATUS = Object.freeze({
 
 const PROTOCOL = 'https'
 const HOST = 'iot-server-oo4a.onrender.com'
+// const HOST = 'localhost'
 const PORT = '3003'
 
 const LANG = Object.freeze({
