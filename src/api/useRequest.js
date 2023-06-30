@@ -47,7 +47,7 @@ const useRequest = (prefixPath = '') => {
 
 	const createPostRequest = useCallback(({ endpoint, data, ...props }) => {
 		console.log(data)
-		return (
+		return ( 
 			request
 				.post(endpoint, data, { ...props })
 				.then(res => {

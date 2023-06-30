@@ -5,29 +5,44 @@ import { Button, Modal } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import FormInput from '@components/FormInput/FormInput'
+import useDevices from '@api/useDevices'
 
-const EditDevice = () => {
+const EditDevice = ({ID, dvMac, dvName , dvApp, dvDescription, onchange}) => {
+	
 	const t = useTranslate()
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
+	const {updateDevice} = useDevices()
+	const [Mac, setMac] = useState(dvMac)
+	const [Name, setName ] = useState(dvName)
+	const [ApplicationID, setapplication] = useState(dvApp)
+	const [Description, setdescription] = useState(dvDescription)
 
 	const showModal = () => {
 		setOpen(true)
 	}
 
-	const handleOk = () => {
+	const handleOk = async () => {
+		const {success, data} = await updateDevice({ID,Mac,Name,ApplicationID,Description})
 		setConfirmLoading(true)
 		setTimeout(() => {
 			setOpen(false)
 			setConfirmLoading(false)
-		}, 2000)
+			onchange()
+		}, 1500)
 	}
 
 	const handleCancel = () => {
-		console.log('Clicked cancel button')
 		setOpen(false)
 	}
 	
+
+	const handleData = (ID,Mac, Name, ApplicationID, Description) => {
+		setMac(Mac)
+		setName(Name)
+		setapplication(ApplicationID)
+		setdescription(Description)
+	}
 	return (
 		<>
 			<Button
@@ -45,7 +60,7 @@ const EditDevice = () => {
 				okButtonProps={{ style: { backgroundColor: 'green' } }}
 				cancelButtonProps={{ type: 'primary', danger: true }}
 			>
-				<FormInput />
+				<FormInput  onchangedata={handleData} ID={ID} Mac={Mac} Name={Name} ApplicationID={ApplicationID} Description={Description} />
 			</Modal>
 		</>
 	)

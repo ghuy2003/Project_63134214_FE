@@ -4,24 +4,34 @@ import useTranslate from '@lang'
 import { Button, Modal, Space, Typography } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
-
+import useDevices from '@api/useDevices'
 const { Text } = Typography
 
-const DeleteChoose = () => {
+const DeleteChoose = ({onchange, disable, selectedRowKeys}) => {
 	const t = useTranslate()
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
+
+	const { deleteManyDevice } = useDevices()
 
 	const showModal = () => {
 		setOpen(true)
 	}
 
-	const handleOk = () => {
-		setConfirmLoading(true)
-		setTimeout(() => {
-			setOpen(false)
-			setConfirmLoading(false)
-		}, 2000)
+	
+
+	const handleOk = async () => {
+		const {success,data} = await deleteManyDevice({selectedRowKeys})
+
+		console.log(success)
+		if(success) {
+			setConfirmLoading(true)
+			setTimeout(() => {
+				setOpen(false)
+				setConfirmLoading(false)
+				onchange()
+			}, 2000)
+		}
 	}
 
 	const handleCancel = () => {
@@ -35,6 +45,7 @@ const DeleteChoose = () => {
 				danger
 				icon={<FontAwesomeIcon icon={faTrashCan} />}
 				onClick={showModal}
+				disabled={disable}
 			>
 				{t('delete').toUpperFirst()}
 			</Button>

@@ -7,12 +7,15 @@ import { useEffect, useState } from 'react'
 import React from 'react'
 import EditDevice from '@components/EditDevice/EditDevice'
 import DeleteDevice from '@components/DeleteDevice/DeleteDevice'
-import AddDevice from '@components/AddDevice/AddDevice'
+import AddDevice from '@components/AddDevice/AddFirrm'
 import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
 import useDevices from '@api/useDevices'
+import { type } from '@testing-library/user-event/dist/type'
 const cx = classNames.bind(Styles)
 
 const ManagerDevice = () => {
+	
+	
 	const [bordered, setBordered] = useState(true)
 	const [loading, setLoading] = useState(false)
 	const [size, setSize] = useState('large')
@@ -20,7 +23,7 @@ const ManagerDevice = () => {
 	const [showTitle, setShowTitle] = useState(false)
 	const [showHeader, setShowHeader] = useState(true)
 	const [showfooter, setShowFooter] = useState(false)
-	const [rowSelection, setRowSelection] = useState({})
+	const [selectedRowKeys, setSelectedRowKeys] = useState([])
 	const [hasData, setHasData] = useState(true)
 	const [tableLayout, setTableLayout] = useState(true)
 	const [top, setTop] = useState('none')
@@ -28,9 +31,8 @@ const ManagerDevice = () => {
 	const [ellipsis, setEllipsis] = useState(false)
 	const [yScroll, setYScroll] = useState(false)
 	const [xScroll, setXScroll] = useState()
-
 	const [dataDevices, setData] = useState([])
-
+	const [changeData, setChangeData] = useState(false)
 	const columns = [
 		{
 			title: 'ID',
@@ -43,15 +45,16 @@ const ManagerDevice = () => {
 		},
 		{
 			title :'Name',
-			dataIndex: 'Name'
+			dataIndex: 'Name',
 		},
 		{
 			title :'Application ID',
-			dataIndex: 'AppID'
+			dataIndex: 'AppID',
+
 		},
 		{
 			title :'Description',
-			dataIndex: 'Description'
+			dataIndex: 'Description',
 		},
 		{
 			title :'CreateAt',
@@ -63,11 +66,11 @@ const ManagerDevice = () => {
 		},
 		{
 			title: 'Action',
-			key: 'action',
-			render: () => (
+			dataIndex: 'ID',
+			render: (text, record) => (
 				<Space size='middle'>
-					<a><EditDevice /></a>
-					<a><DeleteDevice /></a>
+					<EditDevice ID={record.ID} dvMac={record.MAC} dvName={record.Name} dvApp={record.AppID} dvDescription={record.Description} onchange={handleChangeData} />
+					<DeleteDevice ID={record.ID} onchange={handleChangeData}/>
 				</Space>
 			),
 		},
@@ -84,7 +87,11 @@ const ManagerDevice = () => {
 	}
 	useEffect(() => {
 		handleGetAllDevice()
-	}, [])
+	}, [changeData])
+
+	const handleChangeData = () => {
+		setChangeData(!changeData)
+	}
 
 	const defaultExpandable = {
 		expandedRowRender: (record) => <p>{record.description}</p>,
@@ -109,24 +116,6 @@ const ManagerDevice = () => {
 	}
 	const handleEllipsisChange = (enable) => {
 		setEllipsis(enable)
-	}
-	const handleTitleChange = (enable) => {
-		setShowTitle(enable)
-	}
-	const handleHeaderChange = (enable) => {
-		setShowHeader(enable)
-	}
-	const handleFooterChange = (enable) => {
-		setShowFooter(enable)
-	}
-	const handleRowSelectionChange = (enable) => {
-		setRowSelection(enable ? {} : undefined)
-	}
-	const handleYScrollChange = (enable) => {
-		setYScroll(enable)
-	}
-	const handleXScrollChange = (e) => {
-		setXScroll(e.target.value)
 	}
 	const handleDataChange = (newHasData) => {
 		setHasData(newHasData)
@@ -155,12 +144,20 @@ const ManagerDevice = () => {
 		title: showTitle ? defaultTitle : undefined,
 		showHeader,
 		footer: showfooter ? defaultFooter : undefined,
-		rowSelection,
 		scroll,
 		tableLayout,
 	}
 
-  
+	const onSelectChange = (newSelectedRowKeys) => {
+		setSelectedRowKeys(newSelectedRowKeys)
+	}
+
+	const rowSelection = {
+		selectedRowKeys,
+		onChange: onSelectChange,
+	}
+	const hasSelected = selectedRowKeys.length > 0
+
 	return (
 		<div style={{height: '100%', width: '100%'}}>
 			<Row className={cx('table__header')}>
@@ -174,16 +171,20 @@ const ManagerDevice = () => {
 						offset: 4,
 					}}
 				>
-					<DeleteChoose />
+					<DeleteChoose onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys} />
 				</Col>
 				<Col>
-					<AddDevice />
+					<AddDevice onchange={handleChangeData} />
 				</Col>
 			</Row>
   
-  
+					
 			<Table
+				rowSelection={
+					rowSelection
+				} 
 				{...tableProps}
+				rowKey={obj => obj.ID}
 				pagination={{
 					position: [top, bottom],
 				}}

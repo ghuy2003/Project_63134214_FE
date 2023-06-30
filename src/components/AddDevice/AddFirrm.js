@@ -4,14 +4,13 @@ import { Button, Modal } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames/bind'
 import Styles from './AddDevice.module.scss'
-import FormInput from '@components/FormInput/FormInput'
+import AddForm from '@components/AddForm/AddForm'
 import useDevices from '@api/useDevices'
-import { useNavigate } from 'react-router-dom'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 const cx = classNames.bind(Styles)
 
 
-const AddDevice = () => {
+const AddDevice = ({onchange}) => {
 
 	const [ID, setId] = useState('')
 	const [Mac, setMac] = useState('')
@@ -19,7 +18,7 @@ const AddDevice = () => {
 	const [ApplicationID, setapplication] = useState('')
 	const [Description, setdescription] = useState('')
 
-
+	const  [status, setStatus] = useState(false)
 
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
@@ -31,29 +30,33 @@ const AddDevice = () => {
 	}
 	const handleOk = async () => {
 		const {success,data} = await createDevice({ ID, Mac, Name, Description, ApplicationID })
-		setConfirmLoading(true)
-		setTimeout(() => {
-			if(success) {
-				setOpen(false)
-				setConfirmLoading(false)
-				setId('')
-				setMac('')
-				setName('')
-				setapplication('')
-				setdescription('')
-			}
-		}, 2000)
+		console.log(success)
+		handleReset()
+		if(success) {
+			onchange()
+		}
+		// setConfirmLoading(true)
+		// setTimeout(() => {
+		// 	if(success) {
+		// 		setOpen(false)
+		// 		setConfirmLoading(false)
+		// 	}	
+		// }, 2000)
 	}
 	const handleCancel = () => {
 		setOpen(false)
 	}
 	const handleData = (ID, Mac, Name, ApplicationID, Description) => {
-		setId(ID)
+		setId(ID) 
 		setMac(Mac)
 		setName(Name)
 		setapplication(ApplicationID)
 		setdescription(Description)
 	}
+	const handleReset = () =>  {
+		setStatus(true)
+	}
+
 	return (
 		<>
 			<div className={cx('delete__btn')} onClick={showModal}>
@@ -72,7 +75,7 @@ const AddDevice = () => {
 				className='add__form'
 				okButtonProps={{ style: { backgroundColor: 'rgb(37, 174, 53)', } }} 
 			>
-				<FormInput onchangedata={handleData} ID={ID} Mac={Mac} Name={Name} ApplicationID={ApplicationID} Description={Description} />
+				<AddForm onchangedata={handleData} onresetstatus={handleReset} status={status} />
 			</Modal>
 		</>
 	)

@@ -9,53 +9,59 @@ import UploadFile from '@components/UploadFile/UploadFile'
 import EditDevice from '@components/EditDevice/EditDevice'
 import EditName from '@components/EditNamefile/EditNameFile'
 import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
-import AddDevice from '@components/AddDevice/AddDevice'
+import AddDevice from '@components/AddDevice/AddFirrm'
 import useApplication from '@api/useApplication'
 import DeleteDevice from '@components/DeleteDevice/DeleteDevice'
 const cx = classNames.bind(Styles)
 
-const columns = [
-	{
-		title: 'ID',
-		dataIndex: 'ID',
-		sorter: true,
-	},
-	{
-		title :'Name',
-		dataIndex: 'Name'
-	},
-	{
-		title :'Firmware ID',
-		dataIndex: 'FirmwareID'
-	},
-	{
-		title :'Version',
-		dataIndex: 'Version'
-	},
-	{
-		title :'Description',
-		dataIndex: 'Description'
-	},
-	{
-		title :'CreateAt',
-		dataIndex: 'CreatedAt'
-	},
-	{
-		title :'UpdateAt',
-		dataIndex: 'UpdatedAt'
-	},
-	{
-		title: 'Action',
-		key: 'action',
-		render: () => (
-			<Space size='middle'>
-				<a><EditDevice /></a>
-				<a><DeleteDevice /></a>
-			</Space>
-		),
-	},
-]
+
 const Application  = () => {
+
+
+	const columns = [
+		{
+			title: 'ID',
+			dataIndex: 'ID',
+			sorter: true,
+		},
+		{
+			title :'Name',
+			dataIndex: 'Name'
+		},
+		{
+			title :'Firmware ID',
+			dataIndex: 'FirmwareID'
+		},
+		{
+			title :'Version',
+			dataIndex: 'Version'
+		},
+		{
+			title :'Description',
+			dataIndex: 'Description'
+		},
+		{
+			title :'CreateAt',
+			dataIndex: 'CreatedAt'
+		},
+		{
+			title :'UpdateAt',
+			dataIndex: 'UpdatedAt'
+		},
+		{
+			title: 'Action',
+			dataIndex: 'ID',
+			render: (text, record) => (
+				<Space size='middle'>
+					<EditDevice ID={record.ID} dvMac={record.MAC} dvName={record.Name} dvApp={record.AppID} dvDescription={record.Description} onchange={handleChangeData} />
+					<DeleteDevice ID={record.ID} onchange={handleChangeData}/>
+				</Space>
+			),
+		},
+	]
+
+
+
 	const [bordered, setBordered] = useState(true)
 	const [loading, setLoading] = useState(false)
 	const [size, setSize] = useState('large')
@@ -63,7 +69,6 @@ const Application  = () => {
 	const [showTitle, setShowTitle] = useState(false)
 	const [showHeader, setShowHeader] = useState(true)
 	const [showfooter, setShowFooter] = useState(false)
-	const [rowSelection, setRowSelection] = useState({})
 	const [hasData, setHasData] = useState(true)
 	const [tableLayout, setTableLayout] = useState(true)
 	const [top, setTop] = useState('none')
@@ -71,11 +76,24 @@ const Application  = () => {
 	const [ellipsis, setEllipsis] = useState(false)
 	const [yScroll, setYScroll] = useState(false)
 	const [xScroll, setXScroll] = useState()
+	
 
-	const [dataDevices, setData] = useState([])
 
- 
-  
+	const [selectedRowKeys, setSelectedRowKeys] = useState([])
+	const [dataApplications, setData] = useState([])
+	const [changeData, setChangeData] = useState(false)
+
+	const onSelectChange = (newSelectedRowKeys) => {
+		setSelectedRowKeys(newSelectedRowKeys)
+	}
+
+	const rowSelection = {
+		selectedRowKeys,
+		onChange: onSelectChange,
+	}
+	const hasSelected = selectedRowKeys.length > 0
+	
+
 	const { getApplication } = useApplication()
 	const handleGetAllDevice = async () => {
 		handleLoadingChange(true)
@@ -85,9 +103,13 @@ const Application  = () => {
 			handleLoadingChange(false)
 		}
 	}
+	const handleChangeData = () => {
+		setChangeData(!changeData)
+	}
+
 	useEffect(() => {
 		handleGetAllDevice()
-	}, [])
+	}, [changeData])
 
 	const defaultExpandable = {
 		expandedRowRender: (record) => <p>{record.description}</p>,
@@ -122,7 +144,6 @@ const Application  = () => {
 		title: showTitle ? defaultTitle : undefined,
 		showHeader,
 		footer: showfooter ? defaultFooter : undefined,
-		rowSelection,
 		scroll,
 		tableLayout,
 	}
@@ -141,19 +162,21 @@ const Application  = () => {
 						offset: 4,
 					}}
 				>
-					<DeleteChoose />
+					<DeleteChoose onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys}  />
 				</Col>
 				<Col>
-					<AddDevice />
+					<AddDevice onchange={handleChangeData} />
 				</Col>
 			</Row>
 			<Table
+				rowKey={obj => obj.ID}
+				rowSelection={rowSelection}
 				{...tableProps}
 				pagination={{
 					position: [top, bottom],
 				}}
 				columns={tableColumns}
-				dataSource={hasData ? dataDevices : []}
+				dataSource={hasData ? dataApplications : []}
 				scroll={scroll}
 			/>
 		</div>

@@ -4,24 +4,33 @@ import useTranslate from '@lang'
 import { Button, Modal, Space, Typography } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import useDevices from '@api/useDevices'
 
 const { Text } = Typography
 
-const DeleteDevice = () => {
+const DeleteDevice = ({ID, onchange}) => {
 	const t = useTranslate()
+	const { deleteDevice } = useDevices()
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
-
 	const showModal = () => {
 		setOpen(true)
+		console.log(
+			onchange
+		)
+
 	}
 
-	const handleOk = () => {
-		setConfirmLoading(true)
-		setTimeout(() => {
-			setOpen(false)
-			setConfirmLoading(false)
-		}, 2000)
+	const handleOk = async () => {
+		const {success} = await deleteDevice({ID})
+		if(success) {
+			setConfirmLoading(true)
+			setTimeout(() => {
+				setOpen(false)
+				setConfirmLoading(false)
+				onchange()
+			}, 2000)
+		}
 	}
 
 	const handleCancel = () => {

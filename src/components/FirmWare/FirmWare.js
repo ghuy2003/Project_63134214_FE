@@ -10,7 +10,7 @@ import UploadFile from '@components/UploadFile/UploadFile'
 import EditDevice from '@components/EditDevice/EditDevice'
 import EditName from '@components/EditNamefile/EditNameFile'
 import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
-import AddDevice from '@components/AddDevice/AddDevice'
+import AddDevice from '@components/AddDevice/AddFirrm'
 import useFirmware from '@api/useFirmwares'
 const cx = classNames.bind(Styles)
 
@@ -64,7 +64,6 @@ const FirmWare  = () => {
 	const [showTitle, setShowTitle] = useState(false)
 	const [showHeader, setShowHeader] = useState(true)
 	const [showfooter, setShowFooter] = useState(false)
-	const [rowSelection, setRowSelection] = useState({})
 	const [hasData, setHasData] = useState(true)
 	const [tableLayout, setTableLayout] = useState(true)
 	const [top, setTop] = useState('none')
@@ -74,7 +73,8 @@ const FirmWare  = () => {
 	const [xScroll, setXScroll] = useState()
 
 	const [dataDevices, setData] = useState([])
-
+	const [changeData, setChangeData] = useState(false)
+	const [selectedRowKeys, setSelectedRowKeys] = useState([])
  
   
 	const { getFirms } = useFirmware()
@@ -86,9 +86,19 @@ const FirmWare  = () => {
 			handleLoadingChange(false)
 		}
 	}
+
+	const onSelectChange = (newSelectedRowKeys) => {
+		setSelectedRowKeys(newSelectedRowKeys)
+	}
+
 	useEffect(() => {
 		handleGetAllDevice()
 	}, [])
+	const rowSelection = {
+		selectedRowKeys,
+		onChange: onSelectChange,
+	}
+	const hasSelected = selectedRowKeys.length > 0
 
 	const defaultExpandable = {
 		expandedRowRender: (record) => <p>{record.description}</p>,
@@ -123,19 +133,17 @@ const FirmWare  = () => {
 	const handleFooterChange = (enable) => {
 		setShowFooter(enable)
 	}
-	const handleRowSelectionChange = (enable) => {
-		setRowSelection(enable ? {} : undefined)
-	}
-	const handleYScrollChange = (enable) => {
-		setYScroll(enable)
-	}
-	const handleXScrollChange = (e) => {
-		setXScroll(e.target.value)
-	}
 	const handleDataChange = (newHasData) => {
 		setHasData(newHasData)
 	}
 	// 
+
+	const handleChangeData = () => {
+		setChangeData(!changeData)
+	}
+
+
+
 	const scroll = {}
 	if (yScroll) {
 		scroll.y = 300
@@ -159,7 +167,6 @@ const FirmWare  = () => {
 		title: showTitle ? defaultTitle : undefined,
 		showHeader,
 		footer: showfooter ? defaultFooter : undefined,
-		rowSelection,
 		scroll,
 		tableLayout,
 	}
@@ -178,15 +185,17 @@ const FirmWare  = () => {
 						offset: 4,
 					}}
 				>
-					<DeleteChoose />
+					<DeleteChoose onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys}  />
 				</Col>
 				<Col>
-					<AddDevice />
+					<AddDevice onchange={handleChangeData} />
 				</Col>
 			</Row>
   
   
 			<Table
+				rowKey={obj => obj.ID}
+				rowSelection={rowSelection}
 				{...tableProps}
 				pagination={{
 					position: [top, bottom],
