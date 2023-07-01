@@ -26,8 +26,6 @@ const useRoutes = () => {
         
 		}
 	}
-	
-
 	const publicRoutes = [
 		{
 			key: '/dashboard',

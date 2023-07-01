@@ -8,13 +8,31 @@ const useFirmware = () => {
 	const getFirms = () => createGetRequest({
 		endpoint: '',
 	})
-	const createDevice = ({ ID, Mac, Name, ApplicationID, Description }) => createPostRequest({
+	const createFirm = ({ ID, Name, Data, locallink, Description }) => createPostRequest({
 		endpoint: 'create',
-		data: {  ID, Mac, Name, ApplicationID ,Description }
+		data: {  ID, Name, Data, locallink ,Description }
 	})
+	const deleteFirm = (ID) => createPostRequest({
+		endpoint: 'delete',
+		data: ID
+	})
+
+	const deleteManyFirms = ({selectedRowKeys}) => createPostRequest({
+		endpoint: 'deletes',
+		data: selectedRowKeys
+	})
+
+	const updateFirm = ({ID, Name, Data, LocalLink ,Description }) => createPostRequest({
+		endpoint: 'update',
+		data: {ID, Name, Data, LocalLink ,Description }
+	})
+
 	return {
 		getFirms,
-		createDevice,
+		createFirm,
+		deleteFirm,
+		deleteManyFirms,
+		updateFirm,
 		cancel
 	}
 }

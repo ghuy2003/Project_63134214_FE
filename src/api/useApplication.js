@@ -8,13 +8,31 @@ const useApplication = () => {
 	const getApplication = () => createGetRequest({
 		endpoint: '',
 	})
-	const createDevice = ({ ID, Mac, Name, ApplicationID, Description }) => createPostRequest({
+	const createApplication = ({ ID, Mac, Name, ApplicationID, Description }) => createPostRequest({
 		endpoint: 'create',
 		data: {  ID, Mac, Name, ApplicationID ,Description }
 	})
+	const deleteApplication = (ID) => createPostRequest({
+		endpoint: 'delete',
+		data: ID
+	})
+
+	const deleteManyApplication = ({selectedRowKeys}) => createPostRequest({
+		endpoint: 'deletes',
+		data: selectedRowKeys
+	})
+
+	const updateApp = ({ID, Mac, Name, ApplicationID ,Description }) => createPostRequest({
+		endpoint: 'update',
+		data: {ID, Mac, Name, ApplicationID ,Description }
+	})
+
 	return {
 		getApplication,
-		createDevice,
+		createApplication,
+		deleteApplication,
+		deleteManyApplication,
+		updateApp,
 		cancel
 	}
 }

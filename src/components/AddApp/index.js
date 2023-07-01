@@ -1,1 +1,1 @@
-export { default } from './AddDevice'
+export { default } from './AddApp'

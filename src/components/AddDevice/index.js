@@ -1,1 +1,1 @@
-export { default } from './AddFirrm'
+export { default } from './AddDevice'

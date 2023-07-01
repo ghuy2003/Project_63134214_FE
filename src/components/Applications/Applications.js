@@ -6,12 +6,11 @@ import qs from 'qs'
 import { useEffect, useState } from 'react'
 import Download from '@components/Download/Download'
 import UploadFile from '@components/UploadFile/UploadFile'
-import EditDevice from '@components/EditDevice/EditDevice'
-import EditName from '@components/EditNamefile/EditNameFile'
+import EditFirm from '@components/EditFirm/EditFirm'
 import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
-import AddDevice from '@components/AddDevice/AddFirrm'
 import useApplication from '@api/useApplication'
 import DeleteDevice from '@components/DeleteDevice/DeleteDevice'
+import AddApp from '@components/AddApp/AddApp'
 const cx = classNames.bind(Styles)
 
 
@@ -53,7 +52,7 @@ const Application  = () => {
 			dataIndex: 'ID',
 			render: (text, record) => (
 				<Space size='middle'>
-					<EditDevice ID={record.ID} dvMac={record.MAC} dvName={record.Name} dvApp={record.AppID} dvDescription={record.Description} onchange={handleChangeData} />
+					<EditFirm ID={record.ID} dvName={record.Name} dvData={record.Data} dvLink = {record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} />
 					<DeleteDevice ID={record.ID} onchange={handleChangeData}/>
 				</Space>
 			),
@@ -165,7 +164,7 @@ const Application  = () => {
 					<DeleteChoose onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys}  />
 				</Col>
 				<Col>
-					<AddDevice onchange={handleChangeData} />
+					<AddApp onchange={handleChangeData} />
 				</Col>
 			</Row>
 			<Table

@@ -1,60 +1,19 @@
 import classNames from 'classnames/bind'
 import Styles from './FirmWare.module.scss'
 import React from 'react'
-import DeleteDevice from '@components/DeleteDevice/DeleteDevice'
 import { Table, Space, Row, Col } from 'antd'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
 import Download from '@components/Download/Download'
 import UploadFile from '@components/UploadFile/UploadFile'
-import EditDevice from '@components/EditDevice/EditDevice'
-import EditName from '@components/EditNamefile/EditNameFile'
-import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
-import AddDevice from '@components/AddDevice/AddFirrm'
+import DeleteFirm from '@components/DeleteFirm/DeleteFirm'
 import useFirmware from '@api/useFirmwares'
+import AddFirm from '@components/AddFirm/AddFirm'
+import DeleteChooseFirm from '@components/DeleteFirmChoose/DeleteChooseFirm'
+import EditFirm from '@components/EditFirm/EditFirm'
 const cx = classNames.bind(Styles)
 
-const columns = [
-	{
-		title: 'ID',
-		dataIndex: 'ID',
-		sorter: true,
-	},
-	{
-		title :'Name',
-		dataIndex: 'Name'
-	},
-	{
-		title :'Data',
-		dataIndex: 'Data'
-	},
-	{
-		title :'Local Link',
-		dataIndex: 'LocalLink'
-	},
-	{
-		title :'Description',
-		dataIndex: 'Description'
-	},
-	{
-		title :'CreateAt',
-		dataIndex: 'CreatedAt'
-	},
-	{
-		title :'UpdateAt',
-		dataIndex: 'UpdatedAt'
-	},
-	{
-		title: 'Action',
-		key: 'action',
-		render: () => (
-			<Space size='middle'>
-				<a><EditDevice /></a>
-				<a><DeleteDevice /></a>
-			</Space>
-		),
-	},
-]
+
 const FirmWare  = () => {
 
 	const [bordered, setBordered] = useState(true)
@@ -72,13 +31,57 @@ const FirmWare  = () => {
 	const [yScroll, setYScroll] = useState(false)
 	const [xScroll, setXScroll] = useState()
 
-	const [dataDevices, setData] = useState([])
+	const [dataFirms, setData] = useState([])
 	const [changeData, setChangeData] = useState(false)
 	const [selectedRowKeys, setSelectedRowKeys] = useState([])
  
   
+
+	const columns = [
+		{
+			title: 'ID',
+			dataIndex: 'ID',
+			sorter: true,
+		},
+		{
+			title :'Name',
+			dataIndex: 'Name'
+		},
+		{
+			title :'Data',
+			dataIndex: 'Data'
+		},
+		{
+			title :'Local Link',
+			dataIndex: 'LocalLink'
+		},
+		{
+			title :'Description',
+			dataIndex: 'Description'
+		},
+		{
+			title :'CreateAt',
+			dataIndex: 'CreatedAt'
+		},
+		{
+			title :'UpdateAt',
+			dataIndex: 'UpdatedAt'
+		},
+		{
+			title: 'Action',
+			key: 'ID',
+			render: (text, record) => (
+				<Space size='middle'>
+					<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
+					<a><DeleteFirm ID={record.ID} onchange={handleChangeData} /></a>
+				</Space>
+			),
+		},
+	]
+
+
 	const { getFirms } = useFirmware()
-	const handleGetAllDevice = async () => {
+	const handleGetAllFirm = async () => {
 		handleLoadingChange(true)
 		const {success, data} = await getFirms()
 		if(success) {
@@ -92,12 +95,17 @@ const FirmWare  = () => {
 	}
 
 	useEffect(() => {
-		handleGetAllDevice()
-	}, [])
+		handleGetAllFirm()
+	}, [changeData])
+
+	
 	const rowSelection = {
 		selectedRowKeys,
 		onChange: onSelectChange,
 	}
+	
+
+
 	const hasSelected = selectedRowKeys.length > 0
 
 	const defaultExpandable = {
@@ -185,10 +193,10 @@ const FirmWare  = () => {
 						offset: 4,
 					}}
 				>
-					<DeleteChoose onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys}  />
+					<DeleteChooseFirm onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys}  />
 				</Col>
 				<Col>
-					<AddDevice onchange={handleChangeData} />
+					<AddFirm onchange={handleChangeData} />
 				</Col>
 			</Row>
   
@@ -201,7 +209,7 @@ const FirmWare  = () => {
 					position: [top, bottom],
 				}}
 				columns={tableColumns}
-				dataSource={hasData ? dataDevices : []}
+				dataSource={hasData ? dataFirms : []}
 				scroll={scroll}
 			/>
 		</div>

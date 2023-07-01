@@ -10,7 +10,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 const cx = classNames.bind(Styles)
 
 
-const AddApp = ({onchange}) => {
+const AddDevice = ({onchange}) => {
 
 	const [ID, setId] = useState('')
 	const [Mac, setMac] = useState('')
@@ -30,18 +30,16 @@ const AddApp = ({onchange}) => {
 	}
 	const handleOk = async () => {
 		const {success,data} = await createDevice({ ID, Mac, Name, Description, ApplicationID })
-		console.log(success)
-		handleReset()
 		if(success) {
-			onchange()
+			setConfirmLoading(true)
+			setTimeout(() => {
+				setConfirmLoading(false)
+				setOpen(false)
+				setConfirmLoading(false)
+				onchange()
+				handleReset()
+			}, 2000)
 		}
-		// setConfirmLoading(true)
-		// setTimeout(() => {
-		// 	if(success) {
-		// 		setOpen(false)
-		// 		setConfirmLoading(false)
-		// 	}	
-		// }, 2000)
 	}
 	const handleCancel = () => {
 		setOpen(false)
@@ -56,7 +54,9 @@ const AddApp = ({onchange}) => {
 	const handleReset = () =>  {
 		setStatus(true)
 	}
-
+	const handleResetStatus = () => {
+		setStatus(false)
+	}
 	return (
 		<>
 			<div className={cx('delete__btn')} onClick={showModal}>
@@ -75,9 +75,9 @@ const AddApp = ({onchange}) => {
 				className='add__form'
 				okButtonProps={{ style: { backgroundColor: 'rgb(37, 174, 53)', } }} 
 			>
-				<AddForm onchangedata={handleData} onresetstatus={handleReset} status={status} />
+				<AddForm onchangedata={handleData} onresetstatus={handleResetStatus} status={status} />
 			</Modal>
 		</>
 	)
 }
-export default AddApp
+export default AddDevice

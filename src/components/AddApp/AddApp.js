@@ -3,9 +3,9 @@ import useTranslate from '@lang'
 import { Button, Modal } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames/bind'
-import Styles from './AddDevice.module.scss'
+import Styles from './AddApp.module.scss'
 import AddForm from '@components/AddForm/AddForm'
-import useDevices from '@api/useDevices'
+import useApplication from '@api/useApplication'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 const cx = classNames.bind(Styles)
 
@@ -22,14 +22,14 @@ const AddApp = ({onchange}) => {
 
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
-	const {createDevice} = useDevices()
+	const {createApplication} = useApplication()
 
 
 	const showModal = () => {
 		setOpen(true)
 	}
 	const handleOk = async () => {
-		const {success,data} = await createDevice({ ID, Mac, Name, Description, ApplicationID })
+		const {success,data} = await createApplication({ ID, Mac, Name, Description, ApplicationID })
 		console.log(success)
 		handleReset()
 		if(success) {
@@ -62,7 +62,7 @@ const AddApp = ({onchange}) => {
 			<div className={cx('delete__btn')} onClick={showModal}>
 				<Button type='primary' style={{borderRadius: '20px', backgroundColor: 'rgb(37 174 53)'}}>
 					<FontAwesomeIcon icon={faPlus} style={{marginRight: '5px'}} />
-                        Add Device
+                        Add Application
 				</Button>
 			</div>
 			<Modal

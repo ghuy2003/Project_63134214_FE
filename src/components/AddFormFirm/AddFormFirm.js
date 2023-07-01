@@ -1,30 +1,29 @@
 import classNames from 'classnames/bind'
-import Styles from './AddForm.module.scss'
+import Styles from './AddFormFirm.module.scss'
 import {Form, Input, Button} from 'antd'
 import React, { useMemo } from 'react'
 import { useEffect, useState } from 'react'
 const cx = classNames.bind(Styles)
-const AddForm = ({...props}) => {
-
+const AddFormFirm = ({...props}) => {
+	const [form] = Form.useForm()
 
 	const  { TextArea } = Input
-	const  [form] = Form.useForm()
-	const  [ID, setId] = useState(props.ID)
-	const  [Mac, setMac] = useState(props.Mac)
-	const  [Name, setName ] = useState(props.Name)
-	const  [ApplicationID, setapplication] = useState(props.ApplicationID)
-	const  [Description, setdescription] = useState(props.Description)
+	const [ID, setId] = useState(props.ID)
+	const [Name, setName ] = useState(props.Name)
+	const [Data, setData ] = useState(props.Data)
+	const [locallink, setLocalLink ] = useState(props.locallink)
+	const [Description, setdescription] = useState(props.Description)
 
 	const onchange = props.onchangedata
-	const onreset = props.onresetstatus
+	const reset = props.onresetstatus
 
 	useEffect(() => {
-		onchange(ID, Mac, Name, ApplicationID, Description)
-	}, [ID, Mac, Name, ApplicationID, Description])
-	
+		onchange(ID, Name,Data, locallink, Description)
+	}, [ID, Name,Data, locallink, Description])
+
 	if(props.status) {
 		form.resetFields()
-		onreset()
+		reset()
 	}
 	return (
 		<Form
@@ -41,15 +40,11 @@ const AddForm = ({...props}) => {
 				maxWidth: 600,
 			}}
 			className={cx('form__input')}
+			
 		>
 			<Form.Item label='ID' name={'ID'} >
-				<Input onChange={(e) => {
+				<Input  onChange={(e) => {
 					setId(e.target.value)
-				}} />
-			</Form.Item>
-			<Form.Item label='Mac' name={'Mac'}>
-				<Input onChange={(e) => {
-					setMac(e.target.value)
 				}} />
 			</Form.Item>
 			<Form.Item label='Name' name={'Name'}>
@@ -57,9 +52,14 @@ const AddForm = ({...props}) => {
 					setName(e.target.value)
 				}} />
 			</Form.Item>
-			<Form.Item label='Application ID' name={'ApplicationID'}>
+			<Form.Item label='Data' name={'Data'}>
 				<Input  onChange={(e) => {
-					setapplication(e.target.value)
+					setData(e.target.value)
+				}} />
+			</Form.Item>
+			<Form.Item label='LocalLink' name={'locallink'}>
+				<Input  onChange={(e) => {
+					setLocalLink(e.target.value)
 				}} />
 			</Form.Item>
 			<Form.Item label='Description' name={'Description'}>
@@ -71,4 +71,4 @@ const AddForm = ({...props}) => {
 	)
 }
 
-export default AddForm
+export default AddFormFirm
