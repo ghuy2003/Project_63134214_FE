@@ -6,11 +6,11 @@ import qs from 'qs'
 import { useEffect, useState } from 'react'
 import Download from '@components/Download/Download'
 import UploadFile from '@components/UploadFile/UploadFile'
-import EditFirm from '@components/EditFirm/EditFirm'
-import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
 import useApplication from '@api/useApplication'
-import DeleteDevice from '@components/DeleteDevice/DeleteDevice'
 import AddApp from '@components/AddApp/AddApp'
+import EditApplication from '@components/EditApplication/EditApplication'
+import DeleteAppChoose from '@components/DeleteAppChoose/DeleteAppChoose'
+import DeleteApp from '@components/DeleteApp/DeleteApp'
 const cx = classNames.bind(Styles)
 
 
@@ -52,8 +52,8 @@ const Application  = () => {
 			dataIndex: 'ID',
 			render: (text, record) => (
 				<Space size='middle'>
-					<EditFirm ID={record.ID} dvName={record.Name} dvData={record.Data} dvLink = {record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} />
-					<DeleteDevice ID={record.ID} onchange={handleChangeData}/>
+					<EditApplication ID={record.ID} dvName={record.Name} dvFirmID={record.FirmwareID} dvVersion={record.Version} dvDescription={record.Description} onchange={handleChangeData} />
+					<DeleteApp ID={record.ID} onchange={handleChangeData}/>
 				</Space>
 			),
 		},
@@ -97,6 +97,9 @@ const Application  = () => {
 	const handleGetAllDevice = async () => {
 		handleLoadingChange(true)
 		const {success, data} = await getApplication()
+
+
+		console.log(success)
 		if(success) {
 			setData([...data])
 			handleLoadingChange(false)
@@ -161,7 +164,7 @@ const Application  = () => {
 						offset: 4,
 					}}
 				>
-					<DeleteChoose onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys}  />
+					<DeleteAppChoose onchange={handleChangeData} disable={!hasSelected} selectedRowKeys={selectedRowKeys}  />
 				</Col>
 				<Col>
 					<AddApp onchange={handleChangeData} />

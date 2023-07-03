@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import Styles from './FirmWare.module.scss'
 import React from 'react'
-import { Table, Space, Row, Col } from 'antd'
+import { Table, Space, Row, Col, Upload } from 'antd'
 import qs from 'qs'
 import { useEffect, useState } from 'react'
 import Download from '@components/Download/Download'
@@ -53,7 +53,8 @@ const FirmWare  = () => {
 		},
 		{
 			title :'Local Link',
-			dataIndex: 'LocalLink'
+			dataIndex: 'LocalLink',
+			
 		},
 		{
 			title :'Description',
@@ -74,6 +75,7 @@ const FirmWare  = () => {
 				<Space size='middle'>
 					<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
 					<a><DeleteFirm ID={record.ID} onchange={handleChangeData} /></a>
+					<a><UploadFile ID={record.ID} onchange={handleChangeData}  /> </a>
 				</Space>
 			),
 		},
@@ -103,9 +105,6 @@ const FirmWare  = () => {
 		selectedRowKeys,
 		onChange: onSelectChange,
 	}
-	
-
-
 	const hasSelected = selectedRowKeys.length > 0
 
 	const defaultExpandable = {
@@ -157,7 +156,7 @@ const FirmWare  = () => {
 		scroll.y = 300
 	}
 	if (xScroll) {
-		scroll.x = '100%'
+		scroll.x = '100vw'
 	}
 	const tableColumns = columns.map((item) => ({
 		...item,

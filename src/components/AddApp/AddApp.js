@@ -4,32 +4,32 @@ import { Button, Modal } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames/bind'
 import Styles from './AddApp.module.scss'
-import AddForm from '@components/AddForm/AddForm'
 import useApplication from '@api/useApplication'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import AddAppForm from '@components/AddAppForm/AddAppForm'
 const cx = classNames.bind(Styles)
 
 
 const AddApp = ({onchange}) => {
 
 	const [ID, setId] = useState('')
-	const [Mac, setMac] = useState('')
 	const [Name, setName ] = useState('')
-	const [ApplicationID, setapplication] = useState('')
+	const [FirmID, setFirmID ] = useState('')
+	const [Version, setVerison] = useState('')
 	const [Description, setdescription] = useState('')
 
 	const  [status, setStatus] = useState(false)
 
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
-	const {createApplication} = useApplication()
+	const { createApplication } = useApplication()
 
 
 	const showModal = () => {
 		setOpen(true)
 	}
 	const handleOk = async () => {
-		const {success,data} = await createApplication({ ID, Mac, Name, Description, ApplicationID })
+		const {success,data} = await createApplication({ ID, Name, FirmID, Version ,Description })
 		console.log(success)
 		handleReset()
 		if(success) {
@@ -46,11 +46,11 @@ const AddApp = ({onchange}) => {
 	const handleCancel = () => {
 		setOpen(false)
 	}
-	const handleData = (ID, Mac, Name, ApplicationID, Description) => {
+	const handleData = (ID, Name, FirmID, version, Description) => {
 		setId(ID) 
-		setMac(Mac)
+		setFirmID(FirmID)
 		setName(Name)
-		setapplication(ApplicationID)
+		setVerison(version)
 		setdescription(Description)
 	}
 	const handleReset = () =>  {
@@ -66,7 +66,7 @@ const AddApp = ({onchange}) => {
 				</Button>
 			</div>
 			<Modal
-				title='Add New Device'
+				title='Add New Application'
 				open={open}
 				onOk={handleOk}
 				confirmLoading={confirmLoading}
@@ -75,7 +75,7 @@ const AddApp = ({onchange}) => {
 				className='add__form'
 				okButtonProps={{ style: { backgroundColor: 'rgb(37, 174, 53)', } }} 
 			>
-				<AddForm onchangedata={handleData} onresetstatus={handleReset} status={status} />
+				<AddAppForm onchangedata={handleData} onresetstatus={handleReset} status={status} />
 			</Modal>
 		</>
 	)

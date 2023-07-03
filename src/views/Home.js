@@ -11,6 +11,8 @@ const Home = () => {
 	useEffect(() => {
 		console.log(subscriber)
 	}, [subscriber])
+
+	
 	const data = [
 		{
 			'name': 'Page A',

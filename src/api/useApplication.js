@@ -8,9 +8,9 @@ const useApplication = () => {
 	const getApplication = () => createGetRequest({
 		endpoint: '',
 	})
-	const createApplication = ({ ID, Mac, Name, ApplicationID, Description }) => createPostRequest({
+	const createApplication = ({ ID, Name, FirmID, Version, Description }) => createPostRequest({
 		endpoint: 'create',
-		data: {  ID, Mac, Name, ApplicationID ,Description }
+		data: { ID, Name, FirmID, Version, Description}
 	})
 	const deleteApplication = (ID) => createPostRequest({
 		endpoint: 'delete',
@@ -22,9 +22,9 @@ const useApplication = () => {
 		data: selectedRowKeys
 	})
 
-	const updateApp = ({ID, Mac, Name, ApplicationID ,Description }) => createPostRequest({
+	const updateApp = ({ID, Name, FirmID, Version ,Description }) => createPostRequest({
 		endpoint: 'update',
-		data: {ID, Mac, Name, ApplicationID ,Description }
+		data: {ID, Name, FirmID, Version ,Description}
 	})
 
 	return {

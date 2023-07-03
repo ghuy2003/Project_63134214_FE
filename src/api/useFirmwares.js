@@ -27,12 +27,17 @@ const useFirmware = () => {
 		data: {ID, Name, Data, LocalLink ,Description }
 	})
 
+	const uploadFile = (formData) => createPostRequest({
+		endpoint: 'upload',
+		data: formData
+	})
 	return {
 		getFirms,
 		createFirm,
 		deleteFirm,
 		deleteManyFirms,
 		updateFirm,
+		uploadFile,
 		cancel
 	}
 }
