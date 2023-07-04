@@ -11,17 +11,23 @@ const AddForm = ({...props}) => {
 	const  [form] = Form.useForm()
 	const  [ID, setId] = useState(props.ID)
 	const  [Mac, setMac] = useState(props.Mac)
+	const  [LocalIp, setLocalIp] = useState(props.LocalIp)
 	const  [Name, setName ] = useState(props.Name)
 	const  [ApplicationID, setapplication] = useState(props.ApplicationID)
+	const  [ODO, setODO] = useState(props.ODO)
 	const  [Description, setdescription] = useState(props.Description)
+	const  [StatusID, setStatusID] = useState(props.StatusID)
 
 	const onchange = props.onchangedata
 	const onreset = props.onresetstatus
 
 	useEffect(() => {
-		onchange(ID, Mac, Name, ApplicationID, Description)
-	}, [ID, Mac, Name, ApplicationID, Description])
+		onchange(ID, Mac, LocalIp, Name, ApplicationID, ODO, Description, StatusID)
+	}, [ID, Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID])
 	
+
+
+	console.log({ID, Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID})
 	if(props.status) {
 		form.resetFields()
 		onreset()
@@ -52,6 +58,11 @@ const AddForm = ({...props}) => {
 					setMac(e.target.value)
 				}} />
 			</Form.Item>
+			<Form.Item label='Local Ip' name={'LocalIp'}>
+				<Input onChange={(e) => {
+					setLocalIp(e.target.value)
+				}} />
+			</Form.Item>
 			<Form.Item label='Name' name={'Name'}>
 				<Input   onChange={(e) => {
 					setName(e.target.value)
@@ -62,9 +73,19 @@ const AddForm = ({...props}) => {
 					setapplication(e.target.value)
 				}} />
 			</Form.Item>
+			<Form.Item label='ODO' name={'ODO'}>
+				<Input  onChange={(e) => {
+					setODO(e.target.value)
+				}} />
+			</Form.Item>
 			<Form.Item label='Description' name={'Description'}>
 				<TextArea  rows={3} onChange={(e) => {
 					setdescription(e.target.value)
+				}} />
+			</Form.Item>
+			<Form.Item label='StatusID' name={'StatusID'}>
+				<Input  onChange={(e) => {
+					setStatusID(e.target.value)
 				}} />
 			</Form.Item>
 		</Form>

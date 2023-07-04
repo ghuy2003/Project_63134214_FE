@@ -44,32 +44,43 @@ const ManagerDevice = () => {
 			dataIndex: 'MAC',
 		},
 		{
+			title: 'Local Ip',
+			dataIndex: 'LocalIp',
+		},
+		{
 			title :'Name',
 			dataIndex: 'Name',
 		},
 		{
 			title :'Application ID',
 			dataIndex: 'AppID',
-
+		},
+		{
+			title :'ODO',
+			dataIndex: 'ODO',
 		},
 		{
 			title :'Description',
 			dataIndex: 'Description',
 		},
 		{
-			title :'CreateAt',
+			title :'Status ID',
+			dataIndex: 'StatusID',
+		},
+		{
+			title :'CreatedTime',
 			dataIndex: 'CreatedTime'
 		},
 		{
-			title :'UpdateAt',
-			dataIndex: 'UpdatedAt'
+			title :'UpdateTime',
+			dataIndex: 'UpdateTime'
 		},
 		{
 			title: 'Action',
-			dataIndex: 'ID',
+			dataIndex: 'id',
 			render: (text, record) => (
 				<Space size='middle'>
-					<EditDevice ID={record.ID} dvMac={record.MAC} dvName={record.Name} dvApp={record.AppID} dvDescription={record.Description} onchange={handleChangeData} />
+					<EditDevice key={record.ID} ID={record.ID} dvMac={record.MAC} dvLocalIp={record.LocalIp} dvName={record.Name} dvApp={record.AppID} dvODO={record.ODO} dvDescription={record.Description} dvStatus={record.StatusID} onchange={handleChangeData} />
 					<DeleteDevice ID={record.ID} onchange={handleChangeData}/>
 				</Space>
 			),

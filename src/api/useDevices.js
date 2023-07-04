@@ -7,9 +7,9 @@ const useDevices = () => {
 	const getDevices = () => createGetRequest({
 		endpoint: '',
 	})
-	const createDevice = ({ ID, Mac, Name, ApplicationID, Description }) => createPostRequest({
+	const createDevice = ({ ID, Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID }) => createPostRequest({
 		endpoint: 'create',
-		data: {ID, Mac, Name, ApplicationID ,Description }
+		data: { ID, Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID}
 	})
 
 	const deleteDevice = (ID) => createPostRequest({
@@ -22,9 +22,9 @@ const useDevices = () => {
 		data: selectedRowKeys
 	})
 
-	const updateDevice = ({ID, Mac, Name, ApplicationID ,Description }) => createPostRequest({
+	const updateDevice = ({ID, Mac, LocalIp, Name, ApplicationID , ODO ,Description, StatusID }) => createPostRequest({
 		endpoint: 'update',
-		data: {ID, Mac, Name, ApplicationID ,Description }
+		data: {ID, Mac, LocalIp, Name, ApplicationID ,Description,ODO, StatusID }
 	})
 
 	return {

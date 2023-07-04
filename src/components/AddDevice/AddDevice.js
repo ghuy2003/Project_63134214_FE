@@ -14,9 +14,12 @@ const AddDevice = ({onchange}) => {
 
 	const [ID, setId] = useState('')
 	const [Mac, setMac] = useState('')
+	const [LocalIp, setLocalIp] = useState('')
 	const [Name, setName ] = useState('')
 	const [ApplicationID, setapplication] = useState('')
+	const [ODO, setODO] = useState('')
 	const [Description, setdescription] = useState('')
+	const [StatusID, setStatusID] = useState('')
 
 	const  [status, setStatus] = useState(false)
 
@@ -29,7 +32,7 @@ const AddDevice = ({onchange}) => {
 		setOpen(true)
 	}
 	const handleOk = async () => {
-		const {success,data} = await createDevice({ ID, Mac, Name, Description, ApplicationID })
+		const {success,data} = await createDevice({ID, Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID })
 		if(success) {
 			setConfirmLoading(true)
 			setTimeout(() => {
@@ -44,13 +47,18 @@ const AddDevice = ({onchange}) => {
 	const handleCancel = () => {
 		setOpen(false)
 	}
-	const handleData = (ID, Mac, Name, ApplicationID, Description) => {
+	const handleData = (ID, Mac, LocalIp, Name, ApplicationID, ODO, Description, StatusID) => {
 		setId(ID) 
 		setMac(Mac)
+		setLocalIp(LocalIp)
 		setName(Name)
 		setapplication(ApplicationID)
+		setODO(ODO)
 		setdescription(Description)
+		setStatusID(StatusID)
 	}
+
+	console.log(ID, Mac, LocalIp, Name, ApplicationID, ODO, Description, StatusID)
 	const handleReset = () =>  {
 		setStatus(true)
 	}

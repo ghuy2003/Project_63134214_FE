@@ -19,11 +19,9 @@ const useHandleError = () => {
     
 	const handleError = (error) => {
 		const { response, request } = error
-        
 		if(response) {
 			const { data, status } = response
 
-			// console.log(response)
 
 			switch(status) {
 			case BAD_REQUEST:
@@ -63,8 +61,7 @@ const useHandleError = () => {
 		} else if(request) {
 			const { _hasError, _sent } = request
 
-			// console.log({request})
-
+			console.log({request})
 			if(_hasError) {
 				if(_sent) {
 					message.error(t('server not respond').toUpperFirst())
@@ -73,15 +70,10 @@ const useHandleError = () => {
 				}
 			} else {
 				message.error('request error unknown')
-				// console.log(1)
-				// error any
+			
 			}
 		} else {
 			message.error('error unknown')
-			// console.log(error)
-			// console.log(2)
-			// console.log({error})
-			// error any
 		}
 	}
 

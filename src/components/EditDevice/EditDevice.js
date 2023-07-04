@@ -7,42 +7,63 @@ import { faPen } from '@fortawesome/free-solid-svg-icons'
 import FormInput from '@components/FormInput/FormInput'
 import useDevices from '@api/useDevices'
 
-const EditDevice = ({ID, dvMac, dvName , dvApp, dvDescription, onchange}) => {
-	
+const EditDevice = ({ID, dvMac, dvLocalIp, dvName , dvApp, 	dvODO , dvDescription,dvStatus, onchange}) => {
+
+
+
+	console.log(dvApp)
 	const t = useTranslate()
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
 	const {updateDevice} = useDevices()
 	const [Mac, setMac] = useState(dvMac)
+	const [LocalIp, setLocalp] = useState(dvLocalIp)
 	const [Name, setName ] = useState(dvName)
 	const [ApplicationID, setapplication] = useState(dvApp)
+	const [ODO, setODO] = useState(dvODO)
 	const [Description, setdescription] = useState(dvDescription)
+	const [StatusID, setStatusID] = useState(dvStatus)
+	const  [status, setStatus] = useState(false)
+
 
 	const showModal = () => {
 		setOpen(true)
 	}
 
 	const handleOk = async () => {
-		const {success, data} = await updateDevice({ID,Mac,Name,ApplicationID,Description})
-		setConfirmLoading(true)
-		setTimeout(() => {
-			setOpen(false)
-			setConfirmLoading(false)
-			onchange()
-		}, 1500)
+		const {success, data} = await updateDevice({ID,Mac,LocalIp,Name,ApplicationID, ODO,Description,StatusID })
+		if(success) {
+			setConfirmLoading(true)
+			setTimeout(() => {
+				setOpen(false)
+				setConfirmLoading(false)
+				onchange()
+				handleReset()
+			}, 1500)
+		}
 	}
 
 	const handleCancel = () => {
 		setOpen(false)
+	}													
+	const handleReset = () =>  {
+		setStatus(true)
 	}
-	
-
-	const handleData = (ID,Mac, Name, ApplicationID, Description) => {
+	const handleResetStatus = () => {
+		setStatus(false)
+	}
+	const handleData = (ID,Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID) => {
 		setMac(Mac)
+		setLocalp(LocalIp)
 		setName(Name)
 		setapplication(ApplicationID)
+		setODO(ODO)
 		setdescription(Description)
+		setStatusID(StatusID)
 	}
+
+
+	console.log({ID,Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID})
 	return (
 		<>
 			<Button
@@ -60,7 +81,7 @@ const EditDevice = ({ID, dvMac, dvName , dvApp, dvDescription, onchange}) => {
 				okButtonProps={{ style: { backgroundColor: 'green' } }}
 				cancelButtonProps={{ type: 'primary', danger: true }}
 			>
-				<FormInput  onchangedata={handleData} ID={ID} Mac={Mac} Name={Name} ApplicationID={ApplicationID} Description={Description} />
+				<FormInput onchangedata={handleData} ID={ID} Mac={Mac} LocalIp={LocalIp} Name={Name} ApplicationID={ApplicationID} ODO={ODO} Description={Description} StatusID={StatusID} onresetstatus={handleResetStatus} status={status} />
 			</Modal>
 		</>
 	)

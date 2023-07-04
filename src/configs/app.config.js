@@ -7,10 +7,10 @@ const HTTP_STATUS = Object.freeze({
 	SERVER_ERROR: 500
 })
 
-const PROTOCOL = 'https'
-const HOST = 'iot-server-4n22.onrender.com'
-// const HOST = 'localhost'
-// const PORT = '3003'
+const PROTOCOL = 'http'
+// const HOST = 'iot-server-4n22.onrender.com'
+const HOST = 'localhost'
+const PORT = '3003'
 
 const LANG = Object.freeze({
 	vi: 'Tiếng Việt',
@@ -26,7 +26,7 @@ export {
 	HTTP_STATUS,
 	PROTOCOL,
 	HOST,
-	// PORT,
+	PORT,
 	LANG,
 	PROJECT
 }

@@ -14,8 +14,8 @@ const useRequest = (prefixPath = '') => {
 	const [controller, setController] = useState(new AbortController())
 
 	const createRequest = () => axios.create({
-		// baseURL: `${PROTOCOL}://${HOST}:${PORT}/api/${prefixPath}`, // run on local
-		baseURL: `${PROTOCOL}://${HOST}/api/${prefixPath}`, // deloy on server
+		baseURL: `${PROTOCOL}://${HOST}:${PORT}/api/${prefixPath}`, // run on local
+		// baseURL: `${PROTOCOL}://${HOST}/api/${prefixPath}`, // deloy on server
 		timeout: 5000,
 		headers: {
 			Accept: 'application/json',
@@ -62,6 +62,7 @@ const useRequest = (prefixPath = '') => {
 				})
 				.catch(err => {
 					const data = handleError(err)
+					console.log(data)
 					return {
 						success: false,
 						data
