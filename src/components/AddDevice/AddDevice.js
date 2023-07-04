@@ -57,8 +57,6 @@ const AddDevice = ({onchange}) => {
 		setdescription(Description)
 		setStatusID(StatusID)
 	}
-
-	console.log(ID, Mac, LocalIp, Name, ApplicationID, ODO, Description, StatusID)
 	const handleReset = () =>  {
 		setStatus(true)
 	}
@@ -81,6 +79,7 @@ const AddDevice = ({onchange}) => {
 				onCancel={handleCancel}
 				okText='Add New'
 				className='add__form'
+				style={{top: '50px'}}
 				okButtonProps={{ style: { backgroundColor: 'rgb(37, 174, 53)', } }} 
 			>
 				<AddForm onchangedata={handleData} onresetstatus={handleResetStatus} status={status} />

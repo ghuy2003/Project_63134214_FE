@@ -29,7 +29,7 @@ const FormInput = ({...props}) => {
 		onreset()
 	}
 
-	if(!props.status) {
+	if(ID) {
 		return (
 			<Form
 				form={form}
@@ -46,9 +46,6 @@ const FormInput = ({...props}) => {
 				}}
 				className={cx('form__input')}
 				initialValues={{ID,Mac,LocalIp,Name,ApplicationID,ODO,Description,StatusID }}
-				onReset={() => {
-					form.resetFields()
-				}}
 			>
 				<Form.Item label='ID' name={'ID'} disabled >
 					<Input disabled={true} value={ID} />

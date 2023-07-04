@@ -18,10 +18,12 @@ const AddAppForm = ({...props}) => {
 	const onchange = props.onchangedata
 	const onreset = props.onresetstatus
 
+
+	console.log(onreset)
 	useEffect(() => {
 		onchange(ID, Name,FirmID,version, Description)
 	}, [ID,Name,FirmID, version, Description])
-	
+
 	if(props.status) {
 		form.resetFields()
 		onreset()
@@ -48,7 +50,7 @@ const AddAppForm = ({...props}) => {
 				}} />
 			</Form.Item>
 			<Form.Item label='Name' name={'Name'}>
-				<Input   onChange={(e) => {
+				<Input  onChange={(e) => {
 					setName(e.target.value)
 				}} />
 			</Form.Item>

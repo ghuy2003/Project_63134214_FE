@@ -30,21 +30,22 @@ const AddApp = ({onchange}) => {
 	}
 	const handleOk = async () => {
 		const {success,data} = await createApplication({ ID, Name, FirmID, Version ,Description })
-		console.log(success)
-		handleReset()
 		if(success) {
-			onchange()
+			setConfirmLoading(true)
+			setTimeout(() => {
+				setOpen(false)
+				setConfirmLoading(false)
+				onchange()
+				handleReset()
+			}, 2000)
 		}
-		// setConfirmLoading(true)
-		// setTimeout(() => {
-		// 	if(success) {
-		// 		setOpen(false)
-		// 		setConfirmLoading(false)
-		// 	}	
-		// }, 2000)
+		
 	}
 	const handleCancel = () => {
 		setOpen(false)
+	}
+	const handleResetStatus = () => {
+		setStatus(false)
 	}
 	const handleData = (ID, Name, FirmID, version, Description) => {
 		setId(ID) 
@@ -75,7 +76,7 @@ const AddApp = ({onchange}) => {
 				className='add__form'
 				okButtonProps={{ style: { backgroundColor: 'rgb(37, 174, 53)', } }} 
 			>
-				<AddAppForm onchangedata={handleData} onresetstatus={handleReset} status={status} />
+				<AddAppForm onchangedata={handleData} onresetstatus={handleResetStatus} status={status}/>
 			</Modal>
 		</>
 	)

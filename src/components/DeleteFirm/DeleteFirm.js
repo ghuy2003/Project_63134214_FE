@@ -9,8 +9,6 @@ import useFirmware from '@api/useFirmwares'
 const { Text } = Typography
 
 const DeleteFirm = ({ID, onchange}) => {
-
-	console.log(ID)
 	const t = useTranslate()
 	const { deleteFirm } = useFirmware()
 	const [open, setOpen] = useState(false)
