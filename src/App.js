@@ -10,17 +10,17 @@ const App = () => {
 	const navigate = useNavigate()
 	const { routes } = useRoutes()
 	const { token } = useUser()
-	const [ready, setReady] = useState(true) // set after
+	const [ready, setReady] = useState(false) // set after
 
 	const renderRoute = (routes) => routes.map(route => (
 		'children' in route ?
 			<Route {...route}>{renderRoute(route.children)}</Route> :
 			<Route {...route} />
 	))
-	// useEffect(() => {
-	// 	token ? setReady(true) : navigate('/login')
-	// 	setReady(true)
-	// }, [])
+	useEffect(() => {
+		token ? setReady(true) : navigate('/login')
+		setReady(true)
+	}, [])
 	return (
 		<>
 			{ready && (

@@ -10,7 +10,7 @@ const AddFormFirm = ({...props}) => {
 	const  { TextArea } = Input
 	const [ID, setId] = useState(props.ID)
 	const [Name, setName ] = useState(props.Name)
-	const [Data, setData ] = useState(props.Data)
+	// const [Data, setData ] = useState(props.Data)
 	// const [locallink, setLocalLink ] = useState(props.locallink)
 	const [Description, setdescription] = useState(props.Description)
 
@@ -18,8 +18,8 @@ const AddFormFirm = ({...props}) => {
 	const reset = props.onresetstatus
 
 	useEffect(() => {
-		onchange(ID, Name,Data, Description)
-	}, [ID, Name,Data, Description])
+		onchange(ID, Name, Description)
+	}, [ID, Name, Description])
 
 	if(props.status) {
 		form.resetFields()
@@ -52,11 +52,11 @@ const AddFormFirm = ({...props}) => {
 					setName(e.target.value)
 				}} />
 			</Form.Item>
-			<Form.Item label='Data' name={'Data'}>
+			{/* <Form.Item label='Data' name={'Data'}>
 				<Input  onChange={(e) => {
 					setData(e.target.value)
 				}} />
-			</Form.Item>
+			</Form.Item> */}
 			{/* <Form.Item label='LocalLink' name={'locallink'}>
 				<Input  onChange={(e) => {
 					setLocalLink(e.target.value)

@@ -74,7 +74,7 @@ const Application  = () => {
 	const [bottom, setBottom] = useState('bottomRight')
 	const [ellipsis, setEllipsis] = useState(false)
 	const [yScroll, setYScroll] = useState(false)
-	const [xScroll, setXScroll] = useState()
+	const [xScroll, setXScroll] = useState('fixed')
 	
 
 
@@ -97,9 +97,6 @@ const Application  = () => {
 	const handleGetAllDevice = async () => {
 		handleLoadingChange(true)
 		const {success, data} = await getApplication()
-
-
-		console.log(success)
 		if(success) {
 			setData([...data])
 			handleLoadingChange(false)
@@ -135,7 +132,6 @@ const Application  = () => {
 		ellipsis,
 	}))
 	if (xScroll === 'fixed') {
-		tableColumns[0].fixed = true
 		tableColumns[tableColumns.length - 1].fixed = 'right'
 	}
 	const tableProps = {

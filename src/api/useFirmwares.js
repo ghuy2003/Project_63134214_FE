@@ -8,9 +8,9 @@ const useFirmware = () => {
 	const getFirms = () => createGetRequest({
 		endpoint: '',
 	})
-	const createFirm = ({ ID, Name, Data, locallink, Description }) => createPostRequest({
+	const createFirm = ({ ID, Name, Description }) => createPostRequest({
 		endpoint: 'create',
-		data: {  ID, Name, Data, locallink ,Description }
+		data: {  ID, Name, Description }
 	})
 	const deleteFirm = (ID) => createPostRequest({
 		endpoint: 'delete',
@@ -22,9 +22,9 @@ const useFirmware = () => {
 		data: selectedRowKeys
 	})
 
-	const updateFirm = ({ID, Name, Data, LocalLink ,Description }) => createPostRequest({
+	const updateFirm = ({ID,Name,Description }) => createPostRequest({
 		endpoint: 'update',
-		data: {ID, Name, Data, LocalLink ,Description }
+		data: {ID, Name,Description }
 	})
 
 	const uploadFile = (formData) => createPostRequest({

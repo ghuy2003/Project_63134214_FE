@@ -7,7 +7,6 @@ import useFirmware from '@api/useFirmwares'
 import FormFirmInput from '@components/FormFirmInput/FormFirmInput'
 
 const EditFirm = ({ID, dvName , dvData, dvLink, dvDescription, onchange}) => {
-	
 	const t = useTranslate()
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
@@ -21,26 +20,23 @@ const EditFirm = ({ID, dvName , dvData, dvLink, dvDescription, onchange}) => {
 		setOpen(true)
 	}
 
-	const handleOk = async () => {
-		const {success, data} = await updateFirm({ID,Name,Data,LocalLink,Description})
-		console.log(success)
-		setConfirmLoading(true)
-		setTimeout(() => {
-			setOpen(false)
-			setConfirmLoading(false)
-			onchange()
-		}, 1500)
-	}
 
+	const handleOk = async () => {
+		const {success, data} = await updateFirm({ID,Name,Description})
+		if(success) {
+			setConfirmLoading(true)
+			setTimeout(() => {
+				setOpen(false)
+				setConfirmLoading(false)
+				onchange()
+			}, 2000)
+		}
+	}
 	const handleCancel = () => {
 		setOpen(false)
 	}
-	
-
-	const handleData = (ID, Name, Data, LocalLink, Description) => {
+	const handleData = (ID,Name,Data,LocalLink,Description) => {
 		setName(Name)
-		setData(Data)
-		setLocalLink(LocalLink)
 		setdescription(Description)
 	}
 	return (

@@ -29,13 +29,12 @@ const FirmWare  = () => {
 	const [bottom, setBottom] = useState('bottomRight')
 	const [ellipsis, setEllipsis] = useState(false)
 	const [yScroll, setYScroll] = useState(false)
-	const [xScroll, setXScroll] = useState()
+	const [xScroll, setXScroll] = useState('fixed')
 
 	const [dataFirms, setData] = useState([])
 	const [changeData, setChangeData] = useState(false)
 	const [selectedRowKeys, setSelectedRowKeys] = useState([])
- 
-  
+
 
 	const columns = [
 		{
@@ -48,13 +47,21 @@ const FirmWare  = () => {
 			dataIndex: 'Name'
 		},
 		{
-			title :'Data',
-			dataIndex: 'Data'
+			title :'Data (Hex)',
+			dataIndex: 'Data',
+			key: 'data',
+			render: (text,record) => {
+				if(text !== null) {
+					const toHexString = byteArray => Array.from(byteArray, byte => ('0' + (byte & 0xFF).toString(16)).slice(-2)).join('')
+					return toHexString(text.data).substring(0,12) + '...'
+				} else {
+					return text
+				}
+			}
 		},
 		{
 			title :'Local Link',
 			dataIndex: 'LocalLink',
-			
 		},
 		{
 			title :'Description',
@@ -73,7 +80,7 @@ const FirmWare  = () => {
 			key: 'ID',
 			render: (text, record) => (
 				<Space size='middle'>
-					<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
+					<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data != null ? record.Data.type : record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
 					<a><DeleteFirm ID={record.ID} onchange={handleChangeData} /></a>
 					<a><UploadFile ID={record.ID} onchange={handleChangeData}  /> </a>
 				</Space>
@@ -113,35 +120,9 @@ const FirmWare  = () => {
 	const defaultTitle = () => 'Here is title'
 	const defaultFooter = () => 'Here is footer'
 	// handleFunction
-	const handleBorderChange = (enable) => {
-		setBordered(enable)
-	}
+	
 	const handleLoadingChange = (enable) => {
 		setLoading(enable)
-	}
-	const handleSizeChange = (e) => {
-		setSize(e.target.value)
-	}
-	const handleTableLayoutChange = (e) => {
-		setTableLayout(e.target.value)
-	}
-	const handleExpandChange = (enable) => {
-		setExpandable(enable ? defaultExpandable : undefined)
-	}
-	const handleEllipsisChange = (enable) => {
-		setEllipsis(enable)
-	}
-	const handleTitleChange = (enable) => {
-		setShowTitle(enable)
-	}
-	const handleHeaderChange = (enable) => {
-		setShowHeader(enable)
-	}
-	const handleFooterChange = (enable) => {
-		setShowFooter(enable)
-	}
-	const handleDataChange = (newHasData) => {
-		setHasData(newHasData)
 	}
 	// 
 
@@ -156,14 +137,13 @@ const FirmWare  = () => {
 		scroll.y = 300
 	}
 	if (xScroll) {
-		scroll.x = '100vw'
+		scroll.x = '100%'
 	}
 	const tableColumns = columns.map((item) => ({
 		...item,
 		ellipsis,
 	}))
 	if (xScroll === 'fixed') {
-		tableColumns[0].fixed = true
 		tableColumns[tableColumns.length - 1].fixed = 'right'
 	}
 	const tableProps = {

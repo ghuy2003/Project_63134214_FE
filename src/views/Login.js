@@ -3,7 +3,6 @@ import useTranslate from '@lang'
 import useAuth from '@api/useAuth'
 import { useNavigate } from 'react-router-dom'
 import useUser from '@store/useUser'
-
 import { Row, Col, Input, Button } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
@@ -67,6 +66,7 @@ const Login = () => {
 							placeholder={t('username').toUpperFirst()}
 							value={username}
 							onChange={handleChangeUsername}
+							required
 						/>
 					</Col>
 					<Col span={24}>
@@ -77,6 +77,7 @@ const Login = () => {
 							placeholder={t('password').toUpperFirst()}
 							value={password}
 							onChange={handleChangePassword}
+							required
 						/>
 					</Col>
 					<Col span={24}>

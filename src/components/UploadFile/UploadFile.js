@@ -20,7 +20,6 @@ const UploadFile = ({ID, onchange}) => {
 	const [form] = Form.useForm()
 	const [fileList, setFileList] = useState([])
 	const [name,setName] = useState('')
-	const [bufferData,setBufferData] = useState([])
 	const  { uploadFile } = useFirmware()
 	
 	const [open, setOpen] = useState(false)
@@ -30,20 +29,17 @@ const UploadFile = ({ID, onchange}) => {
 	}
 	const handleOk = async () => {
 		const formData = new FormData()
-		const arrayBuffer = new Uint8Array([1, 2, 3]).buffer
-		const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' })
-		formData.append('file', fileList[0].originFileObj)
-		formData.append('binary-data', blob, 'filename.bin')
 		formData.set('ID', ID)
 		formData.set('name',name)
+		formData.append('file', fileList[0].originFileObj)
 		const {success,data} = await uploadFile(formData)
 		if(success) {
 			setConfirmLoading(true)
 			setTimeout(() => {
 				setOpen(false)
 				setConfirmLoading(false)
-				onReset()
 				onchange()
+				onReset()
 			}, 2000)
 		}
 	}
@@ -54,7 +50,6 @@ const UploadFile = ({ID, onchange}) => {
 		form.resetFields()
 		setFileList([])
 	}
-  
 	const handleFileChange = ({fileList}) => {
 		setFileList(fileList)
 	}
@@ -84,13 +79,7 @@ const UploadFile = ({ID, onchange}) => {
 					</Form.Item>
 					<Form.Item name='file' label='File' rules={[{ required: true }]}>
 						<Upload
-							name='file	'
-							beforeUpload={(file) => {
-								const reader = new FileReader()
-								reader.onload = e => {
-									setBufferData(e.target.result)
-								}
-								reader.readAsArrayBuffer(file)
+							beforeUpload={() => {
 								return false
 							}}
 							fileList={fileList}

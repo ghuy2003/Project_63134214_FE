@@ -16,7 +16,6 @@ const LANG = Object.freeze({
 	vi: 'Tiếng Việt',
 	en: 'English'
 })
-
 const PROJECT = Object.freeze({
 	DASHBOARD: 'DASHBOARD',
 	WATER_DANCE: 'WATER_DANCE'

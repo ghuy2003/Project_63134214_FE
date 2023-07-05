@@ -14,8 +14,6 @@ const AddFirm = ({onchange}) => {
 
 	const [ID, setId] = useState('')
 	const [Name, setName ] = useState('')
-	const [Data, setData ] = useState(null)
-	const [locallink, setLocalLink ] = useState(null)
 	const [Description, setdescription] = useState(null)
 
 	const  [status, setStatus] = useState(false)
@@ -28,7 +26,7 @@ const AddFirm = ({onchange}) => {
 		setOpen(true)
 	}
 	const handleOk = async () => {
-		const {success,data} = await createFirm({ ID, Name,Data, Description })
+		const {success,data} = await createFirm({ ID, Name, Description })
 		if(success) {
 			setConfirmLoading(true)
 			setTimeout(() => {
@@ -44,10 +42,9 @@ const AddFirm = ({onchange}) => {
 	const handleCancel = () => {
 		setOpen(false)
 	}
-	const handleData = (ID, Name,Data, Description) => {
+	const handleData = (ID, Name, Description) => {
 		setId(ID) 
 		setName(Name)
-		setData(Data)
 		setdescription(Description)
 	}
 	const handleReset = () =>  {
@@ -74,7 +71,7 @@ const AddFirm = ({onchange}) => {
 				className='add__form'
 				okButtonProps={{ style: { backgroundColor: 'rgb(37, 174, 53)', } }} 
 			>
-				<AddFormFirm onchangedata={handleData} ID={ID} Name={Name} Data={Data} Description={Description} onresetstatus={handleResetStatus} status={status} />
+				<AddFormFirm onchangedata={handleData} ID={ID} Name={Name} Description={Description} onresetstatus={handleResetStatus} status={status} />
 			</Modal>
 		</>
 	)

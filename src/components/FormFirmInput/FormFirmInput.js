@@ -14,22 +14,10 @@ const FormFirmInput = ({...props}) => {
 	const  [Description, setdescription] = useState(props.Description)
 	const  [status, setStatus] = useState(props.status)
 	const onchange = props.onchangedata
+	console.log(props)
 	useEffect(() => {
-		onchange(ID, Name, Data, LocalLink , Description)
-	}, [ID, Name, Data, LocalLink, Description])
-	// useEffect(() => {
-	// 	handleReset()
-	// }, [status])
-	// const handleReset = ()  => {
-	// 	setId(''),
-	// 	setMac(''),
-	// 	setName(''),
-	// 	setapplication(''),
-	// 	setdescription('')
-	// 	setStatus(!props.status)
-	// }
-
-
+		onchange(ID,Name,Data,LocalLink,Description)
+	}, [ID,Name,Data,LocalLink,Description])
 	if(ID) {
 		return (
 			<Form
@@ -45,7 +33,7 @@ const FormFirmInput = ({...props}) => {
 					maxWidth: 600,
 				}}
 				className={cx('form__input')}
-				initialValues={{ID,Name, Data,LocalLink, Description}}
+				initialValues={{ID,Name,Data,LocalLink,Description}}
 			>
 				<Form.Item label='ID' name={'ID'} disabled >
 					<Input disabled={true} value={ID} />
@@ -55,16 +43,16 @@ const FormFirmInput = ({...props}) => {
 						setName(e.target.value)
 					}} />
 				</Form.Item>
-				<Form.Item label='Data' name={'Data'}>
-					<Input value={Data} onChange={(e) => {
+				{/* <Form.Item label='Data' name={'Data'}>
+					<Input disabled={true} value={Data} onChange={(e) => {
 						setData(e.target.value)
 					}} />
 				</Form.Item>
 				<Form.Item label='LocalLink' name={'LocalLink'}>
-					<Input value={LocalLink} onChange={(e) => {
+					<Input disabled={true} value={LocalLink} onChange={(e) => {
 						setLocalLink(e.target.value)
 					}} />
-				</Form.Item>
+				</Form.Item> */}
 				<Form.Item label='Description' name={'Description'}>
 					<TextArea value={Description} rows={3} onChange={(e) => {
 						setdescription(e.target.value)

@@ -30,7 +30,7 @@ const ManagerDevice = () => {
 	const [bottom, setBottom] = useState('bottomRight')
 	const [ellipsis, setEllipsis] = useState(false)
 	const [yScroll, setYScroll] = useState(false)
-	const [xScroll, setXScroll] = useState()
+	const [xScroll, setXScroll] = useState('fixed')
 	const [dataDevices, setData] = useState([])
 	const [changeData, setChangeData] = useState(false)
 	const columns = [
@@ -110,26 +110,8 @@ const ManagerDevice = () => {
 	const defaultTitle = () => 'Here is title'
 	const defaultFooter = () => 'Here is footer'
 	// handleFunction
-	const handleBorderChange = (enable) => {
-		setBordered(enable)
-	}
 	const handleLoadingChange = (enable) => {
 		setLoading(enable)
-	}
-	const handleSizeChange = (e) => {
-		setSize(e.target.value)
-	}
-	const handleTableLayoutChange = (e) => {
-		setTableLayout(e.target.value)
-	}
-	const handleExpandChange = (enable) => {
-		setExpandable(enable ? defaultExpandable : undefined)
-	}
-	const handleEllipsisChange = (enable) => {
-		setEllipsis(enable)
-	}
-	const handleDataChange = (newHasData) => {
-		setHasData(newHasData)
 	}
 	// 
 	const scroll = {}
@@ -144,7 +126,6 @@ const ManagerDevice = () => {
 		ellipsis,
 	}))
 	if (xScroll === 'fixed') {
-		tableColumns[0].fixed = true
 		tableColumns[tableColumns.length - 1].fixed = 'right'
 	}
 	const tableProps = {
