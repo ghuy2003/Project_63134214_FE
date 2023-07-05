@@ -50,14 +50,14 @@ const FirmWare  = () => {
 			title :'Data (Hex)',
 			dataIndex: 'Data',
 			key: 'data',
-			render: (text,record) => {
-				if(text !== null) {
-					const toHexString = byteArray => Array.from(byteArray, byte => ('0' + (byte & 0xFF).toString(16)).slice(-2)).join('')
-					return toHexString(text.data).substring(0,12) + '...'
-				} else {
-					return text
-				}
-			}
+			// render: (text,record) => {
+			// 	if(text !== null) {
+			// 		const toHexString = byteArray => Array.from(byteArray, byte => ('0' + (byte & 0xFF).toString(16)).slice(-2)).join('')
+			// 		return toHexString(text.data).substring(0,12) + '...'
+			// 	} else {
+			// 		return text
+			// 	}
+			// }
 		},
 		{
 			title :'Local Link',
