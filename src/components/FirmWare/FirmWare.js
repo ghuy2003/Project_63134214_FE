@@ -46,23 +46,23 @@ const FirmWare  = () => {
 			title :'Name',
 			dataIndex: 'Name'
 		},
-		{
-			title :'Data (Hex)',
-			dataIndex: 'Data',
-			key: 'data',
-			// render: (text,record) => {
-			// 	if(text !== null) {
-			// 		const toHexString = byteArray => Array.from(byteArray, byte => ('0' + (byte & 0xFF).toString(16)).slice(-2)).join('')
-			// 		return toHexString(text.data).substring(0,12) + '...'
-			// 	} else {
-			// 		return text
-			// 	}
-			// }
-		},
-		{
-			title :'Local Link',
-			dataIndex: 'LocalLink',
-		},
+		// {
+		// 	title :'Data (Hex)',
+		// 	dataIndex: 'Data',
+		// 	key: 'data',
+		// render: (text,record) => {
+		// 	if(text !== null) {
+		// 		const toHexString = byteArray => Array.from(byteArray, byte => ('0' + (byte & 0xFF).toString(16)).slice(-2)).join('')
+		// 		return toHexString(text.data).substring(0,12) + '...'
+		// 	} else {
+		// 		return text
+		// 	}
+		// }
+		// },
+		// {
+		// 	title :'Local Link',
+		// 	dataIndex: 'LocalLink',
+		// },
 		{
 			title :'Description',
 			dataIndex: 'Description'
@@ -78,13 +78,13 @@ const FirmWare  = () => {
 		{
 			title: 'Action',
 			key: 'ID',
-			render: (text, record) => (
-				<Space size='middle'>
-					<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data != null ? record.Data.type : record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
-					<a><DeleteFirm ID={record.ID} onchange={handleChangeData} /></a>
-					<a><UploadFile ID={record.ID} onchange={handleChangeData}  /> </a>
-				</Space>
-			),
+			// render: (text, record) => (
+			// 	<Space size='middle'>
+			// 		<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data != null ? record.Data.type : record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
+			// 		<a><DeleteFirm ID={record.ID} onchange={handleChangeData} /></a>
+			// 		<a><UploadFile ID={record.ID} onchange={handleChangeData}  /> </a>
+			// 	</Space>
+			// ),
 		},
 	]
 
