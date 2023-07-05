@@ -186,6 +186,7 @@ const FirmWare  = () => {
 				{...tableProps}
 				pagination={{
 					position: [top, bottom],
+					pageSize: 7
 				}}
 				columns={tableColumns}
 				dataSource={hasData ? dataFirms : []}

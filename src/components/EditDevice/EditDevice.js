@@ -10,8 +10,6 @@ import useDevices from '@api/useDevices'
 const EditDevice = ({ID, dvMac, dvLocalIp, dvName , dvApp, 	dvODO , dvDescription,dvStatus, onchange}) => {
 
 
-
-	console.log(dvApp)
 	const t = useTranslate()
 	const [open, setOpen] = useState(false)
 	const [confirmLoading, setConfirmLoading] = useState(false)
@@ -61,9 +59,6 @@ const EditDevice = ({ID, dvMac, dvLocalIp, dvName , dvApp, 	dvODO , dvDescriptio
 		setdescription(Description)
 		setStatusID(StatusID)
 	}
-
-
-	console.log({ID,Mac,LocalIp, Name, ApplicationID, ODO, Description, StatusID})
 	return (
 		<>
 			<Button
