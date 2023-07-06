@@ -34,7 +34,8 @@ const FirmWare  = () => {
 	const [dataFirms, setData] = useState([])
 	const [changeData, setChangeData] = useState(false)
 	const [selectedRowKeys, setSelectedRowKeys] = useState([])
-
+	const [curent , setCurent] = useState(1)
+	const [pageSize, setPageSize] = useState(10)
 
 	const columns = [
 		{
@@ -47,22 +48,13 @@ const FirmWare  = () => {
 			dataIndex: 'Name'
 		},
 		// {
-		// 	title :'Data (Hex)',
-		// 	dataIndex: 'Data',
-		// 	key: 'data',
-		// render: (text,record) => {
-		// 	if(text !== null) {
-		// 		const toHexString = byteArray => Array.from(byteArray, byte => ('0' + (byte & 0xFF).toString(16)).slice(-2)).join('')
-		// 		return toHexString(text.data).substring(0,12) + '...'
-		// 	} else {
-		// 		return text
-		// 	}
-		// }
+		// 	title :'Data ID',
+		// 	dataIndex: 'DataID',
 		// },
-		// {
-		// 	title :'Local Link',
-		// 	dataIndex: 'LocalLink',
-		// },
+		{
+			title :'Local Link',
+			dataIndex: 'LocalLink',
+		},
 		{
 			title :'Description',
 			dataIndex: 'Description'
@@ -78,13 +70,13 @@ const FirmWare  = () => {
 		{
 			title: 'Action',
 			key: 'ID',
-			// render: (text, record) => (
-			// 	<Space size='middle'>
-			// 		<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data != null ? record.Data.type : record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
-			// 		<a><DeleteFirm ID={record.ID} onchange={handleChangeData} /></a>
-			// 		<a><UploadFile ID={record.ID} onchange={handleChangeData}  /> </a>
-			// 	</Space>
-			// ),
+			render: (text, record) => (
+				<Space size='middle'>
+					<a><EditFirm  ID={record.ID}  dvName={record.Name} dvData={record.Data != null ? record.Data.type : record.Data} dvLink={record.LocalLink} dvDescription={record.Description} onchange={handleChangeData} /></a>
+					<a><DeleteFirm ID={record.ID} onchange={handleChangeData} /></a>
+					<a><UploadFile ID={record.ID} onchange={handleChangeData}  /> </a>
+				</Space>
+			),
 		},
 	]
 
@@ -92,7 +84,7 @@ const FirmWare  = () => {
 	const { getFirms } = useFirmware()
 	const handleGetAllFirm = async () => {
 		handleLoadingChange(true)
-		const {success, data} = await getFirms()
+		const {success, data} = await getFirms({ curent , pageSize })
 		if(success) {
 			setData([...data])
 			handleLoadingChange(false)
@@ -157,7 +149,10 @@ const FirmWare  = () => {
 		scroll,
 		tableLayout,
 	}
-
+	const handleChangeSize = (curent , pageSize) => {
+		setCurent(curent)
+		setPageSize(pageSize)
+	}
   
 	return (
 		<div style={{height: '100%', width: '100%'}}>
@@ -184,10 +179,15 @@ const FirmWare  = () => {
 				rowKey={obj => obj.ID}
 				rowSelection={rowSelection}
 				{...tableProps}
-				pagination={{
-					position: [top, bottom],
-					pageSize: 7
-				}}
+				pagination={
+					{	
+						position: ['top'],
+						defaultPageSize: 10,
+						showSizeChanger: true,
+						pageSizeOptions: ['10', '20', '30'],
+						onChange: handleChangeSize
+					}
+				}
 				columns={tableColumns}
 				dataSource={hasData ? dataFirms : []}
 				scroll={scroll}

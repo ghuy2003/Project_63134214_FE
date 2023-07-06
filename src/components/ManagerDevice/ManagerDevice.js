@@ -177,9 +177,14 @@ const ManagerDevice = () => {
 				} 
 				{...tableProps}
 				rowKey={obj => obj.ID}
-				pagination={{
-					position: [top, bottom],
-				}}
+				pagination={
+					{	
+						position: ['top'],
+						defaultPageSize: 10,
+						showSizeChanger: true,
+						pageSizeOptions: ['10', '20', '30'],
+					}
+				}
 				columns={tableColumns}
 				dataSource={hasData ? dataDevices : []}
 				scroll={scroll}

@@ -5,8 +5,9 @@ const useFirmware = () => {
 	const { createGetRequest, createPostRequest, cancel } = useRequest('firmwares')
 
 
-	const getFirms = () => createGetRequest({
+	const getFirms = ({curent,pageSize}) => createGetRequest({
 		endpoint: '',
+		params: {curent,pageSize}
 	})
 	const createFirm = ({ ID, Name, Description }) => createPostRequest({
 		endpoint: 'create',

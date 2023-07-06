@@ -25,6 +25,7 @@ const useRequest = (prefixPath = '') => {
 	})
 	const [request, setRequest] = useState(() => createRequest())
 	const createGetRequest = useCallback(({ endpoint, params, headers, successCallback }) => {
+		console.log(params)
 		return (
 			request
 				.get(endpoint, { params, headers })

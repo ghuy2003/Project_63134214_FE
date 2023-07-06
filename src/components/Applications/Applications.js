@@ -15,8 +15,6 @@ const cx = classNames.bind(Styles)
 
 
 const Application  = () => {
-
-
 	const columns = [
 		{
 			title: 'ID',
@@ -170,9 +168,14 @@ const Application  = () => {
 				rowKey={obj => obj.ID}
 				rowSelection={rowSelection}
 				{...tableProps}
-				pagination={{
-					position: [top, bottom],
-				}}
+				pagination={
+					{	
+						position: ['top'],
+						defaultPageSize: 10,
+						showSizeChanger: true,
+						pageSizeOptions: ['10', '20', '30'],
+					}
+				}
 				columns={tableColumns}
 				dataSource={hasData ? dataApplications : []}
 				scroll={scroll}
