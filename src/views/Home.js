@@ -7,10 +7,9 @@ import DataDevice from '@components/DataDevice/DataDeivce'
 import DataFirm from '@components/DataFirm/DataFirm'
 // import { Socket } from 'socket.io-client'
 
-const Home = (state) => {
+const Home = () => {
 	const t = useTranslate()
 	const { subscriber } = useListener()
-
 	useEffect(() => {
 		console.log(subscriber)
 	}, [subscriber])
@@ -20,7 +19,7 @@ const Home = (state) => {
 	return ( 
 		<>
 			<Row gutter={[20,20]}>
-				<DataDevice state={state} />
+				<DataDevice  />
 			</Row>
 			<Row gutter={[20,20]}>
 				<DataFirm />
