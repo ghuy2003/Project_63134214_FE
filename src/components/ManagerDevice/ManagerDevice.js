@@ -11,6 +11,7 @@ import AddDevice from '@components/AddDevice/AddDevice'
 import DeleteChoose from '@components/DeleteChoose/DeleteChoose'
 import useDevices from '@api/useDevices'
 import { type } from '@testing-library/user-event/dist/type'
+import useSocket from '@socket'
 const cx = classNames.bind(Styles)
 
 const ManagerDevice = () => {
@@ -33,6 +34,9 @@ const ManagerDevice = () => {
 	const [xScroll, setXScroll] = useState('fixed')
 	const [dataDevices, setData] = useState([])
 	const [changeData, setChangeData] = useState(false)
+
+
+	const socket = useSocket()
 	const columns = [
 		{
 			title: 'ID',
@@ -73,7 +77,7 @@ const ManagerDevice = () => {
 		},
 		{
 			title :'UpdateTime',
-			dataIndex: 'UpdateTime'
+			dataIndex: 'UpdatetedTime'
 		},
 		{
 			title: 'Action',

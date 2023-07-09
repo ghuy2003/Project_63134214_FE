@@ -13,6 +13,7 @@ module.exports = function override(config) {
 		'@images': path.resolve(__dirname, './src/assets/images'),
 		'@styles': path.resolve(__dirname, './src/assets/styles'),
 		'@lang': path.resolve(__dirname, './src/lang/useTranslate'),
+		'@socket': path.resolve(__dirname, './src/socket/useSocket'),
 	}
 	return config
 }

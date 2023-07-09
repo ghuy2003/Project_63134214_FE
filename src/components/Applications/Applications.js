@@ -39,11 +39,11 @@ const Application  = () => {
 		},
 		{
 			title :'CreateAt',
-			dataIndex: 'CreatedAt'
+			dataIndex: 'CreatedTime'
 		},
 		{
 			title :'UpdateAt',
-			dataIndex: 'UpdatedAt'
+			dataIndex: 'UpdateTime'
 		},
 		{
 			title: 'Action',

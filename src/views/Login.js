@@ -22,8 +22,6 @@ const Login = () => {
 
 	const handleLogin = async () => {
 		const { success, data } = await login({ username, password })
-
-		console.log(success)
 		if(success) {
 			const { token, username } = data
 			changeData({ token, username })

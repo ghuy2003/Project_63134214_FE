@@ -54,7 +54,14 @@ const useRoutes = () => {
 			path: '/firmwares',
 			icon: <ContainerOutlined style={{ fontSize: ICON_SIZE }} />,
 			element: <Layout><FirmWare /></Layout>
-		}
+		},
+		// {
+		// 	key: '/firmware',
+		// 	label: t('firmware management').toCapitalize(),
+		// 	path: '/firmwares',
+		// 	icon: <ContainerOutlined style={{ fontSize: ICON_SIZE }} />,
+		// 	element: <Layout><FormCheck /></Layout>
+		// }
 	]
 
 	const privateRoutes = [
