@@ -16,8 +16,9 @@ import Shop from "@views/Shop";
 import Contact from "@views/Contact";
 import ScrollToTop from "@components/ScrollToTop/ScrollToTop";
 import Cart from "@views/Cart";
-import Login from "@views/Login";
-import Register from "@views/Register";
+import Login from "@views/components/Login/Login";
+import Register from "@views/components/Login/Register";
+import Dashboard from "@views/components/Dashboard/Dashboard";
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();
