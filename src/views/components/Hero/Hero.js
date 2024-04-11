@@ -1,4 +1,7 @@
 import React from "react";
+import 'lightbox2/dist/css/lightbox.min.css';
+import 'owl.carousel/dist/assets/owl.carousel.min.css';
+
 
 const Hero = () => {
   return (

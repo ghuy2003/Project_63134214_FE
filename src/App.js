@@ -6,7 +6,8 @@ import { Routes, Route, BrowserRouter, useNavigate } from "react-router-dom";
 import AppContext from "@context/AppContext";
 import { create, createStore } from "zustand";
 import Home from "@views/Home";
-
+import '../src/css/style.css'
+import '../src/css/bootstrap.min.css'
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();

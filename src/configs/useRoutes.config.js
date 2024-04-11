@@ -3,14 +3,11 @@ import useTranslate from '@lang'
 import Layout from '@views/layouts/Layout'
 import Login from '@views/Login'
 import Home from '@views/Home'
-import ManagerDevice from '@components/ManagerDevice/ManagerDevice'
-import FirmWare from '@components/FirmWare/FirmWare'
 import {
 	ContainerOutlined,
 	PieChartOutlined,
 	DesktopOutlined,
 } from '@ant-design/icons'
-import Application from '@components/Applications/Applications'
 const ICON_SIZE = '15px'
 
 const useRoutes = () => {
@@ -39,29 +36,23 @@ const useRoutes = () => {
 			label: t('devices management').toCapitalize(),
 			path: '/devices',
 			icon: <DesktopOutlined style={{ fontSize: ICON_SIZE }} />,
-			element: <Layout><ManagerDevice /></Layout>
+			// element: <Layout><ManagerDevice /></Layout>
 		},
 		{
 			key: '/applications',
 			label: t('applications management').toCapitalize(),
 			path: '/applications',
 			icon: <ContainerOutlined style={{ fontSize: ICON_SIZE }} />,
-			element: <Layout><Application /></Layout>
+			// element: <Layout><Application /></Layout>
 		},
 		{
 			key: '/firmware',
 			label: t('firmware management').toCapitalize(),
 			path: '/firmwares',
 			icon: <ContainerOutlined style={{ fontSize: ICON_SIZE }} />,
-			element: <Layout><FirmWare /></Layout>
+			// element: <Layout><FirmWare /></Layout>
 		},
-		// {
-		// 	key: '/firmware',
-		// 	label: t('firmware management').toCapitalize(),
-		// 	path: '/firmwares',
-		// 	icon: <ContainerOutlined style={{ fontSize: ICON_SIZE }} />,
-		// 	element: <Layout><FormCheck /></Layout>
-		// }
+		
 	]
 
 	const privateRoutes = [

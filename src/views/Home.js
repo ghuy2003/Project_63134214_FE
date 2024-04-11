@@ -13,8 +13,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import DataDevice from "@components/DataDevice/DataDeivce";
-import DataFirm from "@components/DataFirm/DataFirm";
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import Feature from "./components/Feature/Feature";
