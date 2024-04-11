@@ -11,6 +11,10 @@ import "../src/css/bootstrap.min.css";
 import Header from "@views/layouts/Header";
 import Footer from "@views/layouts/Footer";
 import ScrollToTopButton from "@components/ScrollToTopButton/ScrollToTopButton";
+import ProductDetail from "@views/components/ProductDetail/ProductDetail";
+import Shop from "@views/Shop";
+import Contact from "@views/Contact";
+import ScrollToTop from "@components/ScrollToTop/ScrollToTop";
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();
@@ -21,7 +25,7 @@ const App = () => {
     <Routes>
       {" "}
       {/* Wrap routes in a Routes element */}
-      {routes.map((route) =>
+      {/* {routes.map((route) =>
         "children" in route ? (
           <Route key={route.key} {...route}>
             {renderRoute(route.children)}
@@ -29,7 +33,11 @@ const App = () => {
         ) : (
           <Route key={route.key} {...route} />
         )
-      )}
+      )} */}
+      <Route path="/" element={<Home />} />
+      <Route path="/product" element={<ProductDetail />} />
+      <Route path="/shop" element={<Shop />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
   // useEffect(() => {
@@ -42,6 +50,7 @@ const App = () => {
     // </>
 
     <>
+      <ScrollToTop />
       <Header />
       {renderRoute(routes)}
       <ScrollToTopButton />

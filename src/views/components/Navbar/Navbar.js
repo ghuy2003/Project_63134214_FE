@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isShowModalSearch, setIsShowModalSearch] = useState(false);
@@ -43,9 +44,9 @@ function Navbar() {
       </div>
       <div className="container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
-          <a href="index.html" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             <h1 className="text-primary display-6">Fruitables</h1>
-          </a>
+          </Link>
           <button
             className="navbar-toggler py-2 px-3"
             type="button"
@@ -59,23 +60,22 @@ function Navbar() {
             id="navbarCollapse"
           >
             <div className="navbar-nav mx-auto">
-              <a href="index.html" className="nav-item nav-link active">
+              <Link to="/" className="nav-item nav-link active">
                 Home
-              </a>
-              <a href="shop.html" className="nav-item nav-link">
+              </Link>
+              <Link to="/shop" className="nav-item nav-link">
                 Shop
-              </a>
-              <a href="shop-detail.html" className="nav-item nav-link">
+              </Link>
+              <Link to="/shopdetail" className="nav-item nav-link">
                 Shop Detail
-              </a>
+              </Link>
               <div className="nav-item dropdown">
-                <a
-                  href="#"
+                <Link
                   className="nav-link dropdown-toggle"
                   data-bs-toggle="dropdown"
                 >
                   Pages
-                </a>
+                </Link>
                 <div className="dropdown-menu m-0 bg-secondary rounded-0">
                   <a href="cart.html" className="dropdown-item">
                     Cart
@@ -91,9 +91,9 @@ function Navbar() {
                   </a>
                 </div>
               </div>
-              <a href="contact.html" className="nav-item nav-link">
+              <Link to="/contact" className="nav-item nav-link">
                 Contact
-              </a>
+              </Link>
             </div>
             <div className="d-flex m-3 me-0">
               <button
