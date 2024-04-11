@@ -1,3 +1,4 @@
+import PriceRangeInput from "@components/PriceRangeInput/PriceRangeInput";
 import React from "react";
 
 const ShopList = () => {
@@ -91,7 +92,7 @@ const ShopList = () => {
                       </div>
                     </div>
                     <div class="col-lg-12">
-                      <div class="mb-3">
+                      {/* <div class="mb-3">
                         <h4 class="mb-2">Price</h4>
                         <input
                           type="range"
@@ -112,7 +113,8 @@ const ShopList = () => {
                         >
                           372
                         </output>
-                      </div>
+                      </div> */}
+                      <PriceRangeInput />
                     </div>
                     <div class="col-lg-12">
                       <div class="mb-3">
