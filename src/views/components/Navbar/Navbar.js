@@ -43,8 +43,6 @@ function Navbar() {
         </div>
       </div>
 
-
-      
       <div className="container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
           <Link to="/" className="navbar-brand">
@@ -80,9 +78,9 @@ function Navbar() {
                   Pages
                 </Link>
                 <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                  <a href="cart.html" className="dropdown-item">
+                  <Link to={"/cart"} className="dropdown-item">
                     Cart
-                  </a>
+                  </Link>
                   <a href="chackout.html" className="dropdown-item">
                     Chackout
                   </a>
@@ -107,7 +105,7 @@ function Navbar() {
               >
                 <i className="fas fa-search text-primary"></i>
               </button>
-              <a href="#" className="position-relative me-4 my-auto">
+              <Link to={"/cart"} className="position-relative me-4 my-auto">
                 <i className="fa fa-shopping-bag fa-2x"></i>
                 <span
                   className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
@@ -120,10 +118,10 @@ function Navbar() {
                 >
                   3
                 </span>
-              </a>
-              <a href="./src/html/login.html" className="my-auto">
+              </Link>
+              <Link to={"/login"} className="my-auto">
                 <i className="fas fa-user fa-2x"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </nav>

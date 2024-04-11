@@ -15,6 +15,9 @@ import ProductDetail from "@views/components/ProductDetail/ProductDetail";
 import Shop from "@views/Shop";
 import Contact from "@views/Contact";
 import ScrollToTop from "@components/ScrollToTop/ScrollToTop";
+import Cart from "@views/Cart";
+import Login from "@views/Login";
+import Register from "@views/Register";
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();
@@ -37,7 +40,10 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/product" element={<ProductDetail />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
   // useEffect(() => {
