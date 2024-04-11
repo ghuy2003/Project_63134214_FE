@@ -42,6 +42,9 @@ function Navbar() {
           </div>
         </div>
       </div>
+
+
+      
       <div className="container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
           <Link to="/" className="navbar-brand">
@@ -66,7 +69,7 @@ function Navbar() {
               <Link to="/shop" className="nav-item nav-link">
                 Shop
               </Link>
-              <Link to="/shopdetail" className="nav-item nav-link">
+              <Link to="/product" className="nav-item nav-link">
                 Shop Detail
               </Link>
               <div className="nav-item dropdown">
