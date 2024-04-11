@@ -10,8 +10,11 @@ import {
 } from "@ant-design/icons";
 import ProductDetail from "@views/components/ProductDetail/ProductDetail";
 import LayoutClient from "@views/layouts/LayoutClient";
+import Shop from "@views/Shop";
+import Cart from "@views/Cart";
+import Register from "@views/components/Login/Register";
+import Contact from "@views/Contact";
 const ICON_SIZE = "15px";
-
 const useRoutes = () => {
   const t = useTranslate();
   function getItem(label, key, path, icon, element, type) {
@@ -36,12 +39,62 @@ const useRoutes = () => {
       ),
     },
     {
+      key: "/shop",
+      label: t("product").toCapitalize(),
+      path: "/shop",
+      element: (
+        <LayoutClient>
+          <Shop />
+        </LayoutClient>
+      ),
+    },
+    {
       key: "/product",
       label: t("product").toCapitalize(),
       path: "/product",
       element: (
         <LayoutClient>
           <ProductDetail />
+        </LayoutClient>
+      ),
+    },
+    {
+      key: "/cart",
+      label: t("product").toCapitalize(),
+      path: "/cart",
+      element: (
+        <LayoutClient>
+          <Cart />
+        </LayoutClient>
+      ),
+    },
+    {
+      key: "/cart",
+      label: t("cart").toCapitalize(),
+      path: "/cart",
+      element: (
+        <LayoutClient>
+          <Contact />
+        </LayoutClient>
+      ),
+    },
+    {
+      key: "/login",
+      label: t("login").toCapitalize(),
+      path: "/login",
+      element: (
+        <LayoutClient>
+          <Login />
+        </LayoutClient>
+      ),
+    },
+    {
+      key: "/register",
+      label: t("register").toCapitalize(),
+      path: "/register",
+      element: (
+        <LayoutClient>
+          <Register />
         </LayoutClient>
       ),
     },

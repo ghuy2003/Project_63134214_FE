@@ -29,7 +29,7 @@ const App = () => {
     <Routes>
       {" "}
       {/* Wrap routes in a Routes element */}
-      {/* {routes.map((route) =>
+      {routes.map((route) =>
         "children" in route ? (
           <Route key={route.key} {...route}>
             {renderRoute(route.children)}
@@ -37,14 +37,7 @@ const App = () => {
         ) : (
           <Route key={route.key} {...route} />
         )
-      )} */}
-      <Route path="/" element={<Home />} />
-      <Route path="/product" element={<ProductDetail />} />
-      <Route path="/shop" element={<Shop />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/register" element={<Register />} />
+      )}
     </Routes>
   );
   // useEffect(() => {
@@ -58,10 +51,8 @@ const App = () => {
 
     <>
       <ScrollToTop />
-      <Header />
       {renderRoute(routes)}
       <ScrollToTopButton />
-      <Footer />
     </>
   );
 };

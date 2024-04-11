@@ -2,24 +2,22 @@ import CardItem from "@components/CardItem/CardItem";
 import PriceRangeInput from "@components/PriceRangeInput/PriceRangeInput";
 import React, { useEffect, useState } from "react";
 import fruitsData from "../../../data/data";
-
+import useShop from "@api/useShop";
 const ShopList = () => {
   const [data, setData] = useState([]);
-  const itemsPerPage = 6;
-  const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  useEffect(() => {
+  const [pageSize, setpageSize] = useState(10)
+  const [totalPages , settotalPages] = useState();
+  const {getAllProduct} = useShop();
+
+  useEffect(async () => {
     setData([...fruitsData]);
-    setTotalItems(data.length);
+    const res = await getAllProduct({pageIndex: currentPage, pageSize: pageSize })
+    if(res.success) {
+      setData(res.data.data.items)
+      settotalPages(res.data.data.totalCount)
+    }
   }, []);
-
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  const currentItems = data.slice(startIndex, endIndex);
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -313,14 +311,14 @@ const ShopList = () => {
 
                 <div class="col-lg-9">
                   <div class="row g-4 justify-content-center">
-                    {currentItems.map((fruit) => {
+                    {data.map((fruit) => {
                       return (
                         <CardItem
-                          key={fruit.idj}
+                          key={fruit.id}
                           imgSrc={fruit.imgSrc}
-                          name={fruit.name}
-                          description={fruit.description}
-                          price={fruit.price}
+                          name={fruit.productName}
+                          description={fruit.productDescription}
+                          price={fruit.prodcutPrice}
                         />
                       );
                     })}
