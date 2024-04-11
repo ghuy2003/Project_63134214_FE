@@ -8,21 +8,29 @@ import FruitsShop from "./components/FruitsShop/FruitsShop";
 import FruitsList from "./components/FruitsList/FruitsList";
 import VesitableShop from "./components/VesitableShop/VesitableShop";
 import Banner from "./components/Banner/Banner";
+import Fact from "./components/Fact/Fact";
+import Tastimonial from "./components/Tastimonial/Tastimonial";
+import BestsalerProduct from "./components/BestsalerProduct/BestsalerProduct";
+import ModalSearch from "./components/ModalSearch/ModalSearch";
 
 const Home = () => {
-  const t = useTranslate();
-  const { subscriber } = useListener();
-  useEffect(() => {
-    console.log(subscriber);
-  }, [subscriber]);
+  // const t = useTranslate();
+  // const { subscriber } = useListener();
+  // useEffect(() => {
+  //   console.log(subscriber);
+  // }, [subscriber]);
   return (
     <>
       <Hero />
+      <ModalSearch />
       <Feature />
       <FruitsShop />
       <FruitsList />
       <VesitableShop />
       <Banner />
+      <BestsalerProduct />
+      <Fact />
+      <Tastimonial />
     </>
   );
 };

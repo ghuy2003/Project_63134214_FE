@@ -43,5 +43,52 @@
   <body>
     <noscript>enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <!-- JavaScript Libraries -->
+    //
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script src="../fruitables-1.0.0/src/js/index.js"></script>
+    <script>
+      async function getProduct() {
+        const data = {
+          pageIndex: 1,
+          pageSize: 10,
+        };
+        const token = localStorage.getItem("accessToken");
+        const res = await callApi("Product/getall", data, token);
+        if (res != null) {
+          var htmlInner = ``;
+          res.data.items.map((item, index) => {
+            htmlInner += `<div class="col-md-6 col-lg-4 col-xl-3">
+                            <div class="rounded position-relative fruite-item">
+                                <div class="fruite-img">
+                                    <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                </div>
+                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${item.branchName}</div>
+                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                    <h4>${item.productName}</h4>
+                                    <p>${item.productDescription}</p>
+                                    <div class="d-flex justify-content-between flex-lg-wrap">
+                                        <p class="text-dark fs-5 fw-bold mb-0">${item.prodcutPrice}</p>
+                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+          });
+          document.getElementById("groupFruit").innerHTML = htmlInner;
+        }
+      }
+
+      getProduct();
+    </script>
   </body>
 </html>
