@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { calculatorTotalQuanlity } from "@utils/calculateToTalQuanlity";
 import { calculateTotalCost } from "@utils/calculateTotalCost";
 const products = [
   {
@@ -28,13 +29,13 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
     count: 1,
   },
-  
 ];
 
 const initialState = {
   productList: [...products],
   coupon: "",
   totalCost: calculateTotalCost(products, ""),
+  totalQuantity: calculatorTotalQuanlity(products),
 };
 
 export const productSlice = createSlice({
@@ -57,6 +58,7 @@ export const productSlice = createSlice({
       }
 
       state.totalCost = calculateTotalCost(state.productList, state.coupon);
+      state.totalQuantity = calculatorTotalQuanlity(state.productList);
     },
 
     decreaseQuantity: (state, action) => {
@@ -71,6 +73,7 @@ export const productSlice = createSlice({
       }
 
       state.totalCost = calculateTotalCost(state.productList, state.coupon);
+      state.totalQuantity = calculatorTotalQuanlity(state.productList);
     },
 
     addProductToCart: (state, action) => {
@@ -86,13 +89,11 @@ export const productSlice = createSlice({
 
       state.totalCost = calculateTotalCost(state.productList, state.coupon);
 
-      console.log(state.productList, state.totalCost);
+      state.totalQuantity = calculatorTotalQuanlity(state.productList);
     },
 
     deleteProductFromCart: (state, action) => {
       const { id } = action.payload;
-
-      console.log(state.productList);
 
       const isProduct = state.productList.find((product) => product.id === id);
 
@@ -101,13 +102,15 @@ export const productSlice = createSlice({
           (product) => product.id !== isProduct.id
         );
       }
-      console.log(state.productList);
+
       state.totalCost = calculateTotalCost(state.productList, state.coupon);
+      state.totalQuantity = calculatorTotalQuanlity(state.productList);
     },
     applyCoupon: (state, action) => {
       const { coupon } = action.payload;
       state.coupon = coupon;
       state.totalCost = calculateTotalCost(state.productList, state.coupon);
+      state.totalQuantity = calculatorTotalQuanlity(state.productList);
     },
   },
 });
@@ -116,11 +119,13 @@ export const {
   productList,
   coupon,
   totalCost,
+  totalQuantity,
   increaseQuantity,
   decreaseQuantity,
   addProductToCart,
   deleteProductFromCart,
   applyCoupon,
+  totalQuanlity,
 } = productSlice.actions;
 
 export default productSlice.reducer;

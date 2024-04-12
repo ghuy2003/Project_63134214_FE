@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { applyCoupon } from "../../services/redux/cartSlice/productSlice";
 
 const CouponInput = () => {
-  const [coupon, setCoupon] = useState("");
+  const coupon_old = useSelector((state) => state.products.coupon);
+  const [coupon, setCoupon] = useState(coupon_old);
   const dispatch = useDispatch();
 
   const handleApplyCouponClick = () => {
