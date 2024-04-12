@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const CheckoutForm = () => {
+  const productList = useSelector((state) => state.products.productList);
+  const totalCost = useSelector((state) => state.products.totalCost);
   return (
     <>
       <div class="container-fluid py-5">
@@ -109,6 +112,8 @@ const CheckoutForm = () => {
                   ></textarea>
                 </div>
               </div>
+
+              {/* =========================================================== */}
               <div class="col-md-12 col-lg-6 col-xl-5">
                 <div class="table-responsive">
                   <table class="table">
@@ -122,54 +127,25 @@ const CheckoutForm = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">
-                          <div class="d-flex align-items-center mt-2">
-                            <img
-                              src="img/vegetable-item-2.jpg"
-                              class="img-fluid rounded-circle"
-                              style={{ width: "90px", height: "90px" }}
-                              alt=""
-                            />
-                          </div>
-                        </th>
-                        <td class="py-5">Awesome Brocoli</td>
-                        <td class="py-5">$69.00</td>
-                        <td class="py-5">2</td>
-                        <td class="py-5">$138.00</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <div class="d-flex align-items-center mt-2">
-                            <img
-                              src="img/vegetable-item-5.jpg"
-                              class="img-fluid rounded-circle"
-                              style={{ width: "90px", height: "90px" }}
-                              alt=""
-                            />
-                          </div>
-                        </th>
-                        <td class="py-5">Potatoes</td>
-                        <td class="py-5">$69.00</td>
-                        <td class="py-5">2</td>
-                        <td class="py-5">$138.00</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <div class="d-flex align-items-center mt-2">
-                            <img
-                              src="img/vegetable-item-3.png"
-                              class="img-fluid rounded-circle"
-                              style={{ width: "90px", height: "90px" }}
-                              alt=""
-                            />
-                          </div>
-                        </th>
-                        <td class="py-5">Big Banana</td>
-                        <td class="py-5">$69.00</td>
-                        <td class="py-5">2</td>
-                        <td class="py-5">$138.00</td>
-                      </tr>
+                      {productList.map((product) => (
+                        <tr key={product.id}>
+                          <th scope="row">
+                            <div class="d-flex align-items-center mt-2">
+                              <img
+                                src={product.imgSrc}
+                                class="img-fluid rounded-circle"
+                                style={{ width: "90px", height: "90px" }}
+                                alt=""
+                              />
+                            </div>
+                          </th>
+                          <td class="py-5">{product.name}</td>
+                          <td class="py-5">{product.price}</td>
+                          <td class="py-5">{product.count}</td>
+                          <td class="py-5">${product.count * product.price}</td>
+                        </tr>
+                      ))}
+
                       <tr>
                         <th scope="row"></th>
                         <td class="py-5"></td>
@@ -179,7 +155,7 @@ const CheckoutForm = () => {
                         </td>
                         <td class="py-5">
                           <div class="py-3 border-bottom border-top">
-                            <p class="mb-0 text-dark">$414.00</p>
+                            <p class="mb-0 text-dark">${totalCost}</p>
                           </div>
                         </td>
                       </tr>
@@ -238,7 +214,7 @@ const CheckoutForm = () => {
                         <td class="py-5"></td>
                         <td class="py-5">
                           <div class="py-3 border-bottom border-top">
-                            <p class="mb-0 text-dark">$135.00</p>
+                            <p class="mb-0 text-dark">${totalCost}</p>
                           </div>
                         </td>
                       </tr>
