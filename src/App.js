@@ -24,13 +24,12 @@ import { store } from "./services/redux/stores";
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();
-  const { routes } = useRoutes();
+  const { routes, privateRoutes } = useRoutes();
   const { token } = useUser();
   const [ready, setReady] = useState(false); // set after
   const renderRoute = (routes) => (
     <Routes>
-      {" "}
-      {/* Wrap routes in a Routes element */}
+
       {routes.map((route) =>
         "children" in route ? (
           <Route key={route.key} {...route}>
@@ -42,15 +41,26 @@ const App = () => {
       )}
     </Routes>
   );
-  // useEffect(() => {
-  // 	token ? setReady(true) : navigate('/login')
-  // 	setReady(true)
-  // }, [])
-  return (
-    // <>
-    //   <Home />
-    // </>
 
+
+  const renderRoutePrivate = (routes) => (
+    <Routes>
+      {routes.map((route) =>
+        "children" in route ? (
+          <Route key={route.key} {...route}>
+            {renderRoute(route.children)}
+          </Route>
+        ) : (
+          <Route key={route.key} {...route} />
+        )
+      )}
+    </Routes>
+  );
+
+  useEffect(() => {
+  	token ? setReady(true) : setReady(false);
+  }, [])
+  return (
     <>
       <Provider store={store}>
         <ScrollToTop />
