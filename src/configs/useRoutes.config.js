@@ -129,10 +129,9 @@ const useRoutes = () => {
       label: t("checkout").toCapitalize(),
       path: "/checkout",
       element: (
-        // <LayoutClient>
-        //   <Dashboard />
-        // </LayoutClient>
-        <Checkout />
+        <LayoutClient>
+          <Checkout />
+        </LayoutClient>
       ),
     },
   ];
