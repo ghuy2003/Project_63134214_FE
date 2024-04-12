@@ -1,6 +1,23 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart } from "../../services/redux/cartSlice/productSlice";
+import { v4 as uuidv4 } from "uuid";
+const CardItem = ({ id, imgSrc, name, description, price }) => {
+  const dispatch = useDispatch();
 
-const CardItem = ({ imgSrc, name, description, price }) => {
+  const handleAddToCart = () => {
+    console.log("Mua...");
+    dispatch(
+      addProductToCart({
+        id,
+        imgSrc,
+        name,
+        description,
+        price,
+        count: 1,
+      })
+    );
+  };
   return (
     <div className="col-md-6 col-lg-6 col-xl-4">
       <div className="rounded position-relative fruite-item">
@@ -18,13 +35,13 @@ const CardItem = ({ imgSrc, name, description, price }) => {
           <p>{description}</p>
           <div className="d-flex justify-content-between flex-lg-wrap">
             <p className="text-dark fs-5 fw-bold mb-0">{price}</p>
-            <a
-              href="#"
+            <div
               className="btn border border-secondary rounded-pill px-3 text-primary"
+              onClick={handleAddToCart}
             >
               <i className="fa fa-shopping-bag me-2 text-primary"></i> Add to
               cart
-            </a>
+            </div>
           </div>
         </div>
       </div>

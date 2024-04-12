@@ -1,15 +1,47 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  decreaseQuantity,
+  deleteProductFromCart,
+  increaseQuantity,
+} from "../../services/redux/cartSlice/productSlice";
 
-const CartItem = ({
-  id,
-  imgSrc,
-  name,
-  price,
-  count,
-  onIncreaQuality,
-  onDecreaQuality,
-  onDeletedCartItem,
-}) => {
+
+
+const CartItem = ({ id, imgSrc, name, price, count }) => {
+  const dispatch = useDispatch();
+  const handleIncreamentQuality = () => {
+    dispatch(
+      increaseQuantity({
+        id,
+        imgSrc,
+        name,
+        price,
+        count,
+      })
+    );
+  };
+
+  const handleDeleteProduct = () => {
+    dispatch(
+      deleteProductFromCart({
+        id,
+      })
+    );
+  };
+
+  const handleDecreamentQuality = () => {
+    dispatch(
+      decreaseQuantity({
+        id,
+        imgSrc,
+        name,
+        price,
+        count,
+      })
+    );
+  };
+
   return (
     <>
       <tr>
@@ -33,7 +65,7 @@ const CartItem = ({
           <div className="input-group quantity mt-4" style={{ width: "100px" }}>
             <div className="input-group-btn">
               <button
-                onClick={() => onDecreaQuality(id)}
+                onClick={handleDecreamentQuality}
                 className="btn btn-sm btn-minus rounded-circle bg-light border"
               >
                 <i className="fa fa-minus"></i>
@@ -46,7 +78,7 @@ const CartItem = ({
             />
             <div className="input-group-btn">
               <button
-                onClick={() => onIncreaQuality(id)}
+                onClick={handleIncreamentQuality}
                 className="btn btn-sm btn-plus rounded-circle bg-light border"
               >
                 <i className="fa fa-plus"></i>
@@ -59,7 +91,7 @@ const CartItem = ({
         </td>
         <td>
           <button
-            onClick={() => onDeletedCartItem(id)}
+            onClick={handleDeleteProduct}
             className="btn btn-md rounded-circle bg-light border mt-4"
           >
             <i className="fa fa-times text-danger"></i>

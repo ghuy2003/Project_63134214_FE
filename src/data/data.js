@@ -5,7 +5,7 @@ const fruitsData = [
     name: "Grapes",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$4.99 / kg",
+    price: 4.99,
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ const fruitsData = [
     name: "Raspberries",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$3.99 / kg",
+    price: 3.99,
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ const fruitsData = [
     name: "Apricots",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$2.49 / kg",
+    price: 2.49,
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ const fruitsData = [
     name: "Banana",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$1.99 / kg",
+    price: 1.99,
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ const fruitsData = [
     name: "Oranges",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$2.99 / kg",
+    price: 2.99,
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ const fruitsData = [
     name: "Pineapples",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$3.49 / kg",
+    price: 3.49,
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ const fruitsData = [
     name: "Watermelons",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$2.79 / kg",
+    price: 2.79,
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ const fruitsData = [
     name: "Peaches",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$4.29 / kg",
+    price: 4.29,
   },
   {
     id: 9,
@@ -69,7 +69,7 @@ const fruitsData = [
     name: "Kiwi",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: "$5.99 / kg",
+    price: 5.99,
   },
 ];
 
