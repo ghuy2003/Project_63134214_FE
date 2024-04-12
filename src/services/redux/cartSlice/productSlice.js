@@ -28,33 +28,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
     count: 1,
   },
-];
-
-const l = [
-  {
-    id: 1,
-    imgSrc: "img/fruite-item-5.jpg",
-    name: "Grapes",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: 4.99,
-  },
-  {
-    id: 2,
-    imgSrc: "img/fruite-item-2.jpg",
-    name: "Raspberries",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: 3.99,
-  },
-  {
-    id: 3,
-    imgSrc: "img/fruite-item-4.jpg",
-    name: "Apricots",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    price: 2.49,
-  },
+  
 ];
 
 const initialState = {
@@ -123,7 +97,9 @@ export const productSlice = createSlice({
       const isProduct = state.productList.find((product) => product.id === id);
 
       if (isProduct) {
-        state.productList.filter((product) => product.id !== isProduct.id);
+        state.productList = state.productList.filter(
+          (product) => product.id !== isProduct.id
+        );
       }
       console.log(state.productList);
       state.totalCost = calculateTotalCost(state.productList, state.coupon);

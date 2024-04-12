@@ -315,9 +315,9 @@ const ShopList = () => {
                           key={fruit.id}
                           id={fruit.id}
                           imgSrc={fruit.imgSrc}
-                          name={fruit.productName}
-                          description={fruit.productDescription}
-                          price={fruit.prodcutPrice}
+                          name={fruit.name}
+                          description={fruit.description}
+                          price={fruit.price}
                         />
                       );
                     })}

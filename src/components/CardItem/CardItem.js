@@ -34,7 +34,7 @@ const CardItem = ({ id, imgSrc, name, description, price }) => {
           <h4>{name}</h4>
           <p>{description}</p>
           <div className="d-flex justify-content-between flex-lg-wrap">
-            <p className="text-dark fs-5 fw-bold mb-0">{price}</p>
+            <p className="text-dark fs-5 fw-bold mb-0">{price + "$"}</p>
             <div
               className="btn border border-secondary rounded-pill px-3 text-primary"
               onClick={handleAddToCart}

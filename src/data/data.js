@@ -1,6 +1,6 @@
 const fruitsData = [
   {
-    id: 1,
+    id: 4,
     imgSrc: "img/fruite-item-5.jpg",
     name: "Grapes",
     description:
@@ -8,7 +8,7 @@ const fruitsData = [
     price: 4.99,
   },
   {
-    id: 2,
+    id: 5,
     imgSrc: "img/fruite-item-2.jpg",
     name: "Raspberries",
     description:
@@ -16,7 +16,7 @@ const fruitsData = [
     price: 3.99,
   },
   {
-    id: 3,
+    id: 6,
     imgSrc: "img/fruite-item-4.jpg",
     name: "Apricots",
     description:
@@ -24,7 +24,7 @@ const fruitsData = [
     price: 2.49,
   },
   {
-    id: 4,
+    id: 7,
     imgSrc: "img/fruite-item-3.jpg",
     name: "Banana",
     description:
@@ -32,7 +32,7 @@ const fruitsData = [
     price: 1.99,
   },
   {
-    id: 5,
+    id: 8,
     imgSrc: "img/fruite-item-1.jpg",
     name: "Oranges",
     description:
@@ -40,7 +40,7 @@ const fruitsData = [
     price: 2.99,
   },
   {
-    id: 6,
+    id: 9,
     imgSrc: "img/fruite-item-6.jpg",
     name: "Pineapples",
     description:
@@ -48,7 +48,7 @@ const fruitsData = [
     price: 3.49,
   },
   {
-    id: 7,
+    id: 10,
     imgSrc: "img/fruite-item-3.jpg",
     name: "Watermelons",
     description:
@@ -56,7 +56,7 @@ const fruitsData = [
     price: 2.79,
   },
   {
-    id: 8,
+    id: 11,
     imgSrc: "img/fruite-item-2.jpg",
     name: "Peaches",
     description:
@@ -64,7 +64,7 @@ const fruitsData = [
     price: 4.29,
   },
   {
-    id: 9,
+    id: 12,
     imgSrc: "img/fruite-item-1.jpg",
     name: "Kiwi",
     description:
