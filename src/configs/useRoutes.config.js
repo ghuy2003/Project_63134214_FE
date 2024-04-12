@@ -14,6 +14,7 @@ import Shop from "@views/Shop";
 import Cart from "@views/Cart";
 import Register from "@views/components/Login/Register";
 import Contact from "@views/Contact";
+import Dashboard from "@views/components/Dashboard/Dashboard";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -107,6 +108,18 @@ const useRoutes = () => {
         <LayoutClient>
           <Contact />
         </LayoutClient>
+      ),
+    },
+
+    {
+      key: "/dashboard",
+      label: t("dashboard").toCapitalize(),
+      path: "/dashboard",
+      element: (
+        // <LayoutClient>
+        //   <Dashboard />
+        // </LayoutClient>
+        <Dashboard />
       ),
     },
   ];
