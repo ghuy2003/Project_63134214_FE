@@ -98,6 +98,17 @@ const useRoutes = () => {
         </LayoutClient>
       ),
     },
+
+    {
+      key: "/contact",
+      label: t("contact").toCapitalize(),
+      path: "/contact",
+      element: (
+        <LayoutClient>
+          <Contact />
+        </LayoutClient>
+      ),
+    },
   ];
 
   const privateRoutes = [
