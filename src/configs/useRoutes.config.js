@@ -15,6 +15,7 @@ import Cart from "@views/Cart";
 import Register from "@views/components/Login/Register";
 import Contact from "@views/Contact";
 import Dashboard from "@views/components/Dashboard/Dashboard";
+import Checkout from "@views/components/Checkout/Checkout";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -120,6 +121,18 @@ const useRoutes = () => {
         //   <Dashboard />
         // </LayoutClient>
         <Dashboard />
+      ),
+    },
+
+    {
+      key: "/checkout",
+      label: t("checkout").toCapitalize(),
+      path: "/checkout",
+      element: (
+        // <LayoutClient>
+        //   <Dashboard />
+        // </LayoutClient>
+        <Checkout />
       ),
     },
   ];
