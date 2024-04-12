@@ -61,13 +61,10 @@ const Register = () => {
                           id="exampleInputPassword1"
                         />
                       </div>
-                      <a class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
+                      <a class="btn btn-primary w-100 py-8 fs-6 mb-4 rounded-2">
                         Sign Up
                       </a>
                       <div class="d-flex align-items-center justify-content-center">
-                        <p class="fs-4 mb-0 fw-bold">
-                          Already have an Account?
-                        </p>
                         <Link class="text-primary fw-bold ms-2" to={"/login"}>
                           Sign In
                         </Link>

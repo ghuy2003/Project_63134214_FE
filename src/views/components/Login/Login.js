@@ -165,12 +165,11 @@ const Login = () => {
                       <a
                         type="submit"
                         onclick="Register()"
-                        class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
+                        class="btn btn-primary w-100 py-8 fs-6 mb-4 rounded-2"
                       >
                         Sign In
                       </a>
                       <div class="d-flex align-items-center justify-content-center">
-                        <p class="fs-4 mb-0 fw-bold">New to Modernize?</p>
                         <Link
                           class="text-primary fw-bold ms-2"
                           to={"/register"}
