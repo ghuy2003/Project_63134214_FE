@@ -8,6 +8,9 @@ const CouponInput = () => {
   const dispatch = useDispatch();
 
   const handleApplyCouponClick = () => {
+    if (coupon.length === 0) {
+      return;
+    }
     dispatch(applyCoupon({ coupon }));
   };
   return (
