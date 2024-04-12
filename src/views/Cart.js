@@ -3,27 +3,6 @@ import CartTotal from "@components/CartTotal/CartTotal";
 import CouponInput from "@components/CouponInput/CouponInput";
 import React from "react";
 
-const products = [
-  {
-    id: 1,
-    imgSrc: "img/vegetable-item-3.png",
-    name: "Big Banana",
-    price: "2.99 $",
-  },
-  {
-    id: 2,
-    imgSrc: "img/vegetable-item-5.jpg",
-    name: "Potatoes",
-    price: "2.99 $",
-  },
-  {
-    id: 3,
-    imgSrc: "img/vegetable-item-2.jpg",
-    name: "Awesome Brocoli",
-    price: "2.99 $",
-  },
-];
-
 const Cart = () => {
   return (
     <>
@@ -54,7 +33,7 @@ const Cart = () => {
                   <th scope="col">Handle</th>
                 </tr>
               </thead>
-              <CardItemList products={products} />
+              <CardItemList />
             </table>
           </div>
 

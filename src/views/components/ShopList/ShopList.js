@@ -3,24 +3,47 @@ import PriceRangeInput from "@components/PriceRangeInput/PriceRangeInput";
 import React, { useEffect, useState } from "react";
 import fruitsData from "../../../data/data";
 import useShop from "@api/useShop";
-const ShopList = () => {
-  const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setpageSize] = useState(10)
-  const [totalPages , settotalPages] = useState();
-  const {getAllProduct} = useShop();
 
-  useEffect(async () => {
+const ShopList = () => {
+  // const [data, setData] = useState([]);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [pageSize, setpageSize] = useState(10);
+  // const [totalPages, settotalPages] = useState(0);
+  // const { getAllProduct } = useShop();
+
+  // useEffect(async () => {
+  //   setData([...fruitsData]);
+  //   const res = await getAllProduct({
+  //     pageIndex: currentPage,
+  //     pageSize: pageSize,
+  //   });
+  //   if (res.success) {
+  //     setData(res.data.data.items);
+  //     settotalPages(res.data.data.totalCount);
+  //   }
+  // }, []);
+
+  // Test
+  const [data, setData] = useState([]);
+  const itemsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
     setData([...fruitsData]);
-    const res = await getAllProduct({pageIndex: currentPage, pageSize: pageSize })
-    if(res.success) {
-      setData(res.data.data.items)
-      settotalPages(res.data.data.totalCount)
-    }
   }, []);
+
+  const totalItems = data.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = data.slice(startIndex, endIndex);
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  console.log(data, fruitsData);
+
   return (
     <>
       <div class="container-fluid fruite py-5">
@@ -69,41 +92,41 @@ const ShopList = () => {
                         <ul class="list-unstyled fruite-categorie">
                           <li>
                             <div class="d-flex justify-content-between fruite-name">
-                              <a href="#">
+                              <div>
                                 <i class="fas fa-apple-alt me-2"></i>Apples
-                              </a>
+                              </div>
                               <span>(3)</span>
                             </div>
                           </li>
                           <li>
                             <div class="d-flex justify-content-between fruite-name">
-                              <a href="#">
+                              <div>
                                 <i class="fas fa-apple-alt me-2"></i>Oranges
-                              </a>
+                              </div>
                               <span>(5)</span>
                             </div>
                           </li>
                           <li>
                             <div class="d-flex justify-content-between fruite-name">
-                              <a href="#">
+                              <div>
                                 <i class="fas fa-apple-alt me-2"></i>Strawbery
-                              </a>
+                              </div>
                               <span>(2)</span>
                             </div>
                           </li>
                           <li>
                             <div class="d-flex justify-content-between fruite-name">
-                              <a href="#">
+                              <div>
                                 <i class="fas fa-apple-alt me-2"></i>Banana
-                              </a>
+                              </div>
                               <span>(8)</span>
                             </div>
                           </li>
                           <li>
                             <div class="d-flex justify-content-between fruite-name">
-                              <a href="#">
+                              <div>
                                 <i class="fas fa-apple-alt me-2"></i>Pumpkin
-                              </a>
+                              </div>
                               <span>(5)</span>
                             </div>
                           </li>
@@ -111,28 +134,6 @@ const ShopList = () => {
                       </div>
                     </div>
                     <div class="col-lg-12">
-                      {/* <div class="mb-3">
-                        <h4 class="mb-2">Price</h4>
-                        <input
-                          type="range"
-                          class="form-range w-100"
-                          id="rangeInput"
-                          name="rangeInput"
-                          min="0"
-                          max="500"
-                          value="0"
-                          oninput="amount.value=rangeInput.value"
-                        />
-                        <output
-                          id="amount"
-                          name="amount"
-                          min-velue="0"
-                          max-value="500"
-                          for="rangeInput"
-                        >
-                          372
-                        </output>
-                      </div> */}
                       <PriceRangeInput />
                     </div>
                     <div class="col-lg-12">
@@ -277,12 +278,9 @@ const ShopList = () => {
                         </div>
                       </div>
                       <div class="d-flex justify-content-center my-4">
-                        <a
-                          href="#"
-                          class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100"
-                        >
+                        <div class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">
                           Vew More
-                        </a>
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-12">
@@ -315,13 +313,46 @@ const ShopList = () => {
                       return (
                         <CardItem
                           key={fruit.id}
+                          id={fruit.id}
                           imgSrc={fruit.imgSrc}
-                          name={fruit.productName}
-                          description={fruit.productDescription}
-                          price={fruit.prodcutPrice}
+                          name={fruit.name}
+                          description={fruit.description}
+                          price={fruit.price}
                         />
                       );
                     })}
+
+                    {/* <div className="col-12">
+                      <div className="pagination d-flex justify-content-center mt-5">
+                        <div
+                          className="rounded"
+                          onClick={() => handlePageChange(currentPage - 1)}
+                          disabled={currentPage === 1}
+                        >
+                          «
+                        </div>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                          <div
+                            key={index}
+                            className={
+                              currentPage === index + 1
+                                ? "active rounded"
+                                : "rounded"
+                            }
+                            onClick={() => handlePageChange(index + 1)}
+                          >
+                            {index + 1}
+                          </div>
+                        ))}
+                        <div
+                          className="rounded"
+                          onClick={() => handlePageChange(currentPage + 1)}
+                          disabled={currentPage === totalPages}
+                        >
+                          »
+                        </div>
+                      </div>
+                    </div> */}
 
                     <div className="col-12">
                       <div className="pagination d-flex justify-content-center mt-5">

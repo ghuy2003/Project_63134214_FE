@@ -19,6 +19,8 @@ import Cart from "@views/Cart";
 import Login from "@views/components/Login/Login";
 import Register from "@views/components/Login/Register";
 import Dashboard from "@views/components/Dashboard/Dashboard";
+import { Provider } from "react-redux";
+import { store } from "./services/redux/stores";
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();
@@ -60,9 +62,11 @@ const App = () => {
   }, [])
   return (
     <>
-      <ScrollToTop />
-      {renderRoute(routes)}
-      <ScrollToTopButton />
+      <Provider store={store}>
+        <ScrollToTop />
+        {renderRoute(routes)}
+        <ScrollToTopButton />
+      </Provider>
     </>
   );
 };

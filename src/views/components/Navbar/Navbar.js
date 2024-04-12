@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { totalQuanlity } from "../../../services/redux/cartSlice/productSlice";
 
 function Navbar() {
-  const [isShowModalSearch, setIsShowModalSearch] = useState(false);
+  // const [isShowModalSearch, setIsShowModalSearch] = useState(false);
 
-  const toggleShowModal = () => {
-    setIsShowModalSearch(!isShowModalSearch);
-  };
+  // const toggleShowModal = () => {
+  //   setIsShowModalSearch(!isShowModalSearch);
+  // };
 
+  const totalQuantity = useSelector((state) => state.products.totalQuantity);
   return (
     <div className="container-fluid fixed-top">
       <div className="container topbar bg-primary d-none d-lg-block">
@@ -101,7 +104,6 @@ function Navbar() {
                 className="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                 data-bs-toggle="modal"
                 data-bs-target="#searchModal"
-                onClick={toggleShowModal}
               >
                 <i className="fas fa-search text-primary"></i>
               </button>
@@ -116,7 +118,7 @@ function Navbar() {
                     minWidth: "20px",
                   }}
                 >
-                  3
+                  {totalQuantity ?? "0"}
                 </span>
               </Link>
               <Link to={"/login"} className="my-auto">
