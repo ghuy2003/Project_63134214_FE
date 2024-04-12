@@ -19,6 +19,7 @@ const CheckoutForm = () => {
     createAccount: false,
     shipToDifferentAddress: false,
     orderNotes: "",
+    totalPrice: 0,
   });
 
   const handleInputChange = (event) => {
@@ -39,24 +40,31 @@ const CheckoutForm = () => {
 
   const handleShippingChange = (event) => {
     const { id, checked } = event.target;
+    let newShippingCost = shippingCost;
 
     switch (id) {
       case "Shipping-1":
-        setShippingCost(checked ? 0 : 0);
+        newShippingCost = checked ? newShippingCost : 0;
         break;
       case "Shipping-2":
-        setShippingCost(checked ? 15 : 0);
+        newShippingCost = checked ? newShippingCost + 15 : newShippingCost - 15;
         break;
       case "Shipping-3":
-        setShippingCost(checked ? 8 : 0);
+        newShippingCost = checked ? newShippingCost + 8 : newShippingCost - 8;
         break;
       default:
         break;
     }
+
+    setShippingCost(newShippingCost);
   };
 
   useEffect(() => {
-    setTotalPriceAfterAddShipping(+totalCost + shippingCost);
+    setTotalPriceAfterAddShipping((+totalCost + shippingCost).toFixed(2));
+    setFormData({
+      ...formData,
+      totalPrice: totalPriceAfterAddShipping,
+    });
   }, [shippingCost]);
 
   return (
