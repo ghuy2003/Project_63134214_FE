@@ -1,3 +1,5 @@
+import { validateChangeAndBlurInput } from "@utils/validateChangeAndBlurInput";
+import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -67,114 +69,111 @@ const CheckoutForm = () => {
     });
   }, [shippingCost]);
 
+  //validate
+
+  const validate = (values) => {
+    const errors = {};
+
+    if (!values.firstName) {
+      errors.firstName = "Please enter your first name";
+    } else if (values.firstName.length <= 3) {
+      errors.firstName = "First name must be at least 3 characters";
+    } else if (values.firstName.length >= 50) {
+      errors.firstName = "First name must not exceed 50 characters";
+    }
+
+    if (!values.lastName) {
+      errors.lastName = "Please enter your last name";
+    } else if (values.lastName.length <= 3) {
+      errors.lastName = "Last name must be at least 3 characters";
+    } else if (values.lastName.length >= 50) {
+      errors.lastName = "Last name must not exceed 50 characters";
+    }
+
+    if (!values.companyName) {
+      errors.companyName = "Please enter your company name";
+    } else if (values.companyName.length <= 3) {
+      errors.companyName = "Company name must be at least 3 characters";
+    } else if (values.companyName.length >= 100) {
+      errors.companyName = "Company name must not exceed 50 characters";
+    }
+
+    if (!values.address) {
+      errors.address = "Please enter your address";
+    } else if (values.address.length <= 3) {
+      errors.address = "Address must be at least 3 characters";
+    } else if (values.address.length >= 200) {
+      errors.address = "Address must not exceed 100 characters";
+    }
+
+    if (!values.townCity) {
+      errors.townCity = "Please enter your town/city";
+    } else if (values.townCity.length <= 3) {
+      errors.townCity = "Town/city must be at least 3 characters";
+    } else if (values.townCity.length >= 100) {
+      errors.townCity = "Town/city must not exceed 50 characters";
+    }
+
+    if (!values.country) {
+      errors.country = "Please enter your country";
+    } else if (values.country.length <= 3) {
+      errors.country = "Country must be at least 3 characters";
+    } else if (values.country.length >= 100) {
+      errors.country = "Country must not exceed 50 characters";
+    }
+
+    if (!values.postCode) {
+      errors.postCode = "Please enter your postcode/zip";
+    } else if (!/^[a-zA-Z0-9]{3,}$/.test(values.postCode)) {
+      errors.postCode = "Invalid postcode/zip";
+    }
+
+    if (!values.email) {
+      errors.email = "Please enter your email";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!values.phone) {
+      errors.phone = "Please enter your phone number";
+    } else if (!/^\d{10}$/.test(values.phone)) {
+      errors.phone = "Invalid phone number";
+    }
+
+    if (values.orderNotes.length >= 500) {
+      errors.orderNotes = "Order notes must not exceed 500 characters";
+    }
+
+    return errors;
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastname: "",
+      companyname: "",
+      address: "",
+      townCity: "",
+      country: "",
+      postCode: "",
+      email: "",
+      phone: "",
+      orderNotes: "",
+    },
+    validate,
+
+    onSubmit: (values) => {
+      console.log(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <>
       <div class="container-fluid py-5">
         <div class="container py-5">
           <h1 class="mb-4">Billing details</h1>
-          <form action="#">
+          <form action="#" onSubmit={formik.handleSubmit}>
             <div class="row g-5">
-              {/* <div class="col-md-12 col-lg-6 col-xl-7">
-                <div class="row">
-                  <div class="col-md-12 col-lg-6">
-                    <div class="form-item w-100">
-                      <label class="form-label my-3">
-                        First Name<sup>*</sup>
-                      </label>
-                      <input type="text" class="form-control" />
-                    </div>
-                  </div>
-                  <div class="col-md-12 col-lg-6">
-                    <div class="form-item w-100">
-                      <label class="form-label my-3">
-                        Last Name<sup>*</sup>
-                      </label>
-                      <input type="text" class="form-control" />
-                    </div>
-                  </div>
-                </div>
-                <div class="form-item">
-                  <label class="form-label my-3">
-                    Company Name<sup>*</sup>
-                  </label>
-                  <input type="text" class="form-control" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label my-3">
-                    Address <sup>*</sup>
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="House Number Street Name"
-                  />
-                </div>
-                <div class="form-item">
-                  <label class="form-label my-3">
-                    Town/City<sup>*</sup>
-                  </label>
-                  <input type="text" class="form-control" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label my-3">
-                    Country<sup>*</sup>
-                  </label>
-                  <input type="text" class="form-control" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label my-3">
-                    Postcode/Zip<sup>*</sup>
-                  </label>
-                  <input type="text" class="form-control" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label my-3">
-                    Mobile<sup>*</sup>
-                  </label>
-                  <input type="tel" class="form-control" />
-                </div>
-                <div class="form-item">
-                  <label class="form-label my-3">
-                    Email Address<sup>*</sup>
-                  </label>
-                  <input type="email" class="form-control" />
-                </div>
-                <div class="form-check my-3">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="Account-1"
-                    name="Accounts"
-                    value="Accounts"
-                  />
-                  <label class="form-check-label" for="Account-1">
-                    Create an account?
-                  </label>
-                </div>
-                <hr />
-                <div class="form-check my-3">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="Address-1"
-                    name="Address"
-                    value="Address"
-                  />
-                  <label class="form-check-label" for="Address-1">
-                    Ship to a different address?
-                  </label>
-                </div>
-                <div class="form-item">
-                  <textarea
-                    name="text"
-                    class="form-control"
-                    spellcheck="false"
-                    cols="30"
-                    rows="11"
-                    placeholder="Oreder Notes (Optional)"
-                  ></textarea>
-                </div>
-              </div> */}
               <div class="col-md-12 col-lg-6 col-xl-7">
                 <div class="row">
                   <div class="col-md-12 col-lg-6">
@@ -184,11 +183,24 @@ const CheckoutForm = () => {
                       </label>
                       <input
                         type="text"
-                        class="form-control"
+                        class={`form-control ${
+                          formik.touched.firstName
+                            ? formik.errors.firstName
+                              ? "is-invalid"
+                              : "is-valid"
+                            : ""
+                        }`}
                         name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
+                        value={formik.values.firstName}
+                        onChange={(e) =>
+                          validateChangeAndBlurInput(e, "firstName", formik)
+                        }
                       />
+                      {formik.touched.firstName && formik.errors.firstName ? (
+                        <div className="invalid-feedback">
+                          {formik.errors.firstName}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   <div class="col-md-12 col-lg-6">
@@ -198,11 +210,24 @@ const CheckoutForm = () => {
                       </label>
                       <input
                         type="text"
-                        class="form-control"
+                        class={`form-control ${
+                          formik.touched.lastName
+                            ? formik.errors.lastName
+                              ? "is-invalid"
+                              : "is-valid"
+                            : ""
+                        }`}
                         name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
+                        value={formik.values.lastName}
+                        onChange={(e) =>
+                          validateChangeAndBlurInput(e, "lastName", formik)
+                        }
                       />
+                      {formik.touched.lastName && formik.errors.lastName ? (
+                        <div className="invalid-feedback">
+                          {formik.errors.lastName}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -212,11 +237,25 @@ const CheckoutForm = () => {
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    class={`form-control ${
+                      formik.touched.companyName
+                        ? formik.errors.companyName
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
                     name="companyName"
-                    value={formData.companyName}
-                    onChange={handleInputChange}
+                    value={formik.values.companyName}
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "companyName", formik)
+                    }
                   />
+
+                  {formik.touched.companyName && formik.errors.companyName ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.companyName}
+                    </div>
+                  ) : null}
                 </div>
                 <div class="form-item">
                   <label class="form-label my-3">
@@ -224,12 +263,26 @@ const CheckoutForm = () => {
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    class={`form-control ${
+                      formik.touched.address
+                        ? formik.errors.address
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
                     name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
+                    value={formik.values.address}
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "address", formik)
+                    }
                     placeholder="House Number Street Name"
                   />
+
+                  {formik.touched.address && formik.errors.address ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.address}
+                    </div>
+                  ) : null}
                 </div>
                 <div class="form-item">
                   <label class="form-label my-3">
@@ -237,11 +290,25 @@ const CheckoutForm = () => {
                   </label>
                   <input
                     type="text"
-                    class="form-control"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
+                    class={`form-control ${
+                      formik.touched.townCity
+                        ? formik.errors.townCity
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
+                    name="townCity"
+                    value={formik.values.townCity}
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "townCity", formik)
+                    }
                   />
+
+                  {formik.touched.townCity && formik.errors.townCity ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.townCity}
+                    </div>
+                  ) : null}
                 </div>
                 <div class="form-item">
                   <label class="form-label my-3">
@@ -249,11 +316,25 @@ const CheckoutForm = () => {
                   </label>
                   <input
                     type="text"
-                    class="form-control"
+                    class={`form-control ${
+                      formik.touched.country
+                        ? formik.errors.country
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
                     name="country"
-                    value={formData.country}
-                    onChange={handleInputChange}
+                    value={formik.values.country}
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "country", formik)
+                    }
                   />
+
+                  {formik.touched.country && formik.errors.country ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.country}
+                    </div>
+                  ) : null}
                 </div>
                 <div class="form-item">
                   <label class="form-label my-3">
@@ -261,11 +342,25 @@ const CheckoutForm = () => {
                   </label>
                   <input
                     type="text"
-                    class="form-control"
-                    name="postcode"
-                    value={formData.postcode}
-                    onChange={handleInputChange}
+                    class={`form-control ${
+                      formik.touched.postCode
+                        ? formik.errors.postCode
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
+                    name="postCode"
+                    value={formik.values.postCode}
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "postCode", formik)
+                    }
                   />
+
+                  {formik.touched.postCode && formik.errors.postCode ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.postCode}
+                    </div>
+                  ) : null}
                 </div>
                 <div class="form-item">
                   <label class="form-label my-3">
@@ -273,11 +368,25 @@ const CheckoutForm = () => {
                   </label>
                   <input
                     type="tel"
-                    class="form-control"
-                    name="mobile"
-                    value={formData.mobile}
-                    onChange={handleInputChange}
+                    class={`form-control ${
+                      formik.touched.phone
+                        ? formik.errors.phone
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
+                    name="phone"
+                    value={formik.values.phone}
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "phone", formik)
+                    }
                   />
+
+                  {formik.touched.phone && formik.errors.phone ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.phone}
+                    </div>
+                  ) : null}
                 </div>
                 <div class="form-item">
                   <label class="form-label my-3">
@@ -285,11 +394,25 @@ const CheckoutForm = () => {
                   </label>
                   <input
                     type="email"
-                    class="form-control"
+                    class={`form-control ${
+                      formik.touched.email
+                        ? formik.errors.email
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
                     name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
+                    value={formik.values.email}
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "email", formik)
+                    }
                   />
+
+                  {formik.touched.email && formik.errors.email ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.email}
+                    </div>
+                  ) : null}
                 </div>
                 <div class="form-check my-3">
                   <input
@@ -323,14 +446,27 @@ const CheckoutForm = () => {
                 <div class="form-item">
                   <textarea
                     name="orderNotes"
-                    class="form-control"
+                    class={`form-control ${
+                      formik.touched.orderNotes
+                        ? formik.errors.orderNotes
+                          ? "is-invalid"
+                          : "is-valid"
+                        : ""
+                    }`}
                     spellcheck="false"
-                    cols="30"
-                    rows="11"
-                    value={formData.orderNotes}
-                    onChange={handleInputChange}
+                    cols="40"
+                    onChange={(e) =>
+                      validateChangeAndBlurInput(e, "orderNotes", formik)
+                    }
+                    value={formik.values.orderNotes}
                     placeholder="Order Notes (Optional)"
                   ></textarea>
+
+                  {formik.touched.orderNotes && formik.errors.orderNotes ? (
+                    <div className="invalid-feedback">
+                      {formik.errors.orderNotes}
+                    </div>
+                  ) : null}
                 </div>
                 <button
                   type="submit"
