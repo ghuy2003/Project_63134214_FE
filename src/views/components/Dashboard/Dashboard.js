@@ -5,6 +5,7 @@ import SidebarTop from "../SidebarTop/SidebarTop";
 import SaleOverview from "../SaleOverview/SaleOverview";
 import RecentTransactionsLeft from "../RecentTransactionsLeft/RecentTransactionsLeft";
 import RecentTransactionsRight from "../RecentTransactionsRight/RecentTransactionsRight";
+import TableDataDashboard from "../TableDataDashboard/TableDataDashboard";
 
 const Dashboard = () => {
   return (
@@ -26,13 +27,14 @@ const Dashboard = () => {
           <SidebarTop />
 
           <div class="container-fluid">
-            <SaleOverview />
+            {/* <SaleOverview /> */}
 
             {/* ========================================= */}
-            <RecentTransactionsLeft />
+            {/* <RecentTransactionsLeft /> */}
 
             {/* ========================================== */}
-            <RecentTransactionsRight />
+            {/* <RecentTransactionsRight /> */}
+            <TableDataDashboard />
           </div>
         </div>
       </div>
