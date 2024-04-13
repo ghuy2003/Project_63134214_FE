@@ -3,7 +3,9 @@ import useTranslate from "@lang";
 import useAuth from "@api/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import useUser from "@store/useUser";
-import {NotificationManager} from 'react-notifications'
+import { ToastContainer, toast } from 'react-toastify';
+import { message, notification } from 'antd'
+
 import "@styles/scss/custom-input.scss";
 import "./assets/css/styles.min.css";
 
@@ -21,8 +23,13 @@ const Login = () => {
 
   const handleLogin = async () => {
     const { success, data } = await login({ UserName: username, Password: password });
-    if (success) {
-      // NotificationManager.success(data., 'Title here');
+    console.log(success,data);
+    if (data.status != "Error") {
+
+    } else  {
+      
+      
+  
     }
   };
 

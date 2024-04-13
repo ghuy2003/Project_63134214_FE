@@ -21,6 +21,8 @@ import Register from "@views/components/Login/Register";
 import Dashboard from "@views/components/Dashboard/Dashboard";
 import { Provider } from "react-redux";
 import { store } from "./services/redux/stores";
+import { NotificationContainer } from "react-notifications";
+import { ToastContainer } from "react-toastify";
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();
@@ -67,6 +69,9 @@ const App = () => {
         {renderRoute(routes)}
         <ScrollToTopButton />
       </Provider>
+
+      <ToastContainer  position="top-right" autoClose={5000}/>
+      
     </>
   );
 };
