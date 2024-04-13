@@ -1,6 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const CheckoutForm = () => {
+  const productList = useSelector((state) => state.products.productList);
+  const totalCost = useSelector((state) => state.products.totalCost);
+  const [totalPriceAfterAddShipping, setTotalPriceAfterAddShipping] =
+    useState(totalCost);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    companyName: "",
+    address: "",
+    city: "",
+    country: "",
+    postcode: "",
+    mobile: "",
+    email: "",
+    createAccount: false,
+    shipToDifferentAddress: false,
+    orderNotes: "",
+    totalPrice: 0,
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("Form Data:", formData);
+  };
+
+  const [shippingCost, setShippingCost] = useState(0);
+
+  const handleShippingChange = (event) => {
+    const { id, checked } = event.target;
+    let newShippingCost = shippingCost;
+
+    switch (id) {
+      case "Shipping-1":
+        newShippingCost = checked ? newShippingCost : 0;
+        break;
+      case "Shipping-2":
+        newShippingCost = checked ? newShippingCost + 15 : newShippingCost - 15;
+        break;
+      case "Shipping-3":
+        newShippingCost = checked ? newShippingCost + 8 : newShippingCost - 8;
+        break;
+      default:
+        break;
+    }
+
+    setShippingCost(newShippingCost);
+  };
+
+  useEffect(() => {
+    setTotalPriceAfterAddShipping((+totalCost + shippingCost).toFixed(2));
+    setFormData({
+      ...formData,
+      totalPrice: totalPriceAfterAddShipping,
+    });
+  }, [shippingCost]);
+
   return (
     <>
       <div class="container-fluid py-5">
@@ -8,7 +74,7 @@ const CheckoutForm = () => {
           <h1 class="mb-4">Billing details</h1>
           <form action="#">
             <div class="row g-5">
-              <div class="col-md-12 col-lg-6 col-xl-7">
+              {/* <div class="col-md-12 col-lg-6 col-xl-7">
                 <div class="row">
                   <div class="col-md-12 col-lg-6">
                     <div class="form-item w-100">
@@ -108,7 +174,174 @@ const CheckoutForm = () => {
                     placeholder="Oreder Notes (Optional)"
                   ></textarea>
                 </div>
+              </div> */}
+              <div class="col-md-12 col-lg-6 col-xl-7">
+                <div class="row">
+                  <div class="col-md-12 col-lg-6">
+                    <div class="form-item w-100">
+                      <label class="form-label my-3">
+                        First Name<sup>*</sup>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-lg-6">
+                    <div class="form-item w-100">
+                      <label class="form-label my-3">
+                        Last Name<sup>*</sup>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-item">
+                  <label class="form-label my-3">
+                    Company Name<sup>*</sup>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="form-item">
+                  <label class="form-label my-3">
+                    Address <sup>*</sup>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    placeholder="House Number Street Name"
+                  />
+                </div>
+                <div class="form-item">
+                  <label class="form-label my-3">
+                    Town/City<sup>*</sup>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="form-item">
+                  <label class="form-label my-3">
+                    Country<sup>*</sup>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="country"
+                    value={formData.country}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="form-item">
+                  <label class="form-label my-3">
+                    Postcode/Zip<sup>*</sup>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="postcode"
+                    value={formData.postcode}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="form-item">
+                  <label class="form-label my-3">
+                    Mobile<sup>*</sup>
+                  </label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="form-item">
+                  <label class="form-label my-3">
+                    Email Address<sup>*</sup>
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="form-check my-3">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="Account-1"
+                    name="createAccount"
+                    checked={formData.createAccount}
+                    onChange={handleInputChange}
+                    value="Accounts"
+                  />
+                  <label class="form-check-label" for="Account-1">
+                    Create an account?
+                  </label>
+                </div>
+                <hr />
+                <div class="form-check my-3">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="Address-1"
+                    name="shipToDifferentAddress"
+                    checked={formData.shipToDifferentAddress}
+                    onChange={handleInputChange}
+                    value="Address"
+                  />
+                  <label class="form-check-label" for="Address-1">
+                    Ship to a different address?
+                  </label>
+                </div>
+                <div class="form-item">
+                  <textarea
+                    name="orderNotes"
+                    class="form-control"
+                    spellcheck="false"
+                    cols="30"
+                    rows="11"
+                    value={formData.orderNotes}
+                    onChange={handleInputChange}
+                    placeholder="Order Notes (Optional)"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary mt-4"
+                  onClick={handleSubmit}
+                >
+                  Place Order
+                </button>
               </div>
+
+              {/* =========================================================== */}
               <div class="col-md-12 col-lg-6 col-xl-5">
                 <div class="table-responsive">
                   <table class="table">
@@ -122,54 +355,25 @@ const CheckoutForm = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">
-                          <div class="d-flex align-items-center mt-2">
-                            <img
-                              src="img/vegetable-item-2.jpg"
-                              class="img-fluid rounded-circle"
-                              style={{ width: "90px", height: "90px" }}
-                              alt=""
-                            />
-                          </div>
-                        </th>
-                        <td class="py-5">Awesome Brocoli</td>
-                        <td class="py-5">$69.00</td>
-                        <td class="py-5">2</td>
-                        <td class="py-5">$138.00</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <div class="d-flex align-items-center mt-2">
-                            <img
-                              src="img/vegetable-item-5.jpg"
-                              class="img-fluid rounded-circle"
-                              style={{ width: "90px", height: "90px" }}
-                              alt=""
-                            />
-                          </div>
-                        </th>
-                        <td class="py-5">Potatoes</td>
-                        <td class="py-5">$69.00</td>
-                        <td class="py-5">2</td>
-                        <td class="py-5">$138.00</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <div class="d-flex align-items-center mt-2">
-                            <img
-                              src="img/vegetable-item-3.png"
-                              class="img-fluid rounded-circle"
-                              style={{ width: "90px", height: "90px" }}
-                              alt=""
-                            />
-                          </div>
-                        </th>
-                        <td class="py-5">Big Banana</td>
-                        <td class="py-5">$69.00</td>
-                        <td class="py-5">2</td>
-                        <td class="py-5">$138.00</td>
-                      </tr>
+                      {productList.map((product) => (
+                        <tr key={product.id}>
+                          <th scope="row">
+                            <div class="d-flex align-items-center mt-2">
+                              <img
+                                src={product.imgSrc}
+                                class="img-fluid rounded-circle"
+                                style={{ width: "90px", height: "90px" }}
+                                alt=""
+                              />
+                            </div>
+                          </th>
+                          <td class="py-5">{product.name}</td>
+                          <td class="py-5">{product.price}</td>
+                          <td class="py-5">{product.count}</td>
+                          <td class="py-5">${product.count * product.price}</td>
+                        </tr>
+                      ))}
+
                       <tr>
                         <th scope="row"></th>
                         <td class="py-5"></td>
@@ -179,7 +383,7 @@ const CheckoutForm = () => {
                         </td>
                         <td class="py-5">
                           <div class="py-3 border-bottom border-top">
-                            <p class="mb-0 text-dark">$414.00</p>
+                            <p class="mb-0 text-dark">${totalCost}</p>
                           </div>
                         </td>
                       </tr>
@@ -196,6 +400,7 @@ const CheckoutForm = () => {
                               id="Shipping-1"
                               name="Shipping-1"
                               value="Shipping"
+                              onChange={handleShippingChange}
                             />
                             <label class="form-check-label" for="Shipping-1">
                               Free Shipping
@@ -208,6 +413,7 @@ const CheckoutForm = () => {
                               id="Shipping-2"
                               name="Shipping-1"
                               value="Shipping"
+                              onChange={handleShippingChange}
                             />
                             <label class="form-check-label" for="Shipping-2">
                               Flat rate: $15.00
@@ -220,6 +426,7 @@ const CheckoutForm = () => {
                               id="Shipping-3"
                               name="Shipping-1"
                               value="Shipping"
+                              onChange={handleShippingChange}
                             />
                             <label class="form-check-label" for="Shipping-3">
                               Local Pickup: $8.00
@@ -238,7 +445,9 @@ const CheckoutForm = () => {
                         <td class="py-5"></td>
                         <td class="py-5">
                           <div class="py-3 border-bottom border-top">
-                            <p class="mb-0 text-dark">$135.00</p>
+                            <p class="mb-0 text-dark">
+                              ${totalPriceAfterAddShipping}
+                            </p>
                           </div>
                         </td>
                       </tr>
