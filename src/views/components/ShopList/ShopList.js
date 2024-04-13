@@ -1,7 +1,6 @@
 import CardItem from "@components/CardItem/CardItem";
 import PriceRangeInput from "@components/PriceRangeInput/PriceRangeInput";
 import React, { useEffect, useState } from "react";
-import fruitsData from "../../../data/data";
 import useProduct from "@api/useProduct";
 import { toast } from "react-toastify";
 import useBranch from "@api/useBranch";
@@ -10,18 +9,21 @@ const ShopList = () => {
   const [dataProduct, setData] = useState([]);
   const [branchProduct, setBranch] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setpageSize] = useState(10);
+  const [pageSize, setpageSize] = useState(30);
   const [totalPages, settotalPages] = useState(0);
+
+
+  const [nameSearch, setNameSearch] = useState('');
   const { getAll } = useProduct();
   const { getBranch } = useBranch();
   const fetchProduct = async () => {
     const {success,data} = await getAll({
       pageIndex: currentPage,
       pageSize: pageSize,
+      ProductName: nameSearch
     });
     if(success && data.status != 'Error') {
       setData(data.data.items)
-
       settotalPages(10);
     } else {
       toast.error(data.message)
@@ -39,6 +41,12 @@ const ShopList = () => {
     }
   }
 
+  const hanleChangeNameSearch = (e) => {
+    setNameSearch(e.target.value)
+  }
+  const handleSearch = () => {
+    fetchProduct()
+  }
   useEffect(() => {
     fetchProduct();
     fetchBranch()
@@ -61,8 +69,9 @@ const ShopList = () => {
                       class="form-control p-3"
                       placeholder="keywords"
                       aria-describedby="search-icon-1"
+                      onChange={(e) => hanleChangeNameSearch(e)}
                     />
-                    <span id="search-icon-1" class="input-group-text p-3">
+                    <span id="search-icon-1" class="input-group-text p-3" style={{cursor: 'pointer'}} onClick={handleSearch}>
                       <i class="fa fa-search"></i>
                     </span>
                   </div>
@@ -100,7 +109,7 @@ const ShopList = () => {
                                   <div>
                                     <i class="fas fa-apple-alt me-2"></i>{items.branchName}
                                   </div>
-                                  <span>({items.CountProduct})</span>
+                                  <span>({items.countProduct})</span>
                                 </div> 
                               </li>
                               )
@@ -232,8 +241,6 @@ const ShopList = () => {
                 <div class="col-lg-9">
                   <div class="row g-4 justify-content-center">
                     {dataProduct.map((fruit,index) => {
-
-                      console.log(fruit);
                       return (
                         <CardItem
                           key={fruit.id}
