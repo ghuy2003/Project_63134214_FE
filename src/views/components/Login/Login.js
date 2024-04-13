@@ -68,8 +68,6 @@ const Login = () => {
       errors.username = "Username must not exceed 50 characters";
     }
 
-    console.log("validate......");
-
     // if (!values.lastName) {
     //   errors.lastName = "Required";
     // } else if (values.lastName.length > 20) {
