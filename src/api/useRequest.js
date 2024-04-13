@@ -54,7 +54,6 @@ const useRequest = (prefixPath = '') => {
 				.then(res => {
 					const { data } = res
 					const { message } = data
-					message && antdMessage.success(t(message))
 					return {
 						success: true,
 						data

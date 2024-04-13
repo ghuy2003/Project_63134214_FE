@@ -6,9 +6,9 @@ const useAuth = () => {
 		endpoint: '/login',
 		data: {UserName,Password }
 	})
-	const register = ({ UserName, Password, Email }) => createPostRequest({
+	const register = (data) => createPostRequest({
 		endpoint: '/register',
-		data: {UserName,Password }
+		data: data
 	})
 
 	return {

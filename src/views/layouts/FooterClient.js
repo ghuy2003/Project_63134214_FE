@@ -65,8 +65,8 @@ function FooterClient() {
               <div class="footer-item">
                 <h4 class="text-light mb-3">Why People Like us!</h4>
                 <p class="mb-4">
-                  typesetting, remaining essentially unchanged. It was
-                  popularised in the 1960s with the like Aldus PageMaker
+                  Typesetting, remaining essentially unchanged. It was
+                  popularised in the 2024@ with the like Aldus PageMaker
                   including of Lorem Ipsum.
                 </p>
                 <a
@@ -126,9 +126,9 @@ function FooterClient() {
             <div class="col-lg-3 col-md-6">
               <div class="footer-item">
                 <h4 class="text-light mb-3">Contact</h4>
-                <p>Address: 1429 Netus Rd, NY 48247</p>
-                <p>Email: Example@gmail.com</p>
-                <p>Phone: +0123 4567 8910</p>
+                <p>Address: My Dinh, Ha Noi</p>
+                <p>Email: ndt13102003@gmail.com</p>
+                <p>Phone: +346540662</p>
                 <p>Payment Accepted</p>
                 <img src="img/payment.png" class="img-fluid" alt="" />
               </div>
@@ -137,29 +137,6 @@ function FooterClient() {
         </div>
       </div>
 
-      <div class="container-fluid copyright bg-dark py-4">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              <span class="text-light">
-                <a href="#">
-                  <i class="fas fa-copyright text-light me-2"></i>Your Site Name
-                </a>
-                , All right reserved.
-              </span>
-            </div>
-            <div class="col-md-6 my-auto text-center text-md-end text-white">
-              <a class="border-bottom" href="https://htmlcodex.com">
-                HTML Codex
-              </a>
-              Distributed By
-              <a class="border-bottom" href="https://themewagon.com">
-                ThemeWagon
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     </> );
 }

@@ -3,6 +3,8 @@ import { Layout } from 'antd'
 
 const Body = ({ children }) => {
 	return (
+
+	
 		<Layout.Content
 			style={{
 				flex: 1,

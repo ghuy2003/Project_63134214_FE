@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import useUser from "@store/useUser";
 import { ToastContainer, toast } from 'react-toastify';
 import { message, notification } from 'antd'
-
+import 'react-toastify/dist/ReactToastify.css';
+import img1 from './assets/images/logos/dark-logo.svg'
 import "@styles/scss/custom-input.scss";
 import "./assets/css/styles.min.css";
 
@@ -24,12 +25,11 @@ const Login = () => {
   const handleLogin = async () => {
     const { success, data } = await login({ UserName: username, Password: password });
     console.log(success,data);
-    if (data.status != "Error") {
-
+    if (data.status == "Error") {
+      toast.error(data.message)
     } else  {
       
-      
-  
+      toast.success(data.message)
     }
   };
 
@@ -44,14 +44,14 @@ const Login = () => {
       data-header-position="fixed"
     >
       <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
-        <div class="d-flex align-items-center justify-content-center w-100">
+        <div class="d-flex align-items-center justify-content-center w-100" style={{marginTop: '100px'}}>
           <div class="row justify-content-center w-100">
-            <div class="col-md-8 col-lg-6 col-xxl-3">
+            <div class="col-md-12 col-lg-6 col-xxl-4">
               <div class="card mb-0">
                 <div class="card-body">
                   <a class="text-nowrap logo-img text-center d-block py-3 w-100">
                     <img
-                      src="../assets/images/logos/dark-logo.svg"
+                      src={img1}
                       width="180"
                       alt=""
                     />
@@ -82,21 +82,6 @@ const Login = () => {
                       />
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="form-check">
-                        <input
-                          class="form-check-input primary"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                          checked
-                        />
-                        <label
-                          class="form-check-label text-dark"
-                          for="flexCheckChecked"
-                        >
-                          Remeber this Device
-                        </label>
-                      </div>
                       <a class="text-primary fw-bold">Forgot Password ?</a>
                     </div>
                     <a

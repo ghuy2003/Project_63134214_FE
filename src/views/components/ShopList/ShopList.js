@@ -2,48 +2,50 @@ import CardItem from "@components/CardItem/CardItem";
 import PriceRangeInput from "@components/PriceRangeInput/PriceRangeInput";
 import React, { useEffect, useState } from "react";
 import fruitsData from "../../../data/data";
-import useShop from "@api/useShop";
+import useProduct from "@api/useProduct";
+import { toast } from "react-toastify";
+import useBranch from "@api/useBranch";
 
 const ShopList = () => {
-  // const [data, setData] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [pageSize, setpageSize] = useState(10);
-  // const [totalPages, settotalPages] = useState(0);
-  // const { getAllProduct } = useShop();
-
-  // useEffect(async () => {
-  //   setData([...fruitsData]);
-  //   const res = await getAllProduct({
-  //     pageIndex: currentPage,
-  //     pageSize: pageSize,
-  //   });
-  //   if (res.success) {
-  //     setData(res.data.data.items);
-  //     settotalPages(res.data.data.totalCount);
-  //   }
-  // }, []);
-
-  // Test
-  const [data, setData] = useState([]);
-  const itemsPerPage = 6;
+  const [dataProduct, setData] = useState([]);
+  const [branchProduct, setBranch] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setpageSize] = useState(10);
+  const [totalPages, settotalPages] = useState(0);
+  const { getAll } = useProduct();
+  const { getBranch } = useBranch();
+  const fetchProduct = async () => {
+    const {success,data} = await getAll({
+      pageIndex: currentPage,
+      pageSize: pageSize,
+    });
+    if(success && data.status != 'Error') {
+      setData(data.data.items)
+
+      settotalPages(10);
+    } else {
+      toast.error(data.message)
+    }
+  }
+
+  const fetchBranch = async () => {
+    const {success,data} = await getBranch({
+      BranchName: "",
+    });
+    if(success && data.status != 'Error') {
+      setBranch(data.data.items)
+    } else {
+      toast.error(data.message)
+    }
+  }
 
   useEffect(() => {
-    setData([...fruitsData]);
+    fetchProduct();
+    fetchBranch()
   }, []);
-
-  const totalItems = data.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = data.slice(startIndex, endIndex);
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
-  console.log(data, fruitsData);
-
   return (
     <>
       <div class="container-fluid fruite py-5">
@@ -90,107 +92,27 @@ const ShopList = () => {
                       <div class="mb-3">
                         <h4>Categories</h4>
                         <ul class="list-unstyled fruite-categorie">
-                          <li>
-                            <div class="d-flex justify-content-between fruite-name">
-                              <div>
-                                <i class="fas fa-apple-alt me-2"></i>Apples
-                              </div>
-                              <span>(3)</span>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="d-flex justify-content-between fruite-name">
-                              <div>
-                                <i class="fas fa-apple-alt me-2"></i>Oranges
-                              </div>
-                              <span>(5)</span>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="d-flex justify-content-between fruite-name">
-                              <div>
-                                <i class="fas fa-apple-alt me-2"></i>Strawbery
-                              </div>
-                              <span>(2)</span>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="d-flex justify-content-between fruite-name">
-                              <div>
-                                <i class="fas fa-apple-alt me-2"></i>Banana
-                              </div>
-                              <span>(8)</span>
-                            </div>
-                          </li>
-                          <li>
-                            <div class="d-flex justify-content-between fruite-name">
-                              <div>
-                                <i class="fas fa-apple-alt me-2"></i>Pumpkin
-                              </div>
-                              <span>(5)</span>
-                            </div>
-                          </li>
+                          {
+                            branchProduct.map((items,key) => {
+                              return (
+                              <li key={items.id}>
+                                <div class="d-flex justify-content-between fruite-name">
+                                  <div>
+                                    <i class="fas fa-apple-alt me-2"></i>{items.branchName}
+                                  </div>
+                                  <span>(3)</span>
+                                </div>
+                              </li>
+                              )
+                            })
+                          }
                         </ul>
                       </div>
                     </div>
                     <div class="col-lg-12">
                       <PriceRangeInput />
                     </div>
-                    <div class="col-lg-12">
-                      <div class="mb-3">
-                        <h4>Additional</h4>
-                        <div class="mb-2">
-                          <input
-                            type="radio"
-                            class="me-2"
-                            id="Categories-1"
-                            name="Categories-1"
-                            value="Beverages"
-                          />
-                          <label for="Categories-1"> Organic</label>
-                        </div>
-                        <div class="mb-2">
-                          <input
-                            type="radio"
-                            class="me-2"
-                            id="Categories-2"
-                            name="Categories-1"
-                            value="Beverages"
-                          />
-                          <label for="Categories-2"> Fresh</label>
-                        </div>
-                        <div class="mb-2">
-                          <input
-                            type="radio"
-                            class="me-2"
-                            id="Categories-3"
-                            name="Categories-1"
-                            value="Beverages"
-                          />
-                          <label for="Categories-3"> Sales</label>
-                        </div>
-                        <div class="mb-2">
-                          <input
-                            type="radio"
-                            class="me-2"
-                            id="Categories-4"
-                            name="Categories-1"
-                            value="Beverages"
-                          />
-                          <label for="Categories-4"> Discount</label>
-                        </div>
-                        <div class="mb-2">
-                          <input
-                            type="radio"
-                            class="me-2"
-                            id="Categories-5"
-                            name="Categories-1"
-                            value="Beverages"
-                          />
-                          <label for="Categories-5"> Expired</label>
-                        </div>
-                      </div>
-                    </div>
+                  
                     <div class="col-lg-12">
                       <h4 class="mb-3">Featured products</h4>
                       <div class="d-flex align-items-center justify-content-start">
@@ -309,15 +231,17 @@ const ShopList = () => {
 
                 <div class="col-lg-9">
                   <div class="row g-4 justify-content-center">
-                    {data.map((fruit) => {
+                    {dataProduct.map((fruit,index) => {
+
+                      console.log(fruit);
                       return (
                         <CardItem
                           key={fruit.id}
                           id={fruit.id}
-                          imgSrc={fruit.imgSrc}
-                          name={fruit.name}
-                          description={fruit.description}
-                          price={fruit.price}
+                          imgSrc={fruit.productMaterial}
+                          name={fruit.productName}
+                          description={fruit.productDescription}
+                          price={fruit.prodcutPrice}
                         />
                       );
                     })}

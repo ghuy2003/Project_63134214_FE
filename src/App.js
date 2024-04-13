@@ -31,7 +31,6 @@ const App = () => {
   const [ready, setReady] = useState(false); // set after
   const renderRoute = (routes) => (
     <Routes>
-
       {routes.map((route) =>
         "children" in route ? (
           <Route key={route.key} {...route}>
@@ -70,7 +69,7 @@ const App = () => {
         <ScrollToTopButton />
       </Provider>
 
-      <ToastContainer  position="top-right" autoClose={5000}/>
+      <ToastContainer position="bottom-right" autoClose={3000}/>
       
     </>
   );
