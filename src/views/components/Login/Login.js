@@ -35,17 +35,12 @@ const Login = () => {
   const { changeData } = useUser();
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleChangeUsername = (e) => setUsername(e.target.value);
-
-  const handleChangePassword = (e) => setPassword(e.target.value);
 
   const handleLogin = async () => {
+    console.log(formik.values["username"]);
     const { success, data } = await login({
-      UserName: username,
-      Password: password,
+      UserName: formik.values["username"],
+      Password: formik.values["password"],
     });
     console.log(success, data);
     if (data.status == "Error") {
@@ -104,6 +99,7 @@ const Login = () => {
     validate,
 
     onSubmit: (values) => {
+      console.log(values)
       console.log(JSON.stringify(values, null, 2));
     },
   });
@@ -131,9 +127,9 @@ const Login = () => {
                     <img src={img1} width="180" alt="" />
                   </a>
                   <p class="text-center">Your Social Campaigns</p>
-                  <form onSubmit={formik.handleSubmit}>
+                  <form >
                     <div class="mb-3">
-                      <label for="usernameinput" class="form-label">
+                      <label for="username" class="form-label">
                         Username
                       </label>
                       <input
@@ -145,7 +141,7 @@ const Login = () => {
                               : "is-valid"
                             : ""
                         }`}
-                        id="usernameinput"
+                        id="username"
                         name="username"
                         onChange={(e) => {
                           validateChangeAndBlurInput(e, "username", formik);
@@ -191,7 +187,7 @@ const Login = () => {
                     </div>
                     <a
                       type="submit"
-                      onClick={() => handleLogin()}
+                       onClick={() => handleLogin()}
                       class="btn btn-primary w-100 py-8 fs-6 mb-4 rounded-2"
                     >
                       Sign In

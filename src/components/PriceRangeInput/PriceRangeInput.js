@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-const PriceRangeInput = () => {
+const PriceRangeInput = ({data}) => {
   const [rangeValue, setRangeValue] = useState(0);
-
+  
   const handleRangeChange = (event) => {
     setRangeValue(event.target.value);
   };
@@ -18,7 +18,7 @@ const PriceRangeInput = () => {
         min="0"
         max="500"
         value={rangeValue}
-        onChange={handleRangeChange}
+        onChange={(e) => handleRangeChange(e)}
       />
       <output id="amount" name="amount" min="0" max="500" htmlFor="rangeInput">
         {rangeValue}

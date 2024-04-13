@@ -10,25 +10,14 @@ import { validateChangeAndBlurInput } from "@utils/validateChangeAndBlurInput";
 
 const Register = () => {
   const { register } = useAuth();
-  const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({
-    Username: "",
-    Password: "",
-    Email: "",
-    PhoneNumber: "",
-    FullName: "",
-  });
-
-  const handleChangeValue = async (e) => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
-  };
 
   const handleRegister = async () => {
-    const { success, data } = await register(formData);
+    const { success, data } = await register(formik.values);
     console.log(success, data);
     if (!success || data.status == "Error") {
       toast.error(data.message);
+    } else {
+      toast.success(data.message);
     }
   };
 
@@ -36,51 +25,44 @@ const Register = () => {
   const validate = (values) => {
     const errors = {};
 
-    if (!values.username) {
-      errors.username = "Please enter your usename";
-    } else if (values.username.length <= 3) {
-      errors.username = "Username must be at least 3 characters";
-    } else if (values.username.length >= 50) {
-      errors.username = "Username must not exceed 50 characters";
+    if (!values.Username) {
+      errors.Username = "Please enter your usename";
+    } else if (values.Username.length <= 3) {
+      errors.Username = "Username must be at least 3 characters";
+    } else if (values.Username.length >= 50) {
+      errors.Username = "Username must not exceed 50 characters";
     }
 
-    if (!values.fullname) {
-      errors.fullname = "Please enter your fullname";
-    } else if (values.fullname.length <= 3) {
-      errors.fullname = "Fullname must be at least 3 characters";
-    } else if (values.fullname.length >= 50) {
-      errors.fullname = "Fullname must not exceed 50 characters";
+    if (!values.FullName) {
+      errors.FullName = "Please enter your fullname";
+    } else if (values.FullName.length <= 3) {
+      errors.FullName = "Fullname must be at least 3 characters";
+    } else if (values.FullName.length >= 50) {
+      errors.FullName = "Fullname must not exceed 50 characters";
     }
-
-    // if (!values.lastName) {
-    //   errors.lastName = "Required";
-    // } else if (values.lastName.length > 20) {
-    //   errors.lastName = "Must be 20 characters or less";
-    // }
-
-    if (!values.email) {
-      errors.email = "Required";
+    if (!values.Email) {
+      errors.Email = "Required";
     } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.Email)
     ) {
-      errors.email = "Invalid email address";
+      errors.Email = "Invalid email address";
     }
 
-    if (!values.password) {
-      errors.password = "Please enter your password";
+    if (!values.Password) {
+      errors.Password = "Please enter your password";
     } else if (
       !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
-        values.password
+        values.Password
       )
     ) {
-      errors.password =
+      errors.Password =
         "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character";
     }
 
-    if (!values.phone) {
-      errors.phone = "Please enter your phone number";
-    } else if (!/^\d{10}$/i.test(values.phone)) {
-      errors.phone =
+    if (!values.PhoneNumber) {
+      errors.PhoneNumber = "Please enter your phone number";
+    } else if (!/^\d{10}$/i.test(values.PhoneNumber)) {
+      errors.PhoneNumber =
         "Invalid phone number. Please enter a 10-digit phone number";
     }
 
@@ -89,16 +71,13 @@ const Register = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      email: "",
-      phone: "",
-      password: "",
+      Username: "",
+      FullName: "",
+      PhoneNumber: "",
+      Password: "",
+      Email: "",
     },
     validate,
-
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-    },
   });
   return (
     <>
@@ -124,32 +103,32 @@ const Register = () => {
                       <img src={img1} width="180" alt="" />
                     </a>
                     <p class="text-center">Your Social Campaigns</p>
-                    <form onSubmit={formik.handleSubmit}>
+                    <form>
                       <div className="row">
                         <div class="mb-3 col-sm-6">
-                          <label for="username" class="form-label">
+                          <label for="Username" class="form-label">
                             Name
                           </label>
                           <input
                             type="text"
                             class={`form-control ${
-                              formik.touched.username
-                                ? formik.errors.username
+                              formik.touched.Username
+                                ? formik.errors.Username
                                   ? "is-invalid"
                                   : "is-valid"
                                 : ""
                             }`}
-                            id="username"
-                            name="username"
+                            id="Username"
+                            name="Username"
                             aria-describedby="textHelp"
-                            value={formik.values.username}
+                            value={formik.values.Username}
                             onChange={(e) =>
-                              validateChangeAndBlurInput(e, "username", formik)
+                              validateChangeAndBlurInput(e, "Username", formik)
                             }
                           />
-                          {formik.touched.username && formik.errors.username ? (
+                          {formik.touched.Username && formik.errors.Username ? (
                             <div className="invalid-feedback">
-                              {formik.errors.username}
+                              {formik.errors.Username}
                             </div>
                           ) : null}
                         </div>
@@ -160,24 +139,24 @@ const Register = () => {
                           <input
                             type="text"
                             class={`form-control ${
-                              formik.touched.phone
-                                ? formik.errors.phone
+                              formik.touched.PhoneNumber
+                                ? formik.errors.PhoneNumber
                                   ? "is-invalid"
                                   : "is-valid"
                                 : ""
                             }`}
                             id="PhoneNumber"
                             aria-describedby="textHelp"
-                            name="phone"
-                            value={formik.values.phone}
+                            name="PhoneNumber"
+                            value={formik.values.PhoneNumber}
                             onChange={(e) =>
-                              validateChangeAndBlurInput(e, "phone", formik)
+                              validateChangeAndBlurInput(e, "PhoneNumber", formik)
                             }
                           />
 
-                          {formik.touched.phone && formik.errors.phone ? (
+                          {formik.touched.PhoneNumber && formik.errors.PhoneNumber ? (
                             <div className="invalid-feedback">
-                              {formik.errors.phone}
+                              {formik.errors.PhoneNumber}
                             </div>
                           ) : null}
                         </div>
@@ -188,77 +167,77 @@ const Register = () => {
                           <input
                             type="text"
                             class={`form-control ${
-                              formik.touched.fullname
-                                ? formik.errors.fullname
+                              formik.touched.FullName
+                                ? formik.errors.FullName
                                   ? "is-invalid"
                                   : "is-valid"
                                 : ""
                             }`}
                             id="FullName"
                             aria-describedby="textHelp"
-                            value={formik.values.fullname}
+                            value={formik.values.FullName}
                             onChange={(e) =>
-                              validateChangeAndBlurInput(e, "fullname", formik)
+                              validateChangeAndBlurInput(e, "FullName", formik)
                             }
-                            name="fullname"
+                            name="FullName"
                           />
-                          {formik.touched.fullname && formik.errors.fullname ? (
+                          {formik.touched.FullName && formik.errors.FullName ? (
                             <div className="invalid-feedback">
-                              {formik.errors.fullname}
+                              {formik.errors.FullName}
                             </div>
                           ) : null}
                         </div>
                         <div class="mb-3 col-sm-6">
-                          <label for="email" class="form-label">
+                          <label for="Email" class="form-label">
                             Email Address
                           </label>
                           <input
                             type="email"
                             class={`form-control ${
-                              formik.touched.email
-                                ? formik.errors.email
+                              formik.touched.Email
+                                ? formik.errors.Email
                                   ? "is-invalid"
                                   : "is-valid"
                                 : ""
                             }`}
-                            id="email"
+                            id="Email"
                             aria-describedby="emailHelp"
-                            value={formik.values.email}
+                            value={formik.values.Email}
                             onChange={(e) =>
-                              validateChangeAndBlurInput(e, "email", formik)
+                              validateChangeAndBlurInput(e, "Email", formik)
                             }
-                            name="email"
+                            name="Email"
                           />
-                          {formik.touched.email && formik.errors.email ? (
+                          {formik.touched.Email && formik.errors.Email ? (
                             <div className="invalid-feedback">
-                              {formik.errors.email}
+                              {formik.errors.Email}
                             </div>
                           ) : null}
                         </div>
                         <div class="mb-3 col-sm-6">
-                          <label for="password" class="form-label">
+                          <label for="Password" class="form-label">
                             Password
                           </label>
                           <input
                             type="password"
                             class={`form-control ${
-                              formik.touched.password
-                                ? formik.errors.password
+                              formik.touched.Password
+                                ? formik.errors.Password
                                   ? "is-invalid"
                                   : "is-valid"
                                 : ""
                             }`}
-                            id="password"
-                            value={formik.values.password}
+                            id="Password"
+                            value={formik.values.Password}
                             onChange={(e) =>
-                              validateChangeAndBlurInput(e, "password", formik)
+                              validateChangeAndBlurInput(e, "Password", formik)
                             }
-                            name="password"
+                            name="Password"
                           />
 
-                          {formik.touched.password && formik.errors.password ? (
+                          {formik.touched.Password && formik.errors.Password ? (
                             <div className="invalid-feedback">
-                              {formik.errors.password}
+                              {formik.errors.Password}
                             </div>
                           ) : null}
                         </div>

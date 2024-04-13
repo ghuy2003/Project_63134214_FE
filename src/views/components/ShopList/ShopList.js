@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import useProduct from "@api/useProduct";
 import { toast } from "react-toastify";
 import useBranch from "@api/useBranch";
+import StarRating from "@components/Rate/StarRating";
 
 const ShopList = () => {
   const [dataProduct, setData] = useState([]);
@@ -11,6 +12,9 @@ const ShopList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setpageSize] = useState(30);
   const [totalPages, settotalPages] = useState(0);
+
+
+  const [rangeValue, setRangeValue] = useState(0);
 
 
   const [nameSearch, setNameSearch] = useState('');
@@ -45,8 +49,11 @@ const ShopList = () => {
     setNameSearch(e.target.value)
   }
   const handleSearch = () => {
+  console.log(rangeValue);
+
     fetchProduct()
   }
+
   useEffect(() => {
     fetchProduct();
     fetchBranch()
@@ -119,95 +126,37 @@ const ShopList = () => {
                       </div>
                     </div>
                     <div class="col-lg-12">
-                      <PriceRangeInput />
+                      <PriceRangeInput data={rangeValue} />
                     </div>
                   
                     <div class="col-lg-12">
                       <h4 class="mb-3">Featured products</h4>
-                      <div class="d-flex align-items-center justify-content-start">
-                        <div
-                          class="rounded me-4"
-                          style={{ width: "100px", height: "100px" }}
-                        >
-                          <img
-                            src="img/featur-1.jpg"
-                            class="img-fluid rounded"
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <h6 class="mb-2">Big Banana</h6>
-                          <div class="d-flex mb-2">
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star"></i>
-                          </div>
-                          <div class="d-flex mb-2">
-                            <h5 class="fw-bold me-2">2.99 $</h5>
-                            <h5 class="text-danger text-decoration-line-through">
-                              4.11 $
-                            </h5>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-start">
-                        <div
-                          class="rounded me-4"
-                          style={{ width: "100px", height: "100px" }}
-                        >
-                          <img
-                            src="img/featur-2.jpg"
-                            class="img-fluid rounded"
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <h6 class="mb-2">Big Banana</h6>
-                          <div class="d-flex mb-2">
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star"></i>
-                          </div>
-                          <div class="d-flex mb-2">
-                            <h5 class="fw-bold me-2">2.99 $</h5>
-                            <h5 class="text-danger text-decoration-line-through">
-                              4.11 $
-                            </h5>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex align-items-center justify-content-start">
-                        <div
-                          class="rounded me-4"
-                          style={{ width: "100px", height: "100px" }}
-                        >
-                          <img
-                            src="img/featur-3.jpg"
-                            class="img-fluid rounded"
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <h6 class="mb-2">Big Banana</h6>
-                          <div class="d-flex mb-2">
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star text-secondary"></i>
-                            <i class="fa fa-star"></i>
-                          </div>
-                          <div class="d-flex mb-2">
-                            <h5 class="fw-bold me-2">2.99 $</h5>
-                            <h5 class="text-danger text-decoration-line-through">
-                              4.11 $
-                            </h5>
-                          </div>
-                        </div>
-                      </div>
+
+                      {dataProduct.slice(0,3).map((items,key) => {
+                        return (
+                          <div class="d-flex align-items-center justify-content-start" key={key}>
+                              <div
+                                class="rounded me-4"
+                                style={{ width: "100px", height: "100px" }}
+                              >
+                                <img
+                                  src="img/featur-1.jpg"
+                                  class="img-fluid rounded"
+                                  alt=""
+                                />
+                              </div>
+                              <div>
+                                <h6 class="mb-2">{items.productName}</h6>
+                                <StarRating rate={items.rate} />
+                                <div class="d-flex mb-2">
+                                  <h5 class="fw-bold me-2">{items.prodcutPrice} $</h5>
+                                </div>
+                              </div>
+                            </div>
+                        )
+                      })}
+                     
+                  
                       <div class="d-flex justify-content-center my-4">
                         <div class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">
                           Vew More
@@ -243,9 +192,9 @@ const ShopList = () => {
                     {dataProduct.map((fruit,index) => {
                       return (
                         <CardItem
+                          imgSrc={fruit.productMaterial}
                           key={fruit.id}
                           id={fruit.id}
-                          imgSrc={fruit.productMaterial}
                           name={fruit.productName}
                           description={fruit.productDescription}
                           price={fruit.prodcutPrice}

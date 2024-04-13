@@ -9,15 +9,9 @@ const useProduct = () => {
 		endpoint: '/getall',
 		data: id
 	})
-	const register = (data) => createPostRequest({
-		endpoint: '/register',
-		data: data
-	})
-
 	return {
 		getAll,
-		register,
-		cancel
+        getAllById
 	}
 }
 
