@@ -100,8 +100,8 @@ const ShopList = () => {
                                   <div>
                                     <i class="fas fa-apple-alt me-2"></i>{items.branchName}
                                   </div>
-                                  <span>(3)</span>
-                                </div>
+                                  <span>({items.CountProduct})</span>
+                                </div> 
                               </li>
                               )
                             })
