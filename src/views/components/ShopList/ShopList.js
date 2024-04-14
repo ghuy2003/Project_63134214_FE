@@ -5,12 +5,12 @@ import useProduct from "@api/useProduct";
 import { toast } from "react-toastify";
 import useBranch from "@api/useBranch";
 import StarRating from "@components/Rate/StarRating";
-
+import { Link } from "react-router-dom";
 const ShopList = () => {
   const [dataProduct, setData] = useState([]);
   const [branchProduct, setBranch] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setpageSize] = useState(30);
+  const [pageSize, setpageSize] = useState(10);
   const [totalPages, settotalPages] = useState(0);
 
 
@@ -28,7 +28,9 @@ const ShopList = () => {
     });
     if(success && data.status != 'Error') {
       setData(data.data.items)
-      settotalPages(10);
+      let total = data.data.totalCount;
+      setpageSize(data.data.pageSize)
+      settotalPages(Math.ceil(total / pageSize));
     } else {
       toast.error(data.message)
     }
@@ -49,8 +51,7 @@ const ShopList = () => {
     setNameSearch(e.target.value)
   }
   const handleSearch = () => {
-  console.log(rangeValue);
-
+    console.log(rangeValue);
     fetchProduct()
   }
 
@@ -126,7 +127,7 @@ const ShopList = () => {
                       </div>
                     </div>
                     <div class="col-lg-12">
-                      <PriceRangeInput data={rangeValue} />
+                      <PriceRangeInput data={rangeValue} fnc={(v) => setRangeValue(v)} />
                     </div>
                   
                     <div class="col-lg-12">
@@ -191,14 +192,17 @@ const ShopList = () => {
                   <div class="row g-4 justify-content-center">
                     {dataProduct.map((fruit,index) => {
                       return (
-                        <CardItem
-                          imgSrc={fruit.productMaterial}
-                          key={fruit.id}
-                          id={fruit.id}
-                          name={fruit.productName}
-                          description={fruit.productDescription}
-                          price={fruit.prodcutPrice}
-                        />
+                        <Link to={`/product/${fruit.id}`}>
+                            <CardItem
+                            imgSrc={fruit.productMaterial}
+                            key={fruit.id}
+                            id={fruit.id}
+                            name={fruit.productName}
+                            description={fruit.productDescription}
+                            price={fruit.prodcutPrice}
+                          />
+                        </Link>
+                       
                       );
                     })}
 

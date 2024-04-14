@@ -61,6 +61,17 @@ const useRoutes = () => {
       ),
     },
     {
+      key: "/product:id",
+      label: t("product").toCapitalize(),
+      path: "/product:id",
+      element: (
+        <LayoutClient>
+          <ProductDetail />
+        </LayoutClient>
+      ),
+    },
+
+    {
       key: "/cart",
       label: t("product").toCapitalize(),
       path: "/cart",
