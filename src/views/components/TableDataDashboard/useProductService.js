@@ -4,7 +4,7 @@ import {
   deleteProductApi,
   getAllProductsApi,
   updateProductApi,
-} from "src/services/productApi/productServiceApi";
+} from "../../../services/productApi/productServiceApi.js";
 
 const useProductService = () => {
   const [loading, setLoading] = useState(false);
