@@ -12,6 +12,7 @@ import Fact from "./components/Fact/Fact";
 import Tastimonial from "./components/Tastimonial/Tastimonial";
 import BestsalerProduct from "./components/BestsalerProduct/BestsalerProduct";
 import ModalSearch from "./components/ModalSearch/ModalSearch";
+import useProduct from "@api/useProduct";
 
 const Home = () => {
   // const t = useTranslate();
@@ -19,6 +20,11 @@ const Home = () => {
   // useEffect(() => {
   //   console.log(subscriber);
   // }, [subscriber]);
+
+  const [productbestSale, setProductSale] = useState([]);
+
+
+  const {geta} = useProduct();
   return (
     <>
       <Hero />

@@ -1,16 +1,21 @@
 import useRequest from './useRequest'
 const useProduct = () => {
-	const { createPostRequest, cancel } = useRequest('Product')
+	const { createPostRequest, createGetRequest, cancel } = useRequest('Product')
 	const getAll = (data) => createPostRequest({
 		endpoint: '/getall',
 		data: data
 	})
-    const getAllById = (id) => createPostRequest({
-		endpoint: '/getall',
-		data: id
+    const getAllById = (id) => createGetRequest({
+		endpoint: '/find-by-id',
+		params: {id: id}
+	})
+    const getBestSale = () => createGetRequest({
+		endpoint: '/getBestSale',
+		params: null
 	})
 	return {
 		getAll,
+		getBestSale,
         getAllById
 	}
 }

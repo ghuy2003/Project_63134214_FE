@@ -53,17 +53,7 @@ const useRoutes = () => {
     {
       key: "/product",
       label: t("product").toCapitalize(),
-      path: "/product",
-      element: (
-        <LayoutClient>
-          <ProductDetail />
-        </LayoutClient>
-      ),
-    },
-    {
-      key: "/product:id",
-      label: t("product").toCapitalize(),
-      path: "/product:id",
+      path: "/product/:id",
       element: (
         <LayoutClient>
           <ProductDetail />
@@ -128,9 +118,6 @@ const useRoutes = () => {
       label: t("dashboard").toCapitalize(),
       path: "/dashboard",
       element: (
-        // <LayoutClient>
-        //   <Dashboard />
-        // </LayoutClient>
         <Dashboard />
       ),
     },

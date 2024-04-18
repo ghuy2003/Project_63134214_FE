@@ -23,8 +23,8 @@ const useRequest = (prefixPath = '') => {
 		signal: controller.signal
 	})
 	const [request, setRequest] = useState(() => createRequest())
-	const createGetRequest = useCallback(({ endpoint, params, headers, successCallback }) => {
-		console.log(params)
+	const createGetRequest = useCallback(({ endpoint, params, query, headers, successCallback }) => {
+		console.log(query)
 		return (
 			request
 				.get(endpoint, { params, headers })
