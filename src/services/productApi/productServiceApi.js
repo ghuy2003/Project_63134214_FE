@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const apiUrl = "http://localhost:3000/api/product";
+import { PROTOCOL, HOST, PORT } from "@configs/app.config";
+const apiUrl = `${PROTOCOL}://${HOST}:${PORT}/api/Product`;
 
 export const getAllProductsApi = async () => {
   const getAllUrl = `${apiUrl}/getall`;
@@ -8,15 +8,16 @@ export const getAllProductsApi = async () => {
 };
 
 export const addProductApi = async (newProduct) => {
-  return axios.post(apiUrl, newProduct);
+  const getAllUrl = `${apiUrl}/create`;
+  return axios.post(getAllUrl, newProduct);
 };
 
 export const updateProductApi = async (productId, updatedProduct) => {
-  const updateUrl = `${apiUrl}/${productId}`;
+  const updateUrl = `${apiUrl}/Edit/${productId}`;
   return axios.put(updateUrl, updatedProduct);
 };
 
 export const deleteProductApi = async (productId) => {
-  const deleteUrl = `${apiUrl}/${productId}`;
+  const deleteUrl = `${apiUrl}/delete/${productId}`;
   return axios.delete(deleteUrl);
 };

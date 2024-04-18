@@ -6,6 +6,9 @@ import {
   EditOutlined,
   PlusSquareOutlined,
 } from "@ant-design/icons";
+import AddProduct from "../addProductDashboard/AddProduct";
+import DeleteProduct from "../deleteProductDasboard/DeleteProduct";
+import EditProduct from "../edirProductDashboard/EditProduct";
 
 const columns = [
   {
@@ -13,15 +16,16 @@ const columns = [
     dataIndex: "productName",
     key: "productName",
   },
+
   {
     title: "Product Price",
-    dataIndex: "prodcutPrice",
+    dataIndex: "productPrice",
     key: "prodcutPrice",
   },
   {
     title: "Product Quantity",
-    dataIndex: "productQuanlity",
-    key: "productQuanlity",
+    dataIndex: "productQuantity",
+    key: "productQuantity",
   },
   {
     title: "Product Description",
@@ -29,7 +33,7 @@ const columns = [
     key: "productDescription",
   },
   {
-    title: "productType",
+    title: "Product Type",
     dataIndex: "productType",
     key: "productType",
   },
@@ -38,175 +42,145 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <Button
-          icon={<EditOutlined />}
-          type={"primary"}
-          onClick={() => {
-            // setInitialData(contact);
-            // setModalVisible(true);
-
-            console.log("click!");
-          }}
-          ghost
-        />
-        <Button
-          icon={<DeleteOutlined />}
-          type={"primary"}
-          onClick={() => {
-            console.log("click!");
-          }}
-          danger
-          ghost
-        />
+        <EditProduct record={record} />
+        <DeleteProduct record={record} />
       </Space>
     ),
   },
 ];
-const data = [
+const datas = [
   {
-    key: "1hudasdasdasd",
+    id: "1hudasdasdasd",
     productName: "Áo sơ mi nam",
-    prodcutPrice: 250000,
-    productQuanlity: 50,
+    productPrice: 250000,
+    productQuantity: 50,
     productDescription: "Áo sơ mi nam cao cấp, chất liệu cotton thoáng mát",
     productType: "Thời trang nam",
   },
   {
-    key: "2",
+    id: "2",
     productName: "Quần jean nam",
-    prodcutPrice: 350000,
-    productQuanlity: 30,
+    productPrice: 350000,
+    productQuantity: 30,
     productDescription: "Quần jean nam cao cấp, chất liệu denim bền đẹp",
     productType: "Thời trang nam",
   },
   {
-    key: "3",
+    id: "3",
     productName: "Váy dạ hội nữ",
-    prodcutPrice: 800000,
-    productQuanlity: 20,
+    productPrice: 800000,
+    productQuantity: 20,
     productDescription: "Váy dạ hội nữ sang trọng, phù hợp đi tiệc tối",
     productType: "Thời trang nữ",
   },
   {
-    key: "4",
+    id: "4",
     productName: "Áo khoác bomber unisex",
-    prodcutPrice: 450000,
-    productQuanlity: 40,
+    productPrice: 450000,
+    productQuantity: 40,
     productDescription:
       "Áo khoác bomber unisex thời trang, phù hợp cả nam và nữ",
     productType: "Thời trang unisex",
   },
   {
-    key: "5",
+    id: "5",
     productName: "Giày thể thao nam",
-    prodcutPrice: 600000,
-    productQuanlity: 25,
+    productPrice: 600000,
+    productQuantity: 25,
     productDescription: "Giày thể thao nam chất liệu nhẹ, êm ái khi sử dụng",
     productType: "Thể thao nam",
   },
   {
-    key: "6",
+    id: "6",
     productName: "Đồng hồ nữ",
-    prodcutPrice: 1200000,
-    productQuanlity: 15,
+    productPrice: 1200000,
+    productQuantity: 15,
     productDescription: "Đồng hồ nữ cao cấp, kiểu dáng sang trọng",
     productType: "Phụ kiện nữ",
   },
   {
-    key: "7",
+    id: "7",
     productName: "Túi xách nam",
-    prodcutPrice: 550000,
-    productQuanlity: 35,
+    productPrice: 550000,
+    productQuantity: 35,
     productDescription: "Túi xách nam da bò thật, thiết kế thời trang",
     productType: "Phụ kiện nam",
   },
   {
-    key: "8",
+    id: "8",
     productName: "Mũ len nữ",
-    prodcutPrice: 200000,
-    productQuanlity: 45,
+    productPrice: 200000,
+    productQuantity: 45,
     productDescription: "Mũ len nữ đẹp mắt, giữ ấm cho mùa đông",
     productType: "Phụ kiện nữ",
   },
   {
-    key: "9",
+    id: "9",
     productName: "Áo len nam",
-    prodcutPrice: 350000,
-    productQuanlity: 30,
+    productPrice: 350000,
+    productQuantity: 30,
     productDescription: "Áo len nam kiểu dáng trẻ trung, thời trang",
     productType: "Thời trang nam",
   },
   {
-    key: "10",
+    id: "10",
     productName: "Ví da nữ",
-    prodcutPrice: 400000,
-    productQuanlity: 25,
+    productPrice: 400000,
+    productQuantity: 25,
     productDescription: "Ví da nữ chất liệu cao cấp, thiết kế đẹp mắt",
     productType: "Phụ kiện nữ",
   },
   {
-    key: "11",
+    id: "11",
     productName: "Áo khoác dù nam",
-    prodcutPrice: 700000,
-    productQuanlity: 20,
+    productPrice: 700000,
+    productQuantity: 20,
     productDescription: "Áo khoác dù nam chống nước, phù hợp điều tiết khí hậu",
     productType: "Thời trang nam",
   },
   {
-    key: "12",
+    id: "12",
     productName: "Áo len nữ",
-    prodcutPrice: 300000,
-    productQuanlity: 35,
+    productPrice: 300000,
+    productQuantity: 35,
     productDescription: "Áo len nữ kiểu dáng thời trang, phù hợp với mùa đông",
     productType: "Thời trang nữ",
   },
   {
-    key: "13",
+    id: "13",
     productName: "Áo khoác nỉ unisex",
-    prodcutPrice: 400000,
-    productQuanlity: 40,
+    productPrice: 400000,
+    productQuantity: 40,
     productDescription: "Áo khoác nỉ unisex phong cách trẻ trung, dễ phối đồ",
     productType: "Thời trang unisex",
   },
   {
-    key: "14",
+    id: "14",
     productName: "Quần lửng nữ",
-    prodcutPrice: 280000,
-    productQuanlity: 30,
+    productPrice: 280000,
+    productQuantity: 30,
     productDescription: "Quần lửng nữ kiểu dáng thoải mái, phù hợp với mùa hè",
     productType: "Thời trang nữ",
   },
   {
-    key: "15",
+    id: "15",
     productName: "Áo khoác da nam",
-    prodcutPrice: 900000,
-    productQuanlity: 25,
+    productPrice: 900000,
+    productQuantity: 25,
     productDescription: "Áo khoác da nam chất liệu da thật, bền đẹp",
     productType: "Thời trang nam",
   },
 ];
 const TableDataDashboard = () => {
-  // const { data, loading, error, getAllProducts } = useProductService();
+  const { data, loading, error, getAllProducts } = useProductService();
 
-  // useEffect(() => {
-  //   getAllProducts();
-  // }, []);
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   return (
     <>
-      <Button
-        type="primary"
-        value="large"
-        style={{
-          marginTop: "40px",
-          display: "flex",
-          alignItems: "center",
-          background: "#1fbf39",
-          marginBottom: "20px",
-        }}
-      >
-        <PlusSquareOutlined /> ADD
-      </Button>
+      <AddProduct />
       <Table columns={columns} dataSource={data} />;
     </>
   );
