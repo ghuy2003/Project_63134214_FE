@@ -37,7 +37,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    console.log(formik.values["username"]);
     const { success, data } = await login({
       UserName: formik.values["username"],
       Password: formik.values["password"],
@@ -47,6 +46,9 @@ const Login = () => {
       toast.error(data.message);
     } else {
       toast.success(data.message);
+      if(data.data.roleName.includes('Admin')) {
+        navigate('/dashboard')
+      }
     }
   };
 
@@ -99,7 +101,6 @@ const Login = () => {
     validate,
 
     onSubmit: (values) => {
-      console.log(values)
       console.log(JSON.stringify(values, null, 2));
     },
   });

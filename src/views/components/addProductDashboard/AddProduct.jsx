@@ -10,6 +10,7 @@ import {
   DELETE_SUCCESS,
 } from "../../../constants/notificationMessages";
 import useBranch from "@api/useBranch";
+import useProduct from "@api/useProduct";
 
 const fakeBranches = [
   { id: 1, name: "Branch 1" },
@@ -69,7 +70,7 @@ const AddProduct = () => {
   const [modal2Open, setModal2Open] = useState(false);
   const [branchProduct, setBranch] = useState([]);
   const [form] = Form.useForm();
-  const { addProduct } = useProductService();
+  const { createProduct } = useProduct();
   const { getBranch } = useBranch();
   const fetchBranch = async () => {
     const { success, data } = await getBranch({
@@ -92,11 +93,7 @@ const AddProduct = () => {
         productMaterial: values.productMaterial,
         productType: values.productType,
       };
-
-      console.log(product);
-
-      const response = await addProduct(product);
-
+      const response = await createProduct(product);
       // Xử lý response từ server
       if (response.status === 201) {
         // Thêm sản phẩm thành công

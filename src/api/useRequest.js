@@ -71,6 +71,62 @@ const useRequest = (prefixPath = '') => {
 		)
 	}, [request, t])
 
+
+
+
+	const createPutRequest = useCallback(({ endpoint, data, ...props }) => {
+		console.log(data)
+		return ( 
+			request
+				.put(endpoint, data, { ...props })
+				.then(res => {
+					const { data } = res
+					const { message } = data
+					return {
+						success: true,
+						data
+					}
+				})
+				.catch(err => {
+					const data = handleError(err)
+					console.log(data)
+					return {
+						success: false,
+						data
+					}
+				})
+				.finally(() => {})
+		)
+	}, [request, t])
+
+
+
+
+	const createDeleteRequest = useCallback(({ endpoint, data, ...props }) => {
+		console.log(data)
+		return ( 
+			request
+				.delete(endpoint, data, { ...props })
+				.then(res => {
+					const { data } = res
+					const { message } = data
+					return {
+						success: true,
+						data
+					}
+				})
+				.catch(err => {
+					const data = handleError(err)
+					console.log(data)
+					return {
+						success: false,
+						data
+					}
+				})
+				.finally(() => {})
+		)
+	}, [request, t])
+
 	const cancel = () => {
 		controller.abort()
 		setController(new AbortController())
@@ -84,6 +140,8 @@ const useRequest = (prefixPath = '') => {
 		request,
 		createGetRequest,
 		createPostRequest,
+		createPutRequest,
+		createDeleteRequest,
 		cancel
 	}
 }
