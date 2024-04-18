@@ -6,6 +6,9 @@ import {
   EditOutlined,
   PlusSquareOutlined,
 } from "@ant-design/icons";
+import AddProduct from "../addProductDashboard/AddProduct";
+import DeleteProduct from "../deleteProductDasboard/DeleteProduct";
+import EditProduct from "../edirProductDashboard/EditProduct";
 
 const columns = [
   {
@@ -38,33 +41,15 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <Button
-          icon={<EditOutlined />}
-          type={"primary"}
-          onClick={() => {
-            // setInitialData(contact);
-            // setModalVisible(true);
-
-            console.log("click!");
-          }}
-          ghost
-        />
-        <Button
-          icon={<DeleteOutlined />}
-          type={"primary"}
-          onClick={() => {
-            console.log("click!");
-          }}
-          danger
-          ghost
-        />
+        <EditProduct record={record} />
+        <DeleteProduct record={record} />
       </Space>
     ),
   },
 ];
 const data = [
   {
-    key: "1hudasdasdasd",
+    id: "1hudasdasdasd",
     productName: "Áo sơ mi nam",
     prodcutPrice: 250000,
     productQuanlity: 50,
@@ -72,7 +57,7 @@ const data = [
     productType: "Thời trang nam",
   },
   {
-    key: "2",
+    id: "2",
     productName: "Quần jean nam",
     prodcutPrice: 350000,
     productQuanlity: 30,
@@ -80,7 +65,7 @@ const data = [
     productType: "Thời trang nam",
   },
   {
-    key: "3",
+    id: "3",
     productName: "Váy dạ hội nữ",
     prodcutPrice: 800000,
     productQuanlity: 20,
@@ -88,7 +73,7 @@ const data = [
     productType: "Thời trang nữ",
   },
   {
-    key: "4",
+    id: "4",
     productName: "Áo khoác bomber unisex",
     prodcutPrice: 450000,
     productQuanlity: 40,
@@ -97,7 +82,7 @@ const data = [
     productType: "Thời trang unisex",
   },
   {
-    key: "5",
+    id: "5",
     productName: "Giày thể thao nam",
     prodcutPrice: 600000,
     productQuanlity: 25,
@@ -105,7 +90,7 @@ const data = [
     productType: "Thể thao nam",
   },
   {
-    key: "6",
+    id: "6",
     productName: "Đồng hồ nữ",
     prodcutPrice: 1200000,
     productQuanlity: 15,
@@ -113,7 +98,7 @@ const data = [
     productType: "Phụ kiện nữ",
   },
   {
-    key: "7",
+    id: "7",
     productName: "Túi xách nam",
     prodcutPrice: 550000,
     productQuanlity: 35,
@@ -121,7 +106,7 @@ const data = [
     productType: "Phụ kiện nam",
   },
   {
-    key: "8",
+    id: "8",
     productName: "Mũ len nữ",
     prodcutPrice: 200000,
     productQuanlity: 45,
@@ -129,7 +114,7 @@ const data = [
     productType: "Phụ kiện nữ",
   },
   {
-    key: "9",
+    id: "9",
     productName: "Áo len nam",
     prodcutPrice: 350000,
     productQuanlity: 30,
@@ -137,7 +122,7 @@ const data = [
     productType: "Thời trang nam",
   },
   {
-    key: "10",
+    id: "10",
     productName: "Ví da nữ",
     prodcutPrice: 400000,
     productQuanlity: 25,
@@ -145,7 +130,7 @@ const data = [
     productType: "Phụ kiện nữ",
   },
   {
-    key: "11",
+    id: "11",
     productName: "Áo khoác dù nam",
     prodcutPrice: 700000,
     productQuanlity: 20,
@@ -153,7 +138,7 @@ const data = [
     productType: "Thời trang nam",
   },
   {
-    key: "12",
+    id: "12",
     productName: "Áo len nữ",
     prodcutPrice: 300000,
     productQuanlity: 35,
@@ -161,7 +146,7 @@ const data = [
     productType: "Thời trang nữ",
   },
   {
-    key: "13",
+    id: "13",
     productName: "Áo khoác nỉ unisex",
     prodcutPrice: 400000,
     productQuanlity: 40,
@@ -169,7 +154,7 @@ const data = [
     productType: "Thời trang unisex",
   },
   {
-    key: "14",
+    id: "14",
     productName: "Quần lửng nữ",
     prodcutPrice: 280000,
     productQuanlity: 30,
@@ -177,7 +162,7 @@ const data = [
     productType: "Thời trang nữ",
   },
   {
-    key: "15",
+    id: "15",
     productName: "Áo khoác da nam",
     prodcutPrice: 900000,
     productQuanlity: 25,
@@ -194,19 +179,7 @@ const TableDataDashboard = () => {
 
   return (
     <>
-      <Button
-        type="primary"
-        value="large"
-        style={{
-          marginTop: "40px",
-          display: "flex",
-          alignItems: "center",
-          background: "#1fbf39",
-          marginBottom: "20px",
-        }}
-      >
-        <PlusSquareOutlined /> ADD
-      </Button>
+      <AddProduct />
       <Table columns={columns} dataSource={data} />;
     </>
   );
