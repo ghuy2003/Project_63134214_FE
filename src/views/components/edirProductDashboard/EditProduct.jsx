@@ -1,18 +1,42 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, message } from "antd";
+import { Button, Form, Input, Modal, Select, message } from "antd";
 import React, { useState, useEffect } from "react";
 import useProductService from "../TableDataDashboard/useProductService";
 import notify from "../../../utils/notification";
 import {
+  ADD_ERROR,
   EDIT_ERROR,
   EDIT_SUCCESS,
 } from "../../../constants/notificationMessages";
+import useBranch from "@api/useBranch";
+
+const fakeBranches = [
+  { id: 1, name: "Branch 1" },
+  { id: 2, name: "Branch 2" },
+  { id: 3, name: "Branch 3" },
+];
 
 const EditProduct = ({ record }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [branchProduct, setBranch] = useState([]);
   const [form] = Form.useForm();
   const { updateProduct } = useProductService();
   console.log(record);
+
+  const { getBranch } = useBranch();
+  const fetchBranch = async () => {
+    const { success, data } = await getBranch({
+      BranchName: "",
+    });
+    if (success && data.status != "Error") {
+      setBranch(data.data.items);
+    } else {
+      notify(ADD_ERROR, "error", "bottom-right");
+    }
+  };
+  useEffect(() => {
+    fetchBranch();
+  }, []);
   // Fill form with record data when modal is opened
   useEffect(() => {
     if (record) {
@@ -101,6 +125,20 @@ const EditProduct = ({ record }) => {
             rules={[{ required: true, message: "Please input product price!" }]}
           >
             <Input type="text" />
+          </Form.Item>
+
+          <Form.Item
+            label="Select Branch"
+            name="branch"
+            rules={[{ required: true, message: "Please select a branch!" }]}
+          >
+            <Select placeholder="Select a branch">
+              {fakeBranches.map((branch) => (
+                <Select.Option key={branch.id} value={branch.id}>
+                  {branch.name}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item
             label="Quantity"
