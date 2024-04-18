@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import useProductService from "../TableDataDashboard/useProductService";
 import notify from "../../../utils/notification";
 import {
-  DELETE_ERROR,
-  DELETE_SUCCESS,
   EDIT_ERROR,
   EDIT_SUCCESS,
 } from "../../../constants/notificationMessages";
@@ -14,17 +12,26 @@ const EditProduct = ({ record }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [form] = Form.useForm();
   const { updateProduct } = useProductService();
-
+  console.log(record);
   // Fill form with record data when modal is opened
   useEffect(() => {
-    form.setFieldsValue({
-      productName: record.productName,
-      productPrice: record.productPrice,
-      productQuantity: record.productQuantity,
-      productDescription: record.productDescription,
-      productMaterial: record.productMaterial,
-      productType: record.productType,
-    });
+    if (record) {
+      const {
+        productName,
+        productPrice,
+        productQuantity,
+        productDescription,
+        productMaterial,
+        productType,
+      } = record;
+      form.setFieldsValue({
+        productName,
+        productPrice,
+        productQuantity,
+        productDescription,
+        productType,
+      });
+    }
   }, [record, form]);
 
   const handleEdit = async () => {
@@ -36,9 +43,9 @@ const EditProduct = ({ record }) => {
         productPrice: values.productPrice,
         productQuantity: values.productQuantity,
         productDescription: values.productDescription,
-        productMaterial: values.productMaterial,
         productType: values.productType,
       };
+
       console.log(updateProduct);
       const response = await updateProduct(record.id, updatedProduct);
 
@@ -113,15 +120,7 @@ const EditProduct = ({ record }) => {
           >
             <Input.TextArea />
           </Form.Item>
-          <Form.Item
-            label="Material"
-            name="productMaterial"
-            rules={[
-              { required: true, message: "Please input product material!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+
           <Form.Item
             label="Type"
             name="productType"

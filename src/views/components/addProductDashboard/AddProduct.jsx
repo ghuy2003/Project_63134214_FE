@@ -104,7 +104,7 @@ const AddProduct = () => {
               { required: true, message: "Please input product quantity!" },
             ]}
           >
-            <Input placeholder="Quantity" type="number" />
+            <Input placeholder="Quantity" type="text" />
           </Form.Item>
           <Form.Item
             label="Description"
