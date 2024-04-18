@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const apiUrl = "http://localhost:3000/api/Product";
+import { PROTOCOL, HOST, PORT } from "@configs/app.config";
+const apiUrl = `${PROTOCOL}://${HOST}:${PORT}/api/Product`;
 
 export const getAllProductsApi = async () => {
   const getAllUrl = `${apiUrl}/getall`;
