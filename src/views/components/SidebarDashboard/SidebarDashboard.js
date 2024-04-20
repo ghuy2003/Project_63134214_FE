@@ -40,9 +40,7 @@ const SidebarDashboard = () => {
                     </span>
                     <span class="hide-menu">Product</span>
                 </Link>
-              </li>
-             
-              
+              </li>           
             </ul>
           </nav>
         </div>

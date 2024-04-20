@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Tag } from 'antd';
+import { Select, Space, Table, Tag } from 'antd';
 import useProduct from '@api/useProduct';
 import { toast } from 'react-toastify';
-
+import { Pagination } from 'antd';
+import AddProduct from '@views/components/addProductDashboard/AddProduct';
+import { PlusOutlined } from '@ant-design/icons';
+import { Image, Upload } from 'antd'
 
 const columns = [
     {
@@ -12,7 +15,7 @@ const columns = [
         render: (text) => <a>{text}</a>,
     },
     {
-        title: 'Price',
+        title: 'Price ($)',
         dataIndex: 'prodcutPrice',
         key: 'prodcutPrice',
     },
@@ -37,41 +40,47 @@ const columns = [
         dataIndex: 'views',
         key: 'views',
     },
-    // {
-    //     title: 'Tags',
-    //     key: 'tags',
-    //     dataIndex: 'tags',
-    //     render: (_, { tags }) => (
-    //     <>
-    //         {tags.map((tag) => {
-    //         let color = tag.length > 5 ? 'geekblue' : 'green';
-    //         if (tag === 'loser') {
-    //             color = 'volcano';
-    //         }
-    //         return (
-    //             <Tag color={color} key={tag}>
-    //             {tag.toUpperCase()}
-    //             </Tag>
-    //         );
-    //         })}
-    //     </>
-    //     ),
-    // },
     {
         title: 'Action',
         key: 'action',
         render: (_, record) => (
-        <Space size="middle">
-            <a>Invite {record.name}</a>
-            <a>Delete</a>
-        </Space>
+
+
+            <Select
+                
+                style={{
+                    width: 250
+                }}
+                placeholder="Action"
+                optionFilterProp="children"
+                options={[
+                {
+                    value: '1',
+                    label: 'Detail',
+                },
+                {
+                    value: '2',
+                    label: 'Edit',
+                },
+                {
+                    value: '3',
+                    label: 'Delete',
+                },
+            
+                ]}
+        />
+
+       
         ),
     },
     ];
 
 
-
+  
 function ProductManager() {
+
+
+
 
 
     const { getAll } = useProduct()
@@ -79,6 +88,10 @@ function ProductManager() {
     const [product, setProduct] = useState([])
 
     const [loading, setLoading] = useState(false);
+
+
+
+    const [total, setTotal] = useState();
     const [tableParams, setTableParams] = useState({
       pagination: {
         pageIndex: 1,
@@ -92,6 +105,7 @@ function ProductManager() {
 
 
 
+
     const fetchData = async () => {
         const {success,data} = await getAll(tableParams.pagination);
         if(!success || data.status == 'Error') {
@@ -99,14 +113,9 @@ function ProductManager() {
         } else {
             setProduct(data.data.items)
             setLoading(false);
-            setTableParams({
-                ...tableParams,
-                pagination: {
-                  ...tableParams.pagination,
-                },
-                total: data.totalCount,
-            })
+            setTotal(data.data.totalCount)
 
+            console.log(data);
         }
     }
     useEffect(() => {
@@ -124,17 +133,31 @@ function ProductManager() {
           setProduct([]);
         }
       };
-
+      const onShowSizeChange = (current, pageSize) => {
+        setTableParams({pagination: {
+            pageIndex: current,
+            pageSize: pageSize
+        }})
+      };
 
     
     return ( 
         <>
+
+            <AddProduct />
             <Table 
                 dataSource={product} columns={columns}     
-                pagination={tableParams.pagination}
+                pagination={false}
                 loading={loading}
                 onChange={handleTableChange}
             />
+            <Pagination  
+                showSizeChanger
+                onChange={onShowSizeChange} 
+                style={{textAlign: 'center',marginTop: '1.5rem'}} 
+                defaultCurrent={tableParams.pagination.pageIndex} 
+                total={total} 
+            />  
         </> 
     );
 }

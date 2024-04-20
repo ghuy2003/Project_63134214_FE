@@ -49,7 +49,6 @@ const ShopList = () => {
     fetchProduct()
   }
   const hanleGetByBranch = (v) => {
-    console.log(v);
     setBranchSearch(v);
   }
   useEffect(() => {

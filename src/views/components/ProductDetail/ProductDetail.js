@@ -34,7 +34,6 @@ function ProductDetail() {
       }
 
 
-      console.log(productDetail.listFileAndImage);
 
     useEffect(() => {
         fetchData(params.id)

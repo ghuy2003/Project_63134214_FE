@@ -5,8 +5,13 @@ const useBranch = () => {
         endpoint: '/getall',
         data: data
     })
+    const getAllBranch = async (data) => createPostRequest({
+        endpoint: '/get',
+        data: data
+    })
     return {
-        getBranch
+        getBranch,
+        getAllBranch
     }
 }
 export default useBranch
