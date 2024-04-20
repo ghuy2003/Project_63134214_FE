@@ -9,83 +9,11 @@ import {
 import AddProduct from "../addProductDashboard/AddProduct";
 import DeleteProduct from "../deleteProductDasboard/DeleteProduct";
 import EditProduct from "../edirProductDashboard/EditProduct";
-import { datas, brands, originData } from "./fakedata";
-import columns from "./columns";
 import useBranch from "@api/useBranch";
-import { toast } from "react-toastify";
 import useOrigin from "@api/useOrigin";
-
-// const columns = [
-//   {
-//     title: "Branch",
-//     dataIndex: "brandName",
-//     key: "branchId",
-//   },
-//   {
-//     title: "Category",
-//     dataIndex: "CategoryId",
-//     key: "categoryId",
-//   },
-//   {
-//     title: "Origin",
-//     dataIndex: "originName",
-//     key: "originId",
-//   },
-//   {
-//     title: "Name",
-//     dataIndex: "ProductName",
-//     key: "productName",
-//   },
-//   {
-//     title: "Price",
-//     dataIndex: "ProductPrice",
-//     key: "productPrice",
-//   },
-//   {
-//     title: "Quantity",
-//     dataIndex: "ProductQuantity",
-//     key: "productQuantity",
-//   },
-//   {
-//     title: "Description",
-//     dataIndex: "ProductDescription",
-//     key: "productDescription",
-//   },
-//   {
-//     title: "Material",
-//     dataIndex: "ProductMaterial",
-//     key: "productMaterial",
-//   },
-//   {
-//     title: "Views",
-//     dataIndex: "Views",
-//     key: "views",
-//   },
-
-//   {
-//     title: "Rate",
-//     dataIndex: "Rate",
-//     key: "rate",
-//   },
-//   {
-//     title: "Type",
-//     dataIndex: "ProductType",
-//     key: "productType",
-//   },
-
-//   {
-//     title: "Img",
-//     dataIndex: "ListFileImg",
-//     key: "listFileImg",
-//     render: (listFileImg) => (
-//       <ul>
-//         {listFileImg.map((file, index) => (
-//           <li key={index}>{file}</li>
-//         ))}
-//       </ul>
-//     ),
-//   },
-// ];
+import { toast } from "react-toastify";
+import { brands, datas, originData } from "./fakedata";
+import columns from "./columns";
 
 const TableDataDashboard = () => {
   const [branchProduct, setBranch] = useState([]);
@@ -112,7 +40,7 @@ const TableDataDashboard = () => {
       OriginName: "",
     });
     if (success && data.status != "Error") {
-      setBranch(data.data.items);
+      setOrigin(data.data.items);
     } else {
       toast.error(data.message);
     }
@@ -143,14 +71,8 @@ const TableDataDashboard = () => {
 
   return (
     <>
-      {loading ? (
-        <Spin />
-      ) : (
-        <div>
-          <AddProduct />
-          <Table columns={columns} dataSource={dataSource} />
-        </div>
-      )}
+      <AddProduct />
+      <Table columns={columns} dataSource={dataSource} />;
     </>
   );
 };

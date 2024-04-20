@@ -2,11 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart } from "../../services/redux/cartSlice/productSlice";
 import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
 const CardItem = ({ id, imgSrc, name, description, price }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    console.log("Mua...");
     dispatch(
       addProductToCart({
         id,
@@ -20,6 +20,7 @@ const CardItem = ({ id, imgSrc, name, description, price }) => {
   };
   return (
     <div className="col-md-6 col-lg-6 col-xl-4">
+      <Link to={`/product/${id}`}>
       <div className="rounded position-relative fruite-item">
         <div className="fruite-img">
           <img src={imgSrc} className="img-fluid w-100 rounded-top" alt="" />
@@ -38,13 +39,15 @@ const CardItem = ({ id, imgSrc, name, description, price }) => {
             <div
               className="btn border border-secondary rounded-pill px-3 text-primary"
               onClick={handleAddToCart}
-            >
+            >         
               <i className="fa fa-shopping-bag me-2 text-primary"></i> Add to
               cart
             </div>
           </div>
         </div>
       </div>
+      </Link>
+     
     </div>
   );
 };

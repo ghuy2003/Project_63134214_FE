@@ -16,6 +16,7 @@ import Register from "@views/components/Login/Register";
 import Contact from "@views/Contact";
 import Dashboard from "@views/components/Dashboard/Dashboard";
 import Checkout from "@views/components/Checkout/Checkout";
+import ProductManager from "@views/components/Dashboard/ProductManager/ProductManager";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -53,17 +54,7 @@ const useRoutes = () => {
     {
       key: "/product",
       label: t("product").toCapitalize(),
-      path: "/product",
-      element: (
-        <LayoutClient>
-          <ProductDetail />
-        </LayoutClient>
-      ),
-    },
-    {
-      key: "/product:id",
-      label: t("product").toCapitalize(),
-      path: "/product:id",
+      path: "/product/:id",
       element: (
         <LayoutClient>
           <ProductDetail />
@@ -128,9 +119,6 @@ const useRoutes = () => {
       label: t("dashboard").toCapitalize(),
       path: "/dashboard",
       element: (
-        // <LayoutClient>
-        //   <Dashboard />
-        // </LayoutClient>
         <Dashboard />
       ),
     },
@@ -140,9 +128,9 @@ const useRoutes = () => {
       label: t("checkout").toCapitalize(),
       path: "/checkout",
       element: (
-        <LayoutClient>
+        <>
           <Checkout />
-        </LayoutClient>
+        </>
       ),
     },
   ];
@@ -159,6 +147,14 @@ const useRoutes = () => {
       label: "devices",
       path: "/devices",
       element: <Login />,
+    },
+    {
+      key: "/dashboard/product",
+      label: "devices",
+      path: "/dashboard/product",
+      element: <Layout>
+        <ProductManager />
+      </Layout>,
     },
   ];
 

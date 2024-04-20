@@ -20,20 +20,9 @@ const Dashboard = () => {
         data-header-position="fixed"
       >
         <SidebarDashboard />
-
-        {/* ================================================= */}
-
         <div class="body-wrapper">
           <SidebarTop />
-
           <div class="container-fluid">
-            {/* <SaleOverview /> */}
-
-            {/* ========================================= */}
-            {/* <RecentTransactionsLeft /> */}
-
-            {/* ========================================== */}
-            {/* <RecentTransactionsRight /> */}
             <TableDataDashboard />
           </div>
         </div>

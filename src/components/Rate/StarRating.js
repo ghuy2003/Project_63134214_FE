@@ -1,7 +1,6 @@
 import React from 'react';
 
 const StarRating = ({rate}) => {
-  console.log(rate)
   const filledStars = Array.from({ length: rate }, (_, index) => (
     <i key={index} className="fa fa-star text-secondary"></i>
   ));

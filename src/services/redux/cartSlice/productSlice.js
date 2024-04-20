@@ -2,33 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { calculatorTotalQuanlity } from "@utils/calculateToTalQuanlity";
 import { calculateTotalCost } from "@utils/calculateTotalCost";
 const products = [
-  {
-    id: 1,
-    imgSrc: "img/vegetable-item-3.png",
-    name: "Big Banana",
-    price: 2.99,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    count: 1,
-  },
-  {
-    id: 2,
-    imgSrc: "img/vegetable-item-5.jpg",
-    name: "Potatoes",
-    price: 2.99,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    count: 1,
-  },
-  {
-    id: 3,
-    imgSrc: "img/vegetable-item-2.jpg",
-    name: "Awesome Brocoli",
-    price: 2.99,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-    count: 1,
-  },
+  
 ];
 
 const initialState = {
@@ -77,6 +51,8 @@ export const productSlice = createSlice({
     },
 
     addProductToCart: (state, action) => {
+
+      console.log(action,state);
       const product = state.productList.find(
         (prod) => prod.id === action.payload.id
       );

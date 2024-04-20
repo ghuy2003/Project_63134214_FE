@@ -10,29 +10,25 @@ const ShopList = () => {
   const [dataProduct, setData] = useState([]);
   const [branchProduct, setBranch] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setpageSize] = useState(10);
-  const [totalPages, settotalPages] = useState(0);
-
-
+  const [totalPages,setTotalPage] = useState(0);
+  const [branchName, setBranchSearch] = useState(null);
   const [rangeValue, setRangeValue] = useState(0);
-
-
-  const [nameSearch, setNameSearch] = useState('');
+  const [nameSearch, setNameSearch] = useState(null);
   const { getAll } = useProduct();
   const { getBranch } = useBranch();
   const fetchProduct = async () => {
     const {success,data} = await getAll({
       pageIndex: currentPage,
-      pageSize: pageSize,
-      ProductName: nameSearch
+      pageSize: 10,
+      ProductName: nameSearch,
+      BranchId: branchName
     });
+
     if(success && data.status != 'Error') {
       setData(data.data.items)
-      let total = data.data.totalCount;
-      setpageSize(data.data.pageSize)
-      settotalPages(Math.ceil(total / pageSize));
+      setTotalPage(data.data.totalPage)
     } else {
-      toast.error(data.message)
+      toast.error(data.data.message)
     }
   }
 
@@ -46,19 +42,20 @@ const ShopList = () => {
       toast.error(data.message)
     }
   }
-
   const hanleChangeNameSearch = (e) => {
     setNameSearch(e.target.value)
   }
   const handleSearch = () => {
-    console.log(rangeValue);
     fetchProduct()
   }
-
+  const hanleGetByBranch = (v) => {
+    console.log(v);
+    setBranchSearch(v);
+  }
   useEffect(() => {
     fetchProduct();
     fetchBranch()
-  }, []);
+  }, [branchName,nameSearch,currentPage]);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -112,10 +109,10 @@ const ShopList = () => {
                           {
                             branchProduct.map((items,key) => {
                               return (
-                              <li key={items.id}>
-                                <div class="d-flex justify-content-between fruite-name">
+                              <li key={items.id} >
+                                <div class="d-flex justify-content-between fruite-name" onClick={() => hanleGetByBranch(items.id)} style={{cursor: 'pointer'}}>
                                   <div>
-                                    <i class="fas fa-apple-alt me-2"></i>{items.branchName}
+                                    <i class="fas fa-apple-alt me-2" ></i>{items.branchName}
                                   </div>
                                   <span>({items.countProduct})</span>
                                 </div> 
@@ -141,7 +138,7 @@ const ShopList = () => {
                                 style={{ width: "100px", height: "100px" }}
                               >
                                 <img
-                                  src="img/featur-1.jpg"
+                                  src={items.listFile.length > 0 ?items.listFile[0].fileName  : "img/featur-1.jpg"}
                                   class="img-fluid rounded"
                                   alt=""
                                 />
@@ -192,52 +189,16 @@ const ShopList = () => {
                   <div class="row g-4 justify-content-center">
                     {dataProduct.map((fruit,index) => {
                       return (
-                        <Link to={`/product/${fruit.id}`}>
                             <CardItem
-                            imgSrc={fruit.productMaterial}
-                            key={fruit.id}
-                            id={fruit.id}
-                            name={fruit.productName}
-                            description={fruit.productDescription}
-                            price={fruit.prodcutPrice}
+                              imgSrc={fruit.listFile[0]?.fileName}
+                              key={fruit.id}
+                              id={fruit.id}
+                              name={fruit.productName}
+                              description={fruit.productDescription}
+                              price={fruit.prodcutPrice}
                           />
-                        </Link>
-                       
                       );
                     })}
-
-                    {/* <div className="col-12">
-                      <div className="pagination d-flex justify-content-center mt-5">
-                        <div
-                          className="rounded"
-                          onClick={() => handlePageChange(currentPage - 1)}
-                          disabled={currentPage === 1}
-                        >
-                          «
-                        </div>
-                        {Array.from({ length: totalPages }, (_, index) => (
-                          <div
-                            key={index}
-                            className={
-                              currentPage === index + 1
-                                ? "active rounded"
-                                : "rounded"
-                            }
-                            onClick={() => handlePageChange(index + 1)}
-                          >
-                            {index + 1}
-                          </div>
-                        ))}
-                        <div
-                          className="rounded"
-                          onClick={() => handlePageChange(currentPage + 1)}
-                          disabled={currentPage === totalPages}
-                        >
-                          »
-                        </div>
-                      </div>
-                    </div> */}
-
                     <div className="col-12">
                       <div className="pagination d-flex justify-content-center mt-5">
                         <a
@@ -248,7 +209,7 @@ const ShopList = () => {
                         >
                           «
                         </a>
-                        {Array.from({ length: totalPages }, (_, index) => (
+                        {Array.from({ length: totalPages}, (_, index) => (
                           <a
                             key={index}
                             href="#"

@@ -1,22 +1,39 @@
 import React from 'react'
 import { Layout as AntdLayout } from 'antd'
-import Header from './Header'
 import Body from './Body'
-import Footer from './Footer'
-import Sider from './Sider'
+import SidebarDashboard from '@views/components/SidebarDashboard/SidebarDashboard'
+import SidebarTop from '@views/components/SidebarTop/SidebarTop'
 
 const Layout = ({ children }) => {
 	return (
-		<AntdLayout style={{ maxHeight: '100vh', minHeight: '100vh' }}>
-			<Sider />
-			<AntdLayout>
-				<Header />
-				<Body>
+
+
+		<div
+        class="page-wrapper"
+        id="main-wrapper"
+        data-layout="vertical"
+        data-navbarbg="skin6"
+        data-sidebartype="full"
+        data-sidebar-position="fixed"
+        data-header-position="fixed"
+      >
+        <SidebarDashboard />
+        <div class="body-wrapper">
+          <SidebarTop />
+          <div class="container-fluid">
+		  <Body>
 					{children}
 				</Body>
-				<Footer />
-			</AntdLayout>
-		</AntdLayout>
+          </div>
+        </div>
+      </div>
+
+		// <AntdLayout style={{ maxHeight: '100vh', minHeight: '100vh' }}>
+		// 	<SidebarDashboard />
+		// 	<AntdLayout>
+				
+		// 	</AntdLayout>
+		// </AntdLayout>
 	)
 }
 

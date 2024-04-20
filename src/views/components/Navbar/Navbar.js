@@ -70,31 +70,7 @@ function Navbar() {
               <Link to="/shop" className="nav-item nav-link">
                 Shop
               </Link>
-              <Link to="/product" className="nav-item nav-link">
-                Shop Detail
-              </Link>
-              <div className="nav-item dropdown">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                >
-                  Pages
-                </Link>
-                <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                  <Link to={"/cart"} className="dropdown-item">
-                    Cart
-                  </Link>
-                  <a href="chackout.html" className="dropdown-item">
-                    Chackout
-                  </a>
-                  <a href="testimonial.html" className="dropdown-item">
-                    Testimonial
-                  </a>
-                  <a href="404.html" className="dropdown-item">
-                    404 Page
-                  </a>
-                </div>
-              </div>
+             
               <Link to="/contact" className="nav-item nav-link">
                 Contact
               </Link>
