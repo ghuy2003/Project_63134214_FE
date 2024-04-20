@@ -4,56 +4,33 @@ import React, { useState, useEffect } from "react";
 import useProductService from "../TableDataDashboard/useProductService";
 import notify from "../../../utils/notification";
 import {
-  ADD_ERROR,
   EDIT_ERROR,
   EDIT_SUCCESS,
 } from "../../../constants/notificationMessages";
-import useBranch from "@api/useBranch";
-
-const fakeBranches = [
-  { id: 1, name: "Branch 1" },
-  { id: 2, name: "Branch 2" },
-  { id: 3, name: "Branch 3" },
-];
 
 const EditProduct = ({ record }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [branchProduct, setBranch] = useState([]);
   const [form] = Form.useForm();
   const { updateProduct } = useProductService();
-  console.log(record);
 
-  const { getBranch } = useBranch();
-  const fetchBranch = async () => {
-    const { success, data } = await getBranch({
-      BranchName: "",
-    });
-    if (success && data.status != "Error") {
-      setBranch(data.data.items);
-    } else {
-      notify(ADD_ERROR, "error", "bottom-right");
-    }
-  };
-  useEffect(() => {
-    fetchBranch();
-  }, []);
   // Fill form with record data when modal is opened
   useEffect(() => {
     if (record) {
-      const {
-        productName,
-        productPrice,
-        productQuantity,
-        productDescription,
-        productMaterial,
-        productType,
-      } = record;
       form.setFieldsValue({
-        productName,
-        productPrice,
-        productQuantity,
-        productDescription,
-        productType,
+        branchId: record.BranchId,
+        categoryId: record.CategoryId,
+        originId: record.OriginId,
+        productName: record.ProductName,
+        productPrice: record.ProductPrice,
+        productQuantity: record.ProductQuantity,
+        productDescription: record.ProductDescription,
+        productMaterial: record.ProductMaterial,
+        views: record.Views,
+        comment: record.Comment,
+        rate: record.Rate,
+        productType: record.ProductType,
+        productSold: record.ProductSold,
+        listFileImg: record.ListFileImg,
       });
     }
   }, [record, form]);
@@ -63,14 +40,9 @@ const EditProduct = ({ record }) => {
       const values = await form.validateFields();
       const updatedProduct = {
         ...record,
-        productName: values.productName,
-        productPrice: values.productPrice,
-        productQuantity: values.productQuantity,
-        productDescription: values.productDescription,
-        productType: values.productType,
+        ...values,
       };
-
-      console.log(updateProduct);
+      console.log(updatedProduct);
       const response = await updateProduct(record.id, updatedProduct);
 
       if (response.status === 200) {
@@ -112,6 +84,15 @@ const EditProduct = ({ record }) => {
         ]}
       >
         <Form form={form} layout="vertical">
+          <Form.Item label="Branch ID" name="branchId">
+            <Input disabled />
+          </Form.Item>
+          <Form.Item label="Category ID" name="categoryId">
+            <Input disabled />
+          </Form.Item>
+          <Form.Item label="Origin ID" name="originId">
+            <Input disabled />
+          </Form.Item>
           <Form.Item
             label="Product Name"
             name="productName"
@@ -120,37 +101,23 @@ const EditProduct = ({ record }) => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Price"
+            label="Product Price"
             name="productPrice"
             rules={[{ required: true, message: "Please input product price!" }]}
           >
-            <Input type="text" />
-          </Form.Item>
-
-          <Form.Item
-            label="Select Branch"
-            name="branch"
-            rules={[{ required: true, message: "Please select a branch!" }]}
-          >
-            <Select placeholder="Select a branch">
-              {fakeBranches.map((branch) => (
-                <Select.Option key={branch.id} value={branch.id}>
-                  {branch.name}
-                </Select.Option>
-              ))}
-            </Select>
+            <Input />
           </Form.Item>
           <Form.Item
-            label="Quantity"
+            label="Product Quantity"
             name="productQuantity"
             rules={[
               { required: true, message: "Please input product quantity!" },
             ]}
           >
-            <Input type="text" />
+            <Input />
           </Form.Item>
           <Form.Item
-            label="Description"
+            label="Product Description"
             name="productDescription"
             rules={[
               { required: true, message: "Please input product description!" },
@@ -158,11 +125,34 @@ const EditProduct = ({ record }) => {
           >
             <Input.TextArea />
           </Form.Item>
-
+          <Form.Item label="Product Material" name="productMaterial">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Views" name="views">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Comment" name="comment">
+            <Input />
+          </Form.Item>
+          <Form.Item label="Rate" name="rate">
+            <Input />
+          </Form.Item>
           <Form.Item
-            label="Type"
+            label="Product Type"
             name="productType"
             rules={[{ required: true, message: "Please input product type!" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item label="Product Sold" name="productSold">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="List File Image"
+            name="listFileImg"
+            rules={[
+              { required: true, message: "Please input list file image!" },
+            ]}
           >
             <Input />
           </Form.Item>
