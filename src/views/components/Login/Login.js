@@ -41,12 +41,13 @@ const Login = () => {
       UserName: formik.values["username"],
       Password: formik.values["password"],
     });
-    console.log(success, data);
+
     if (data.status == "Error") {
       toast.error(data.message);
     } else {
       toast.success(data.message);
       if(data.data.roleName.includes('Admin')) {
+        changeData({username: data.data.userName, token:  data.data.accessTken})
         navigate('/dashboard')
       }
     }

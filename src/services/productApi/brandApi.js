@@ -3,7 +3,6 @@ import { PROTOCOL, HOST, PORT } from "@configs/app.config";
 
 const apiUrl = `${PROTOCOL}://${HOST}:${PORT}/api/Branch`;
 
-// Service để tạo mới một Branch
 export const createBranch = async (branchData) => {
   try {
     const response = await axios.post(`${apiUrl}/create`, branchData);
@@ -14,18 +13,16 @@ export const createBranch = async (branchData) => {
   }
 };
 
-// Service để lấy danh sách tất cả các Branch
+
 export const getAllBranches = async () => {
   try {
     const response = await axios.post(`${apiUrl}/getall`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching all branches:", error);
     throw error;
   }
 };
 
-// Service để chỉnh sửa thông tin của một Branch
 export const editBranch = async (branchId, branchData) => {
   try {
     const response = await axios.put(
@@ -39,7 +36,6 @@ export const editBranch = async (branchId, branchData) => {
   }
 };
 
-// Service để xóa một Branch
 export const deleteBranch = async (branchId) => {
   try {
     const response = await axios.delete(`${apiUrl}/delete?id=${branchId}`);

@@ -102,13 +102,14 @@ const useRequest = (prefixPath = '') => {
 
 
 
-	const createDeleteRequest = useCallback(({ endpoint, data, ...props }) => {
-		console.log(data)
+	const createDeleteRequest = useCallback(({ endpoint, params, headers }) => {
 		return ( 
 			request
-				.delete(endpoint, data, { ...props })
+				.delete(endpoint, {params,headers})
 				.then(res => {
+					console.log(res);
 					const { data } = res
+					console.log(res);
 					const { message } = data
 					return {
 						success: true,

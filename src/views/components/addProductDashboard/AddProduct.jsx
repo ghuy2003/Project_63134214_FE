@@ -98,18 +98,18 @@ const AddProduct = () => {
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
+    // {
+    //   uid: '-xxx',
+    //   percent: 50,
+    //   name: 'image.png',
+    //   status: 'uploading',
+    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    // },
+    // {
+    //   uid: '-5',
+    //   name: 'image.png',
+    //   status: 'error',
+    // },
   ]);
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -118,7 +118,11 @@ const AddProduct = () => {
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
   };
-  const handleChangeFile = ({ fileList: newFileList }) => setFileList(newFileList);
+  const handleChangeFile = ({ fileList: newFileList }) => {
+    setFileList(newFileList)
+
+    console.log(newFileList);
+  };
   const uploadButton = (
     <button
       style={{
@@ -140,6 +144,8 @@ const AddProduct = () => {
   
 
   const onFinish = async (values) => {
+
+    console.log(fileList);
     try {
       // Tạo đối tượng product từ các giá trị được nhập từ form
       const product = {
@@ -155,8 +161,12 @@ const AddProduct = () => {
         rate: values.rate,
         productType: values.productType,
         productSold: values.productSold,
-        listFileImg: values.listFileImg,
+        listFileImg: fileList.reduce((img) => {
+          return img.originFileObj
+        }),
       };
+
+      console.log(product);
       const response = await addProduct(product);
 
       // Xử lý response từ server
@@ -345,14 +355,21 @@ const handleChange = (value) => {
             <Form.Item
               label="List File Image"
               name="listFileImg"
+              getValueFromEvent={e => {
+                if (Array.isArray(e)) {
+                  return e;
+                }
+                return e && e.fileList;
+              }}
               rules={[
                 { required: true, message: "Please input list file image!" },
               ]}
             >
               <>
       <Upload
-        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+        action={""}
         listType="picture-card"
+        name="listFileImg"
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChangeFile}
@@ -375,20 +392,9 @@ const handleChange = (value) => {
 </>
             </Form.Item>
           </Col>
-
-
-
-
           </Row>
-          
-         
-
-          
-         
-          
-          
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" >
               Submit
             </Button>
           </Form.Item>

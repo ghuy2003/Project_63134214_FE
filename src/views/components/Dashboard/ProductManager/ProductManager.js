@@ -6,74 +6,9 @@ import { Pagination } from 'antd';
 import AddProduct from '@views/components/addProductDashboard/AddProduct';
 import { PlusOutlined } from '@ant-design/icons';
 import { Image, Upload } from 'antd'
-
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'productName',
-        key: 'productName',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Price ($)',
-        dataIndex: 'prodcutPrice',
-        key: 'prodcutPrice',
-    },
-    {
-        title: 'Number',
-        dataIndex: 'productNumber',
-        key: 'productNumber',
-    },
-
-    {
-        title: 'BranchName',
-        dataIndex: 'branchName',
-        key: 'branchName',
-    },
-    {
-        title: 'Rate',
-        dataIndex: 'rate',
-        key: 'rate',
-    },
-    {
-        title: 'Views',
-        dataIndex: 'views',
-        key: 'views',
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
+import Delete from './DeleteProduct';
 
 
-            <Select
-                
-                style={{
-                    width: 250
-                }}
-                placeholder="Action"
-                optionFilterProp="children"
-                options={[
-                {
-                    value: '1',
-                    label: 'Detail',
-                },
-                {
-                    value: '2',
-                    label: 'Edit',
-                },
-                {
-                    value: '3',
-                    label: 'Delete',
-                },
-            
-                ]}
-        />
-
-       
-        ),
-    },
-    ];
 
 
   
@@ -83,6 +18,62 @@ function ProductManager() {
 
 
 
+    const handleChangeOption = () => {
+
+    }
+
+
+  
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'productName',
+            key: 'productName',
+            render: (text) => <a>{text}</a>,
+        },
+        {
+            title: 'Price ($)',
+            dataIndex: 'prodcutPrice',
+            key: 'prodcutPrice',
+        },
+        {
+            title: 'Number',
+            dataIndex: 'productNumber',
+            key: 'productNumber',
+        },
+    
+        {
+            title: 'BranchName',
+            dataIndex: 'branchName',
+            key: 'branchName',
+        },
+        {
+            title: 'Rate',
+            dataIndex: 'rate',
+            key: 'rate',
+        },
+        {
+            title: 'Views',
+            dataIndex: 'views',
+            key: 'views',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+    
+                <>
+                    <Delete id={record.id} />
+                </>
+        
+    
+           
+            ),
+        },
+        ];
+
+        
     const { getAll } = useProduct()
 
     const [product, setProduct] = useState([])
