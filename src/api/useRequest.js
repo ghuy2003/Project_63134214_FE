@@ -17,8 +17,9 @@ const useRequest = (prefixPath = '') => {
 		baseURL: `${PROTOCOL}://${HOST}:${PORT}/api/${prefixPath}`, // run on local
 		timeout: 8000,
 		headers: {
-			Accept: 'application/json',
-			Authorization: token
+			Accept: 'application/json; charset=utf-8',
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`
 		},
 		signal: controller.signal
 	})
@@ -48,6 +49,8 @@ const useRequest = (prefixPath = '') => {
 
 	const createPostRequest = useCallback(({ endpoint, data, ...props }) => {
 		console.log(data)
+		console.log(request);
+
 		return ( 
 			request
 				.post(endpoint, data, { ...props })
@@ -103,9 +106,10 @@ const useRequest = (prefixPath = '') => {
 
 
 	const createDeleteRequest = useCallback(({ endpoint, params, headers }) => {
+		console.log(endpoint, params)
 		return ( 
 			request
-				.delete(endpoint, {params,headers})
+				.delete(endpoint, {params})
 				.then(res => {
 					console.log(res);
 					const { data } = res

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Select, Space, Table, Tag } from 'antd';
+import { Button, Select, Space, Table, Tag } from 'antd';
 import useProduct from '@api/useProduct';
 import { toast } from 'react-toastify';
 import { Pagination } from 'antd';
@@ -7,6 +7,11 @@ import AddProduct from '@views/components/addProductDashboard/AddProduct';
 import { PlusOutlined } from '@ant-design/icons';
 import { Image, Upload } from 'antd'
 import Delete from './DeleteProduct';
+import Detail from './Detail';
+import Edit from './Edit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { Link, Navigate } from 'react-router-dom';
 
 
 
@@ -25,6 +30,66 @@ function ProductManager() {
 
   
 
+
+        
+    const { getAll } = useProduct()
+
+    const [product, setProduct] = useState([])
+
+    const [loading, setLoading] = useState(false);
+
+
+
+    const [total, setTotal] = useState();
+    const [tableParams, setTableParams] = useState({
+      pagination: {
+        pageIndex: 1,
+        pageSize: 10,
+      },
+    });
+
+
+    
+
+
+
+
+
+    const fetchData = async () => {
+        const {success,data} = await getAll(tableParams.pagination);
+        if(!success || data.status == 'Error') {
+            toast.error('Có lỗi xảy ra')
+        } else {
+            setProduct(data.data.items)
+            setLoading(false);
+            setTotal(data.data.totalCount)
+        }
+    }
+    useEffect(() => {
+        fetchData()
+    }, [JSON.stringify(tableParams), loading])
+
+
+    const handleTableChange = (pagination, filters, sorter) => {
+        setTableParams({
+          pagination,
+          filters,
+          ...sorter,
+        });
+        if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+          setProduct([]);
+        }
+      };
+      const onShowSizeChange = (current, pageSize) => {
+        setTableParams({pagination: {
+            pageIndex: current,
+            pageSize: pageSize
+        }})
+      };
+
+    
+
+      
     const columns = [
         {
             title: 'Name',
@@ -59,79 +124,29 @@ function ProductManager() {
             key: 'views',
         },
         {
+
             title: 'Action',
             key: 'action',
             render: (_, record) => (
-    
-                <>
-                    <Delete id={record.id} />
-                </>
-        
-    
-           
+                <Space>
+                    <Delete id={record.id} state={loading} action={setLoading} />
+                    <Link to={record.id}>
+                        <Button type='primary' title='Detail Product'>
+                            <FontAwesomeIcon icon={faCircleInfo} />
+                        </Button>
+                    </Link>
+                    <Link to={`/edit/${record.id}`}>
+                        <Button title='Edit Product' style={{
+                            backgroundColor: 'brown'
+                        }}>
+                            <FontAwesomeIcon icon={faPenToSquare} style={{color: "white"}} />
+                        </Button>
+                    </Link>
+                </Space>
             ),
         },
         ];
 
-        
-    const { getAll } = useProduct()
-
-    const [product, setProduct] = useState([])
-
-    const [loading, setLoading] = useState(false);
-
-
-
-    const [total, setTotal] = useState();
-    const [tableParams, setTableParams] = useState({
-      pagination: {
-        pageIndex: 1,
-        pageSize: 10,
-      },
-    });
-
-
-    
-
-
-
-
-
-    const fetchData = async () => {
-        const {success,data} = await getAll(tableParams.pagination);
-        if(!success || data.status == 'Error') {
-            toast.error('Có lỗi xảy ra')
-        } else {
-            setProduct(data.data.items)
-            setLoading(false);
-            setTotal(data.data.totalCount)
-
-            console.log(data);
-        }
-    }
-    useEffect(() => {
-        fetchData()
-    }, [JSON.stringify(tableParams)])
-
-
-    const handleTableChange = (pagination, filters, sorter) => {
-        setTableParams({
-          pagination,
-          filters,
-          ...sorter,
-        });
-        if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-          setProduct([]);
-        }
-      };
-      const onShowSizeChange = (current, pageSize) => {
-        setTableParams({pagination: {
-            pageIndex: current,
-            pageSize: pageSize
-        }})
-      };
-
-    
     return ( 
         <>
 

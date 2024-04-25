@@ -17,6 +17,8 @@ import Contact from "@views/Contact";
 import Dashboard from "@views/components/Dashboard/Dashboard";
 import Checkout from "@views/components/Checkout/Checkout";
 import ProductManager from "@views/components/Dashboard/ProductManager/ProductManager";
+import Detail from "@views/components/Dashboard/ProductManager/Detail";
+import Edit from "@views/components/Dashboard/ProductManager/Edit";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -156,6 +158,24 @@ const useRoutes = () => {
         <ProductManager />
       </Layout>,
     },
+    {
+      key: "/dashboard/product/:id",
+      label: "product",
+      path: "/dashboard/product/:id",
+      element: <Layout>
+        <Detail />
+      </Layout>,
+    },
+
+    {
+      key: "/dashboard/product/edit/:id",
+      label: "Edit",
+      path: "/dashboard/product/edit/:id",
+      element: <Layout>
+        <Edit />
+      </Layout>,
+    },
+
   ];
 
   return {
