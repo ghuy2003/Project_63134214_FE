@@ -1,6 +1,9 @@
 import React from "react";
 import logdark from '../Dashboard/assets/images/logos/dark-logo.svg'
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import product from '../Dashboard/assets/images/logos/product.png'
+import branch from '../Dashboard/assets/images/logos/nullability.png'
 const SidebarDashboard = () => {
   return (
     <>
@@ -27,7 +30,7 @@ const SidebarDashboard = () => {
               <li class="sidebar-item">
                 <Link to={'/dashboard'} className="sidebar-link" aria-expanded="false" >
                 <span>
-                    <i class="ti ti-layout-dashboard"></i>
+                    <img src={branch}/>
                   </span>
                   <span class="hide-menu">Dashboard</span>
                 </Link>
@@ -36,9 +39,25 @@ const SidebarDashboard = () => {
               <li class="sidebar-item">
                 <Link to={'/dashboard/product'} className="sidebar-link" aria-expanded="false">
                   <span>
-                      <i class="ti ti-layout-dashboard"></i>
+                  <img src={product} />
                     </span>
                     <span class="hide-menu">Product</span>
+                </Link>
+              </li>           
+              <li class="sidebar-item">
+                <Link to={'/dashboard/branch'} className="sidebar-link" aria-expanded="false">
+                  <span>
+                      <img src={branch}/>
+                    </span>
+                    <span class="hide-menu">Branch</span>
+                </Link>
+              </li>           
+              <li class="sidebar-item">
+                <Link to={'/dashboard/order'} className="sidebar-link" aria-expanded="false">
+                  <span>
+                      <img src={branch}/>
+                    </span>
+                    <span class="hide-menu">Orders</span>
                 </Link>
               </li>           
             </ul>

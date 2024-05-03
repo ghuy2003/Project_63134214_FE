@@ -26,7 +26,7 @@ import { ToastContainer } from "react-toastify";
 // import "./scss copy/bootstrap/scss/bootstrap.scss";
 const App = () => {
   const navigate = useNavigate();
-  const { routes, privateRoutes } = useRoutes();
+  const { routes } = useRoutes();
   const { token } = useUser();
   const [ready, setReady] = useState(false); // set after
   const renderRoute = (routes) => (

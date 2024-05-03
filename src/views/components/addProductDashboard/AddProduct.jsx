@@ -1,19 +1,12 @@
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Modal, Row, Select, message } from "antd";
 import React, { useEffect, useState } from "react";
-import useProductService from "../TableDataDashboard/useProductService";
-import notify from "../../../utils/notification";
-import {
-  ADD_ERROR,
-  ADD_SUCCESS,
-  DELETE_ERROR,
-  DELETE_SUCCESS,
-} from "../../../constants/notificationMessages";
-
 import { PlusOutlined } from '@ant-design/icons';
 import { Image, Upload } from 'antd';
 import useBranch from "@api/useBranch";
 import useOrigin from "@api/useOrigin";
+import useProduct from "@api/useProduct";
+import { toast } from "react-toastify";
 const getBase64 = (file) =>
 new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -25,7 +18,7 @@ new Promise((resolve, reject) => {
 const AddProduct = () => {
   const [modal2Open, setModal2Open] = useState(false);
   const [form] = Form.useForm();
-  const { addProduct } = useProductService();
+  const { createProduct } = useProduct();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
 
@@ -37,7 +30,9 @@ const AddProduct = () => {
   const [origin, setOrigin] = useState([])
 
 
-
+const handleRemove = () => {
+  console.log('delete');
+}
   const fetchbranch = async () => {
     const {success, data} = await getAllBranch();
 
@@ -73,44 +68,8 @@ const AddProduct = () => {
     fetchbranch()
     fetchOrigin()
   }, [])
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-2',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-3',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-4',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    // {
-    //   uid: '-xxx',
-    //   percent: 50,
-    //   name: 'image.png',
-    //   status: 'uploading',
-    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    // },
-    // {
-    //   uid: '-5',
-    //   name: 'image.png',
-    //   status: 'error',
-    // },
-  ]);
+  const [fileList, setFileList] = useState([]);
+  const [fileListUpload, setfileListUpload] = useState([]);
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
@@ -119,10 +78,13 @@ const AddProduct = () => {
     setPreviewOpen(true);
   };
   const handleChangeFile = ({ fileList: newFileList }) => {
-    setFileList(newFileList)
-
-    console.log(newFileList);
+    setFileList(newFileList);
+    setfileListUpload(newFileList.map((items) => {
+      return items.originFileObj
+    }))
   };
+
+
   const uploadButton = (
     <button
       style={{
@@ -144,8 +106,6 @@ const AddProduct = () => {
   
 
   const onFinish = async (values) => {
-
-    console.log(fileList);
     try {
       // Tạo đối tượng product từ các giá trị được nhập từ form
       const product = {
@@ -161,47 +121,36 @@ const AddProduct = () => {
         rate: values.rate,
         productType: values.productType,
         productSold: values.productSold,
-        listFileImg: fileList.reduce((img) => {
-          return img.originFileObj
-        }),
+        listFileImg: fileListUpload
       };
+      const {success,data} = await createProduct(product, { "Content-Type": "multipart/form-data"});
+      console.log(success,data);
 
-      console.log(product);
-      const response = await addProduct(product);
+    // if (data.status != 'Error' && success) {
+    //     setModal2Open(false);
+    //     toast.success(data.message)
+    // } else {
+    //   toast.error(data.message)
 
-      // Xử lý response từ server
-      if (response.status === 201) {
-        // Thêm sản phẩm thành công
-        setModal2Open(false);
-        notify(ADD_SUCCESS, "success", "bottom-right");
-        message.success("Product created successfully!");
-      } else {
-        notify(ADD_ERROR, "error", "bottom-right");
-        message.error(response.data.message);
-      }
+    // }
     } catch (error) {
-      // Xử lý lỗi khi gọi API
-      notify(ADD_ERROR, "error", "bottom-right");
-      console.error("Error creating product:", error.message);
-      message.error("Failed to create product.");
+      toast.error("loi")
     }
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-
-  const options = [];
-for (let i = 10; i < 36; i++) {
-  options.push({
-    value: i.toString(36) + i,
-    label: i.toString(36) + i,
-  });
-}
 const handleChange = (value) => {
   console.log(`Selected: ${value}`);
 };
+
+ const normFile = (e) => {
+        if (Array.isArray(e)) {
+          return e;
+        }
+        return e?.fileList;
+    };
 
   return (
     <div>
@@ -217,7 +166,7 @@ const handleChange = (value) => {
         }}
         onClick={() => setModal2Open(true)}
       >
-        <PlusSquareOutlined /> ADD
+        <PlusSquareOutlined /> Add
       </Button>
 
       <Modal
@@ -350,46 +299,51 @@ const handleChange = (value) => {
           </Col>
          
           
-          
+       
           <Col span={8}>
-            <Form.Item
+            
+
+          <Form.Item
               label="List File Image"
               name="listFileImg"
               getValueFromEvent={e => {
                 if (Array.isArray(e)) {
-                  return e;
-                }
-                return e && e.fileList;
+                  var elist = [];
+                  console.log( e.fileList);
+                  e.fileList.forEach(element => {
+                    elist.push(element.originFileObj)
+                  })
+                } 
+               
+                return elist
               }}
-              rules={[
-                { required: true, message: "Please input list file image!" },
-              ]}
             >
-              <>
-      <Upload
-        action={""}
-        listType="picture-card"
-        name="listFileImg"
-        fileList={fileList}
-        onPreview={handlePreview}
-        onChange={handleChangeFile}
-      >
-        {fileList.length >= 8 ? null : uploadButton}
-      </Upload>
-      {previewImage && (
-        <Image
-          wrapperStyle={{
-            display: 'none',
-          }}
-          preview={{
-            visible: previewOpen,
-            onVisibleChange: (visible) => setPreviewOpen(visible),
-            afterOpenChange: (visible) => !visible && setPreviewImage(''),
-          }}
-          src={previewImage}
-        />
-      )}
-</>
+
+            <Upload
+              listType="picture-card"
+              name="listFileImg"
+              fileList={fileList}
+              onRemove={() => {
+                handleRemove();
+              }}
+              onPreview={handlePreview}
+              onChange={handleChangeFile}
+            >
+              {fileList.length < 0 ? null : uploadButton}
+            </Upload>
+            {previewImage && (
+              <Image
+                wrapperStyle={{
+                  display: 'none',
+                }}
+                preview={{
+                  visible: previewOpen,
+                  onVisibleChange: (visible) => setPreviewOpen(visible),
+                  afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                }}
+                src={previewImage}
+              />
+            )}
             </Form.Item>
           </Col>
           </Row>

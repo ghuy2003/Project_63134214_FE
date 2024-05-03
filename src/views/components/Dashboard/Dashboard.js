@@ -6,6 +6,7 @@ import SaleOverview from "../SaleOverview/SaleOverview";
 import RecentTransactionsLeft from "../RecentTransactionsLeft/RecentTransactionsLeft";
 import RecentTransactionsRight from "../RecentTransactionsRight/RecentTransactionsRight";
 import TableDataDashboard from "../TableDataDashboard/TableDataDashboard";
+import SastisfyManager from "./SastisfyManager/SastisfyManager";
 
 const Dashboard = () => {
   return (
@@ -16,14 +17,12 @@ const Dashboard = () => {
         data-layout="vertical"
         data-navbarbg="skin6"
         data-sidebartype="full"
-        data-sidebar-position="fixed"
-        data-header-position="fixed"
       >
         <SidebarDashboard />
         <div class="body-wrapper">
           <SidebarTop />
           <div class="container-fluid">
-            <TableDataDashboard />
+            <SastisfyManager />
           </div>
         </div>
       </div>

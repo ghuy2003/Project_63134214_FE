@@ -14,9 +14,10 @@ const useProduct = () => {
 		endpoint: '/getBestSale',
 		params: null
 	})
-	const createProduct  = (data) => createPostRequest({
+	const createProduct  = (data,headers) => createPostRequest({
 		endpoint: '/create',
-		data: data
+		data: data,
+		headers: headers
 	})
 	
 	const deleteProduct = (params) => createDeleteRequest({

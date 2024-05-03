@@ -25,7 +25,8 @@ const useRequest = (prefixPath = '') => {
 	})
 	const [request, setRequest] = useState(() => createRequest())
 	const createGetRequest = useCallback(({ endpoint, params, query, headers, successCallback }) => {
-		console.log(query)
+
+		console.log(endpoint, params);
 		return (
 			request
 				.get(endpoint, { params, headers })
@@ -47,44 +48,46 @@ const useRequest = (prefixPath = '') => {
 		)
 	}, [request, t])
 
-	const createPostRequest = useCallback(({ endpoint, data, ...props }) => {
-		console.log(data)
-		console.log(request);
-
-		return ( 
-			request
-				.post(endpoint, data, { ...props })
-				.then(res => {
-					const { data } = res
-					const { message } = data
-					return {
-						success: true,
-						data
-					}
-				})
-				.catch(err => {
-					const data = handleError(err)
-					console.log(data)
-					return {
-						success: false,
-						data
-					}
-				})
-				.finally(() => {})
-		)
+	const createPostRequest = useCallback(({ endpoint, data, headers, ...props }) => {
+		console.log(endpoint, data);
+		try {
+			return ( 
+				request
+					.post(endpoint, data, {headers: headers} , { ...props })
+					.then(res => {
+						const { data } = res
+						const { message } = data
+						return {
+							success: true,
+							data
+						}
+					})
+					.catch(err => {
+						const data = handleError(err)
+						console.log(data)
+						return {
+							success: false,
+							data
+						}
+					})
+					.finally(() => {})
+			)
+		} catch (error) {
+			console.log(error);
+			alert(error.message)
+		}
+		
 	}, [request, t])
 
 
 
 
-	const createPutRequest = useCallback(({ endpoint, data, ...props }) => {
-		console.log(data)
+	const createPutRequest = useCallback(({ endpoint, data, params, ...props }) => {
 		return ( 
 			request
-				.put(endpoint, data, { ...props })
+				.put(endpoint, data, {params: params} , { ...props })
 				.then(res => {
 					const { data } = res
-					const { message } = data
 					return {
 						success: true,
 						data
@@ -92,7 +95,6 @@ const useRequest = (prefixPath = '') => {
 				})
 				.catch(err => {
 					const data = handleError(err)
-					console.log(data)
 					return {
 						success: false,
 						data
@@ -106,7 +108,6 @@ const useRequest = (prefixPath = '') => {
 
 
 	const createDeleteRequest = useCallback(({ endpoint, params, headers }) => {
-		console.log(endpoint, params)
 		return ( 
 			request
 				.delete(endpoint, {params})

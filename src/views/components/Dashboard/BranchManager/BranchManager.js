@@ -1,37 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Select, Space, Table, Tag } from 'antd';
-import useProduct from '@api/useProduct';
 import { toast } from 'react-toastify';
 import { Pagination } from 'antd';
-import AddProduct from '@views/components/addProductDashboard/AddProduct';
 import { PlusOutlined } from '@ant-design/icons';
 import { Image, Upload } from 'antd'
-import Delete from './DeleteProduct';
-import Detail from './Detail';
-import Edit from './Edit';
+import Delete from './DeleteBranch';
+import Detail from './DetailBranch';
+import Edit from './EditBranch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Link, Navigate } from 'react-router-dom';
+import useBranch from '@api/useBranch';
+import AddBranch from './AddBranch';
+import DeleteBranch from './DeleteBranch';
+import EditBranch from './EditBranch';
 
 
 
 
   
-function ProductManager() {
+function BranchManager() {  
+    const { getBranch } = useBranch()
 
-
-
-
-
-
-        
-    const { getAll } = useProduct()
-
-    const [product, setProduct] = useState([])
+    const [branch, setBranch] = useState([])
 
     const [loading, setLoading] = useState(false);
 
-
+    const [searchName,setSearchName] = useState('')
 
     const [total, setTotal] = useState();
     const [tableParams, setTableParams] = useState({
@@ -49,20 +44,22 @@ function ProductManager() {
 
 
     const fetchData = async () => {
-        const {success,data} = await getAll(tableParams.pagination);
+        const {success,data} = await getBranch(tableParams.pagination);
         if(!success || data.status == 'Error') {
             toast.error('Có lỗi xảy ra')
         } else {
-            setProduct(data.data.items)
+            setBranch(data.data.items)
             setLoading(false);
             setTotal(data.data.totalCount)
         }
     }
     useEffect(() => {
         fetchData()
-    }, [JSON.stringify(tableParams), loading])
+    }, [JSON.stringify(tableParams), loading, searchName])
 
-
+    const handleChangeName = (e)  => {
+        setSearchName(e.target.value)
+    }
     const handleTableChange = (pagination, filters, sorter) => {
         setTableParams({
           pagination,
@@ -70,51 +67,40 @@ function ProductManager() {
           ...sorter,
         });
         if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-          setProduct([]);
+          setBranch([]);
         }
       };
-    const onShowSizeChange = (current, pageSize) => {
+      const onShowSizeChange = (current, pageSize) => {
         setTableParams({pagination: {
             pageIndex: current,
             pageSize: pageSize
         }})
-    };
+      };
 
     
+
 
       
     const columns = [
         {
             title: 'Name',
-            dataIndex: 'productName',
-            key: 'productName',
+            dataIndex: 'branchName',
+            key: 'branchName',
             render: (text) => <a>{text}</a>,
         },
+        
         {
-            title: 'Price ($)',
-            dataIndex: 'prodcutPrice',
-            key: 'prodcutPrice',
-        },
-        {
-            title: 'Number',
-            dataIndex: 'productNumber',
-            key: 'productNumber',
+            title: 'Quanlity Product',
+            dataIndex: 'countProduct',
+            key: 'countProduct',
+            
         },
     
         {
-            title: 'BranchName',
-            dataIndex: 'branchName',
-            key: 'branchName',
-        },
-        {
-            title: 'Rate',
-            dataIndex: 'rate',
-            key: 'rate',
-        },
-        {
-            title: 'Views',
-            dataIndex: 'views',
-            key: 'views',
+            title: 'Create Date',
+            dataIndex: 'createDate',
+            key: 'createDate',
+            render:  (text) => <p>{new Date(text).toLocaleDateString('en-GB')}</p>
         },
         {
 
@@ -122,30 +108,23 @@ function ProductManager() {
             key: 'action',
             render: (_, record) => (
                 <Space>
-                    <Delete id={record.id} state={loading} action={setLoading} />
+                    <DeleteBranch id={record.id} state={loading} action={setLoading} />
                     <Link to={record.id}>
-                        <Button type='primary' title='Detail Product'>
+                        <Button type='primary' title='Detail Branch'>
                             <FontAwesomeIcon icon={faCircleInfo} />
                         </Button>
                     </Link>
-                    <Link to={`/dashboard/product/edit/${record.id}`}>
-                        <Button title='Edit Product' style={{
-                            backgroundColor: 'brown'
-                        }}>
-                            <FontAwesomeIcon icon={faPenToSquare} style={{color: "white"}} />
-                        </Button>
-                    </Link>
+                    <EditBranch id={record.id} state={loading} action={setLoading} />
                 </Space>
             ),
         },
         ];
-
     return ( 
         <>
 
-            <AddProduct />
+            <AddBranch />
             <Table 
-                dataSource={product} columns={columns}     
+                dataSource={branch} columns={columns}     
                 pagination={false}
                 loading={loading}
                 onChange={handleTableChange}
@@ -161,4 +140,4 @@ function ProductManager() {
     );
 }
 
-export default ProductManager;
+export default BranchManager;

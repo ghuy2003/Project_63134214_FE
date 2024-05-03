@@ -4,9 +4,16 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { CHOXACNHAN } from "../../../constants/orderStatusConstant";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
-  const productList = useSelector((state) => state.products.productList);
+  const productList = useSelector((state) => state.products.productList.map(items => {
+    return {
+      count: items.count,
+      ProductId: items.id
+    }
+  }));
   const totalCost = useSelector((state) => state.products.totalCost);
 
 
@@ -25,7 +32,8 @@ const CheckoutForm = () => {
     shipToDifferentAddress: false,
     orderNotes: "",
     totalPrice: 0,
-    product: productList
+    Carts: productList,
+    Status: CHOXACNHAN
   });
 
   const handleInputChange = (event) => {
@@ -35,12 +43,12 @@ const CheckoutForm = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
+  const navigate = useNavigate()
   const handleSubmit = async (event) => {
-    event.preventDefault();
     const {success,data} = await create(formData)
-    if(data.status != 'Error' && success ) {
+    if(data.status != 'Error' && success) {
       toast.success('Đặt hành thành công');
+      navigate('/shop')
     } else {
       toast.error('Có lỗi xảy ra');
     }

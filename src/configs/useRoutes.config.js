@@ -3,11 +3,6 @@ import useTranslate from "@lang";
 import Layout from "@views/layouts/Layout";
 import Login from "@views/components/Login/Login";
 import Home from "@views/Home";
-import {
-  ContainerOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-} from "@ant-design/icons";
 import ProductDetail from "@views/components/ProductDetail/ProductDetail";
 import LayoutClient from "@views/layouts/LayoutClient";
 import Shop from "@views/Shop";
@@ -19,6 +14,11 @@ import Checkout from "@views/components/Checkout/Checkout";
 import ProductManager from "@views/components/Dashboard/ProductManager/ProductManager";
 import Detail from "@views/components/Dashboard/ProductManager/Detail";
 import Edit from "@views/components/Dashboard/ProductManager/Edit";
+import BranchManager from "@views/components/Dashboard/BranchManager/BranchManager";
+import DetailBranch from "@views/components/Dashboard/BranchManager/DetailBranch";
+import EditBranch from "@views/components/Dashboard/BranchManager/EditBranch";
+import OrderManager from "@views/components/Dashboard/OrderManager/OrderManager";
+import DetailOrder from "@views/components/Dashboard/OrderManager/DetailOrder";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -158,14 +158,6 @@ const useRoutes = () => {
         <ProductManager />
       </Layout>,
     },
-    {
-      key: "/dashboard/product/:id",
-      label: "product",
-      path: "/dashboard/product/:id",
-      element: <Layout>
-        <Detail />
-      </Layout>,
-    },
 
     {
       key: "/dashboard/product/edit/:id",
@@ -175,6 +167,61 @@ const useRoutes = () => {
         <Edit />
       </Layout>,
     },
+    {
+      key: "/dashboard/product/:id",
+      label: "product",
+      path: "/dashboard/product/:id",
+      element: <Layout>
+        <Detail />
+      </Layout>,
+    },
+    // branch
+    {
+      key: "/dashboard/branch",
+      label: "Branch",
+      path: "/dashboard/branch",
+      element: <Layout>
+        <BranchManager />
+      </Layout>,
+     
+    },
+    {
+      key: "/dashboard/branch/:id",
+      label: "Branch",
+      path: "/dashboard/branch/:id",
+      element: <Layout>
+        < DetailBranch/>
+      </Layout>,
+     
+    },
+    {
+      key: "/dashboard/branch/edit/:id",
+      label: "Branch",
+      path: "/dashboard/branch/edit/:id",
+      element: <Layout>
+        <EditBranch />
+      </Layout>,
+     
+    },
+    //order
+    {
+      key: "/dashboard/order",
+      label: "Order",
+      path: "/dashboard/order",
+      element: <Layout>
+        <OrderManager />
+      </Layout>
+    },
+    {
+      key: "/dashboard/order/:id",
+      label: "Order",
+      path: "/dashboard/order/:id",
+      element: <Layout>
+        <DetailOrder />
+      </Layout>
+    }
+
+
 
   ];
 
