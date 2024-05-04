@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import product from '../Dashboard/assets/images/logos/product.png'
 import branch from '../Dashboard/assets/images/logos/nullability.png'
+import dashboard from '../Dashboard/assets/images/logos/dashboard.png'
+import order from '../Dashboard/assets/images/logos/order.png'
 const SidebarDashboard = () => {
   return (
     <>
@@ -30,7 +32,7 @@ const SidebarDashboard = () => {
               <li class="sidebar-item">
                 <Link to={'/dashboard'} className="sidebar-link" aria-expanded="false" >
                 <span>
-                    <img src={branch}/>
+                    <img src={dashboard}/>
                   </span>
                   <span class="hide-menu">Dashboard</span>
                 </Link>
@@ -55,7 +57,7 @@ const SidebarDashboard = () => {
               <li class="sidebar-item">
                 <Link to={'/dashboard/order'} className="sidebar-link" aria-expanded="false">
                   <span>
-                      <img src={branch}/>
+                      <img src={order}/>
                     </span>
                     <span class="hide-menu">Orders</span>
                 </Link>

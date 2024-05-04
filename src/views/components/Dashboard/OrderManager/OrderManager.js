@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import DetailOrder from "./DetailOrder"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons"
-import { Divider, Flex, Tag } from 'antd';
 const { default: useOrder } = require("@api/useOrder")
 const { Table, Pagination, Space, Button } = require("antd")
 const { useState, useEffect } = require("react")

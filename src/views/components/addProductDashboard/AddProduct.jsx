@@ -7,6 +7,7 @@ import useBranch from "@api/useBranch";
 import useOrigin from "@api/useOrigin";
 import useProduct from "@api/useProduct";
 import { toast } from "react-toastify";
+import { useForm } from "antd/es/form/Form";
 const getBase64 = (file) =>
 new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -78,10 +79,8 @@ const handleRemove = () => {
     setPreviewOpen(true);
   };
   const handleChangeFile = ({ fileList: newFileList }) => {
+    newFileList.forEach(items => items.status='done')
     setFileList(newFileList);
-    setfileListUpload(newFileList.map((items) => {
-      return items.originFileObj
-    }))
   };
 
 
@@ -113,26 +112,35 @@ const handleRemove = () => {
         categoryId: values.categoryId,
         originId: values.originId,
         productName: values.productName,
-        productPrice: values.productPrice,
-        productQuantity: values.productQuantity,
+        ProdcutPrice: values.productPrice,
+        ProductQuanlity: values.productQuantity,
         productDescription: values.productDescription,
         productMaterial: values.productMaterial,
         comment: values.comment,
         rate: values.rate,
         productType: values.productType,
         productSold: values.productSold,
-        listFileImg: fileListUpload
+        ListFileImg: fileList.map(items => items.originFileObj)
       };
-      const {success,data} = await createProduct(product, { "Content-Type": "multipart/form-data"});
-      console.log(success,data);
-
-    // if (data.status != 'Error' && success) {
-    //     setModal2Open(false);
-    //     toast.success(data.message)
-    // } else {
-    //   toast.error(data.message)
-
-    // }
+      const formData = new FormData()
+      formData.append('branchId', values.branchId);
+      formData.append('originId', values.originId);
+      formData.append('productName', values.productName);
+      formData.append('ProdcutPrice', values.productPrice);
+      formData.append('ProductQuanlity', values.productQuantity);
+      formData.append('productDescription', values.productDescription);
+      formData.append('productMaterial', values.productMaterial);
+      formData.append('productType', values.productType);
+      fileList.forEach((file, index) => {
+        formData.append(`ListFileImg`, file.originFileObj);
+      });
+      const {success,data} = await createProduct(formData, { "Content-Type": "multipart/form-data"});
+      if (data.status != 'Error' && success) {
+          setModal2Open(false);
+          toast.success(data.message)
+      } else {
+        toast.error(data.message)
+      }
     } catch (error) {
       toast.error("loi")
     }
