@@ -6,17 +6,55 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import banner from '../../../assets/img/banner-fruits.jpg'
 import fruit from '../../../assets/img/fruite-item-6.jpg'
+import useComment from '@api/useComment';
+import { format, parseISO } from 'date-fns';
+
+import {
+    MDBCard,
+    MDBCardBody,
+    MDBCardImage,
+    MDBCol,
+    MDBContainer,
+    MDBIcon,
+    MDBRow,
+    MDBTypography,
+  } from "mdb-react-ui-kit";
+
+  
 function ProductDetail() {
+
+    const formatDateToDDMMYYYY = (dateString) => {
+        const date = parseISO(dateString);
+        return format(date, 'dd/MM/yyyy');
+    };
+
     const params = useParams();
     const {getAllById} = useProduct();
     const {getBranch} = useBranch();
+    const {getCommentByProduct,addComment} = useComment();
     const [productDetail, setProductDetail] = useState({});
     const [branchProduct, setBranch] = useState([]);
+    const [comments,setComments] = useState([])
+    const [post,setPost] = useState({
+        userPost: "",
+        email: "",
+        comment: ""
+    })
 
     const fetchData = async (id) => {
         const {success,data} = await getAllById(id);
         if(data.status != 'Error' && success) {
             setProductDetail(data.data)
+        } else {
+            toast.error(data.message)
+        }
+    }
+    const fetchDataComments = async () => {
+        const {success,data} = await getCommentByProduct({
+            ProductID: params.id
+        });
+        if(data.status != 'Error' && success) {
+            setComments(data.data)
         } else {
             toast.error(data.message)
         }
@@ -34,9 +72,35 @@ function ProductDetail() {
       }
 
 
+      const handleAddComment = async () => { 
+        try {
+            const {success,data} = await addComment({
+                ProductId: params.id,
+                ...post
+            });
+            if(success) {
+                toast.success(data.message)
+                setTimeout(() => {
+                    fetchDataComments(params.id)
+                    setPost({
+                        userPost: "",
+                        email: "",
+                        comment: ""
+                    })
+                }, 1000);
+            } else {
+                toast.error(data != undefined ? data.message : "Server error")
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+      }
+
+
 
     useEffect(() => {
         fetchData(params.id)
+        fetchDataComments(params.id)
         fetchBranch();
     }, [])
     return ( <>
@@ -191,18 +255,36 @@ function ProductDetail() {
                                 <h4 class="mb-5 fw-bold">Leave a Reply</h4>
                                 <div class="row g-4">
                                     <div class="col-lg-6">
-                                        <div class="border-bottom rounded">
-                                            <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *" />
+                                        <div class="border-bottom rounded ">
+                                            <input type="text" name="userPost" onChange={(r) => {
+                                                setPost({
+                                                    userPost: r.target.value,
+                                                    email: post.email,
+                                                    comment: post.comment
+                                                })
+                                            }} value={post.userPost} class="form-control border-0 me-4" placeholder="Yur Name *" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <input type="email" class="form-control border-0" placeholder="Your Email *" />
+                                            <input type="email" onChange={(r) => {
+                                                setPost({
+                                                    userPost: post.userPost,
+                                                    email: r.target.value,
+                                                    comment: post.comment
+                                                })
+                                             }} value={post.email} class="form-control border-0" placeholder="Your Email *" />
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-bottom rounded my-4">
-                                            <textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
+                                            <textarea name="comment" id="" onChange={(r) => {
+                                                setPost({
+                                                    userPost: post.userPost,
+                                                    email: post.email,
+                                                    comment: r.target.value
+                                                })
+                                             }}  value={post.comment}  class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -217,13 +299,67 @@ function ProductDetail() {
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
+                                            <a href="javascript:void(0)" onClick={() => {
+                                                  handleAddComment()
+                                            }} class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
                                         </div>
                                     </div>
                                 </div>
                             </form>
+                            <section>
+                        <MDBContainer className="py-5" style={{ maxWidth: "100%" }}>
+                            <MDBRow className="justify-content-center">
+                            <MDBCol md="12" lg="10">
+                                <MDBCard className="text-dark">
+                                <MDBTypography tag="h4" className="mb-0 pd-5">
+                                    Recent comments
+                                    </MDBTypography>
+                                    <p className="fw-light mb-4 pb-2">
+                                    Latest Comments section by users
+                                    </p>
+
+
+                                {
+                                    comments.length > 0 && comments.map(item => (
+                                        <>
+                                            <MDBCardBody className="p-4">
+                                            <div className="d-flex flex-start">
+                                                <div>
+                                                    <MDBTypography tag="h6" className="fw-bold mb-1">
+                                                    {item.userPost}
+                                                    </MDBTypography>
+                                                    <div className="d-flex align-items-center mb-3">
+                                                    <p className="mb-0">
+                                                        {formatDateToDDMMYYYY(item.createAt)}
+                                                    </p>
+                                                    </div>
+                                                    <p className="mb-0">
+                                                        {item.comment}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            </MDBCardBody>
+                                            <hr className="my-0" />
+                                        </>
+                                    ))
+                                }
+                              
+
+                             
+                                </MDBCard>
+                            </MDBCol>
+                            </MDBRow>
+                        </MDBContainer>
+                </section>
+
                         </div>
+    
+
+
+                        
                     </div>
+
+
                     <div class="col-lg-4 col-xl-3">
                         <div class="row g-4 fruite">
                             <div class="col-lg-12">

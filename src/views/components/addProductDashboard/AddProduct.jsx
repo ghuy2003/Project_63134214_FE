@@ -107,21 +107,6 @@ const handleRemove = () => {
   const onFinish = async (values) => {
     try {
       // Tạo đối tượng product từ các giá trị được nhập từ form
-      const product = {
-        branchId: values.branchId,
-        categoryId: values.categoryId,
-        originId: values.originId,
-        productName: values.productName,
-        ProdcutPrice: values.productPrice,
-        ProductQuanlity: values.productQuantity,
-        productDescription: values.productDescription,
-        productMaterial: values.productMaterial,
-        comment: values.comment,
-        rate: values.rate,
-        productType: values.productType,
-        productSold: values.productSold,
-        ListFileImg: fileList.map(items => items.originFileObj)
-      };
       const formData = new FormData()
       formData.append('branchId', values.branchId);
       formData.append('originId', values.originId);

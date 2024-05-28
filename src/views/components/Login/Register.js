@@ -12,13 +12,19 @@ const Register = () => {
   const { register } = useAuth();
 
   const handleRegister = async () => {
-    const { success, data } = await register(formik.values);
-    console.log(success, data);
-    if (!success || data.status == "Error") {
-      toast.error(data.message);
-    } else {
-      toast.success(data.message);
+    debugger
+
+    try {
+      const { success, data } = await register(formik.values);
+      if (!success || data.status == "Error") {
+        toast.error(data.message);
+      } else {
+        toast.success(data.message);
+      }
+    } catch (err) {
+      toast.error(err)
     }
+    
   };
 
   // Validate

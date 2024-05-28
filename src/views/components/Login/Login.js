@@ -49,6 +49,9 @@ const Login = () => {
       if(data.data.roleName.includes('Admin')) {
         changeData({username: data.data.userName, token:  data.data.accessTken})
         navigate('/dashboard')
+      } else {
+        changeData({username: data.data.userName, token:  data.data.accessTken})
+        navigate('/')
       }
     }
   };
@@ -185,7 +188,10 @@ const Login = () => {
                       ) : null}
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                      <a class="text-primary fw-bold">Forgot Password ?</a>
+
+                      <Link class="text-primary fw-bold ms-2" to={"/reset-pass"}>
+                        Forgot Password ?
+                      </Link>
                     </div>
                     <a
                       type="submit"

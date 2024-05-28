@@ -19,6 +19,7 @@ import DetailBranch from "@views/components/Dashboard/BranchManager/DetailBranch
 import EditBranch from "@views/components/Dashboard/BranchManager/EditBranch";
 import OrderManager from "@views/components/Dashboard/OrderManager/OrderManager";
 import DetailOrder from "@views/components/Dashboard/OrderManager/DetailOrder";
+import ForgotPass from "@views/components/Login/ForgotPass";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -114,6 +115,15 @@ const useRoutes = () => {
           <Contact />
         </LayoutClient>
       ),
+    },
+
+    {
+      key: "/reset-pass",
+      label: "ResetPass",
+      path: "/reset-pass",
+      element: <LayoutClient>
+        <ForgotPass />
+      </LayoutClient>
     },
 
     {
@@ -220,7 +230,6 @@ const useRoutes = () => {
         <DetailOrder />
       </Layout>
     }
-
 
 
   ];
