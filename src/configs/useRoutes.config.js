@@ -20,6 +20,7 @@ import EditBranch from "@views/components/Dashboard/BranchManager/EditBranch";
 import OrderManager from "@views/components/Dashboard/OrderManager/OrderManager";
 import DetailOrder from "@views/components/Dashboard/OrderManager/DetailOrder";
 import ForgotPass from "@views/components/Login/ForgotPass";
+import UserManager from "@views/components/Dashboard/UserManager/UserManager";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -228,6 +229,14 @@ const useRoutes = () => {
       path: "/dashboard/order/:id",
       element: <Layout>
         <DetailOrder />
+      </Layout>
+    },
+    {
+      key: "/dashboard/accounts",
+      label: "Accounts",
+      path: "/dashboard/accounts",
+      element: <Layout>
+        <UserManager />
       </Layout>
     }
 

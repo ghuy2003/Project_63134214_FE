@@ -62,6 +62,14 @@ const SidebarDashboard = () => {
                     <span class="hide-menu">Orders</span>
                 </Link>
               </li>           
+              <li class="sidebar-item">
+                <Link to={'/dashboard/accounts'} className="sidebar-link" aria-expanded="false">
+                  <span>
+                      <img src={order}/>
+                    </span>
+                    <span class="hide-menu">Accunts</span>
+                </Link>
+              </li>           
             </ul>
           </nav>
         </div>

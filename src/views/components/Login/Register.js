@@ -10,10 +10,7 @@ import { validateChangeAndBlurInput } from "@utils/validateChangeAndBlurInput";
 
 const Register = () => {
   const { register } = useAuth();
-
   const handleRegister = async () => {
-    debugger
-
     try {
       const { success, data } = await register(formik.values);
       if (!success || data.status == "Error") {

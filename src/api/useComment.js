@@ -1,7 +1,6 @@
 import useRequest from './useRequest'
 const useComment = () => {
     const { createPostRequest,createGetRequest,cancel} = useRequest('Comments')
-
     const addComment = (data) => createPostRequest({
         endpoint: '/create',
         data: data

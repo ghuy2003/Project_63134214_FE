@@ -14,6 +14,7 @@ const ShopList = () => {
   const [branchName, setBranchSearch] = useState(null);
   const [rangeValue, setRangeValue] = useState(0);
   const [nameSearch, setNameSearch] = useState(null);
+  const [sortValue,setSortValue] = useState("DES");
   const { getAll } = useProduct();
   const { getBranch } = useBranch();
   const fetchProduct = async () => {
@@ -21,7 +22,8 @@ const ShopList = () => {
       pageIndex: currentPage,
       pageSize: 10,
       ProductName: nameSearch,
-      BranchId: branchName
+      BranchId: branchName,
+      SortBy: sortValue
     });
 
     if(success && data.status != 'Error') {
@@ -30,6 +32,11 @@ const ShopList = () => {
     } else {
       toast.error(data.data.message)
     }
+  }
+
+  
+  const handleSort = (e) => {
+    setSortValue(e.target.value)
   }
 
   const fetchBranch = async () => {
@@ -54,7 +61,7 @@ const ShopList = () => {
   useEffect(() => {
     fetchProduct();
     fetchBranch()
-  }, [branchName,nameSearch,currentPage]);
+  }, [branchName,nameSearch,currentPage,sortValue]);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -89,11 +96,12 @@ const ShopList = () => {
                       name="fruitlist"
                       class="border-0 form-select-sm bg-light me-3"
                       form="fruitform"
+                      onChange={(e) =>　{
+                        handleSort(e)
+                      }}
                     >
-                      <option value="volvo">Nothing</option>
-                      <option value="saab">Popularity</option>
-                      <option value="opel">Organic</option>
-                      <option value="audi">Fantastic</option>
+                      <option value="DES">HIGHT to LOW</option>
+                      <option value="ASC">LOW to HIGHT</option>
                     </select>
                   </div>
                 </div>

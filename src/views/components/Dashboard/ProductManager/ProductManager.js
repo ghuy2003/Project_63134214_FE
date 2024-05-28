@@ -53,6 +53,8 @@ function ProductManager() {
         if(!success || data.status == 'Error') {
             toast.error('Có lỗi xảy ra')
         } else {
+
+            console.log(data.data.items);
             setProduct(data.data.items)
             setLoading(false);
             setTotal(data.data.totalCount)
@@ -97,8 +99,8 @@ function ProductManager() {
         },
         {
             title: 'Number',
-            dataIndex: 'productNumber',
-            key: 'productNumber',
+            dataIndex: 'productQuanlity',
+            key: 'productQuanlity',
         },
     
         {
@@ -115,6 +117,11 @@ function ProductManager() {
             title: 'Views',
             dataIndex: 'views',
             key: 'views',
+        },
+        {
+            title: 'Sold',
+            dataIndex: 'productSold',
+            key: 'productSold',
         },
         {
 
