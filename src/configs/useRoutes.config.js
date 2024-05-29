@@ -21,6 +21,7 @@ import OrderManager from "@views/components/Dashboard/OrderManager/OrderManager"
 import DetailOrder from "@views/components/Dashboard/OrderManager/DetailOrder";
 import ForgotPass from "@views/components/Login/ForgotPass";
 import UserManager from "@views/components/Dashboard/UserManager/UserManager";
+import DetailAccount from "@views/components/Dashboard/UserManager/DetailAccount";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -237,6 +238,14 @@ const useRoutes = () => {
       path: "/dashboard/accounts",
       element: <Layout>
         <UserManager />
+      </Layout>
+    },
+    {
+      key: "/dashboard/accounts/:userId",
+      label: "Accounts",
+      path: "/dashboard/accounts/:userId",
+      element: <Layout>
+        <DetailAccount />
       </Layout>
     }
 

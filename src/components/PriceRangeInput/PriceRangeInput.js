@@ -5,6 +5,7 @@ const PriceRangeInput = ({data, fnc}) => {
   const handleRangeChange = (event) => {
     fncRange(event.target.value);
     fnc(event.target.value)
+    console.log(event.target.value)
   };
 
   return (

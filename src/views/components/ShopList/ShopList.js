@@ -23,7 +23,8 @@ const ShopList = () => {
       pageSize: 10,
       ProductName: nameSearch,
       BranchId: branchName,
-      SortBy: sortValue
+      SortBy: sortValue,
+      
     });
 
     if(success && data.status != 'Error') {
@@ -61,7 +62,7 @@ const ShopList = () => {
   useEffect(() => {
     fetchProduct();
     fetchBranch()
-  }, [branchName,nameSearch,currentPage,sortValue]);
+  }, [branchName,nameSearch,currentPage,sortValue,rangeValue]);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };

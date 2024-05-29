@@ -21,14 +21,18 @@ const useAuth = () => {
 		data: data
 	})
 
-
+	const getUserDetail = (data) => createGetRequest({
+		endpoint: '/getUserDetail',
+		params: data
+	})
 	
 	return {
 		login,
 		register,
 		cancel,
 		changpassWord,
-		getUser
+		getUser,
+		getUserDetail
 	}
 }
 

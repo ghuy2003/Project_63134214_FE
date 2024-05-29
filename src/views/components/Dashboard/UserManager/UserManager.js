@@ -12,33 +12,32 @@ function UserManager() {
     const columns = [
         {
             title: 'UserName',
-            dataIndex: 'UserName',
-            key: 'UserName',
+            dataIndex: 'userName',
+            key: 'userName',
             render: (text) => <a>{text}</a>,
         },
         {
-            title: 'Email',
-            dataIndex: 'Email',
-            key: 'Email',
+            title: 'phone',
+            dataIndex: 'phone',
+            key: 'phone',
         },
         {
-            title: 'PhoneNumber',
-            dataIndex: 'PhoneNumber',
-            key: 'PhoneNumber',
+            title: 'email',
+            dataIndex: 'email',
+            key: 'email',
         },
         {
-            title: 'Sold',
-            dataIndex: 'productSold',
-            key: 'productSold',
+            title: 'roleName',
+            dataIndex: 'roleName',
+            key: 'roleName',
         },
         {
-
             title: 'Action',
             key: 'action',
             render: (_, record) => (
                 <Space>
-                    <Link to={record.id}>
-                        <Button type='primary' title='Detail Product'>
+                    <Link to={record.userId}>
+                        <Button type='primary' title='Detail Account'>
                             <FontAwesomeIcon icon={faCircleInfo} />
                         </Button>
                     </Link>
@@ -58,7 +57,8 @@ function UserManager() {
         try {
             const {success,data} = await getUser(tableParams.pagination);
             if(success) {
-                setUsers(data.data.items);
+                console.log(data.data);
+                setUsers(data.data);
                 toast.success(data.message);
             } else {
                 toast.err(data != undefined ? data.message : "Server error")
