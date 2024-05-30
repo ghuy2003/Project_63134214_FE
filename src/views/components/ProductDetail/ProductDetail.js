@@ -8,7 +8,6 @@ import banner from '../../../assets/img/banner-fruits.jpg'
 import fruit from '../../../assets/img/fruite-item-6.jpg'
 import useComment from '@api/useComment';
 import { format, parseISO } from 'date-fns';
-
 import {
     MDBCard,
     MDBCardBody,
@@ -19,6 +18,10 @@ import {
     MDBRow,
     MDBTypography,
   } from "mdb-react-ui-kit";
+import { useDispatch } from 'react-redux';
+
+
+import { addProductToCart, decreaseQuantity , increaseQuantity } from '../../../../src/services/redux/cartSlice/productSlice.js';
 
   
 function ProductDetail() {
@@ -31,6 +34,7 @@ function ProductDetail() {
     const params = useParams();
     const {getAllById} = useProduct();
     const {getBranch} = useBranch();
+    const dispatch = useDispatch();
     const {getCommentByProduct,addComment} = useComment();
     const [productDetail, setProductDetail] = useState({});
     const [branchProduct, setBranch] = useState([]);
@@ -40,6 +44,9 @@ function ProductDetail() {
         email: "",
         comment: ""
     })
+
+
+    const [count,setCount] = useState(1);
 
     const fetchData = async (id) => {
         const {success,data} = await getAllById(id);
@@ -97,6 +104,43 @@ function ProductDetail() {
       }
 
 
+      const handleAddToCart = () => {
+        dispatch(
+          addProductToCart({
+            id : params.id,
+            imgSrc: productDetail.listFileAndImage != undefined ? productDetail.listFileAndImage[0]?.fileName : fruit,
+            name: productDetail.productName,
+            price: productDetail.prodcutPrice,
+            count: count,
+          })
+        );
+      };
+
+
+      const handleIncreamentQuality = () => {
+        dispatch(
+          increaseQuantity({
+            id : params.id,
+            imgSrc: productDetail.listFileAndImage != undefined ? productDetail.listFileAndImage[0]?.fileName : fruit,
+            name: productDetail.productName,
+            price: productDetail.prodcutPrice,
+            count: count,
+          })
+        );
+      };
+
+
+      const handleDecreamentQuality = () => {
+        dispatch(
+            decreaseQuantity({
+                id : params.id,
+                imgSrc: productDetail.listFileAndImage != undefined ? productDetail.listFileAndImage[0]?.fileName : fruit,
+                name: productDetail.productName,
+                price: productDetail.prodcutPrice,
+                count: count,
+            })
+        )
+      }
 
     useEffect(() => {
         fetchData(params.id)
@@ -137,18 +181,24 @@ function ProductDetail() {
                                 <p class="mb-4">{productDetail.productDescription}</p>
                                 <div class="input-group quantity mb-5" style={{width: "100px"}}>
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
+                                        <button onClick={() => {
+                                            setCount(count-1)
+                                            handleDecreamentQuality()
+                                        }} class="btn btn-sm btn-minus rounded-circle bg-light border" >
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0" value="1" />
+                                    <input type="text" class="form-control form-control-sm text-center border-0" value={count} />
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <button onClick={() => {
+                                            setCount(count+1)
+                                            handleIncreamentQuality()
+                                        }} class="btn btn-sm btn-plus rounded-circle bg-light border">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                <a href="javascript:void(0)" onClick={handleAddToCart} class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                             </div>
                             <div class="col-lg-12">
                                 <nav>

@@ -83,6 +83,11 @@ function SastisfyManager() {
                   <div>
               </div>
 
+
+
+
+              
+
           </div>
         <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
           <div class="card">
@@ -108,6 +113,38 @@ function SastisfyManager() {
             </div>
 
         </div>
+
+
+      
+
+
+        <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div><h4 class="mb-0">Product Sold</h4>
+                </div>
+                <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
+                  <img width="25" height="25" src="https://img.icons8.com/dusk/64/product.png" alt="product"/>
+                  </div>
+                  </div>
+                  <div>
+                    
+                    <h1 class="fw-bold">
+                      {dataDashboard.countProductSold}
+                    </h1>
+                    <p class="mb-0">
+                    Sold</p>
+                    </div>
+                    </div>
+                  </div>
+                <div>
+            </div>
+
+        </div>
+
+
+
         <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
           <div class="card">
             <div class="card-body">

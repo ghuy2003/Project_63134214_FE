@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { totalQuanlity } from "../../../services/redux/cartSlice/productSlice";
+import useUser from "@store/useUser";
+import { toast } from "react-toastify";
 
 function Navbar() {
   // const [isShowModalSearch, setIsShowModalSearch] = useState(false);
@@ -9,6 +11,15 @@ function Navbar() {
   // const toggleShowModal = () => {
   //   setIsShowModalSearch(!isShowModalSearch);
   // };
+
+  const t = useUser();
+  const navigate = useNavigate()
+  const { resetData } = useUser();
+  const handleLogout = () => {
+    resetData()
+    toast.success("Đăng xuất thành công")
+    navigate('/')
+  }
 
   const totalQuantity = useSelector((state) => state.products.totalQuantity);
   return (
@@ -91,9 +102,48 @@ function Navbar() {
                   {totalQuantity ?? "0"}
                 </span>
               </Link>
-              <Link to={"/login"} className="my-auto">
-                <i className="fas fa-user fa-2x"></i>
-              </Link>
+
+              {t.username ? (
+                 <div class="navbar-collapse px-0" id="navbarNav">
+                 <ul class="navbar-nav flex-row ms-auto align-items-center">
+                   <li class="nav-item dropdown">
+                     <a
+                       class="nav-link nav-icon-hover"
+                       href="javascript:void(0)"
+                       id="drop2"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false"
+                     >
+                      <i className="fas fa-user fa-2x rounded-circle"></i>
+                     </a>
+                     <div
+                       class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                       aria-labelledby="drop2"
+                     >
+                       <div class="message-body">
+                         <a
+                           href="javascript:void(0)"
+                           class="d-flex align-items-center gap-2 dropdown-item"
+                         >
+                           <i class="ti ti-user fs-6"></i>
+                           <p class="mb-0">My Profile</p>
+                         </a>
+                         <a
+                           onClick={handleLogout}
+                           class="btn btn-outline-primary mx-3 mt-2 d-block"
+                         >
+                           Logout
+                         </a>
+                       </div>
+                     </div>
+                   </li>
+                 </ul>
+               </div>
+              ) : (
+                <Link to={"/login"} className="my-auto">
+                  <i className="fas fa-user fa-2x"></i>
+                </Link>
+              )}
             </div>
           </div>
         </nav>

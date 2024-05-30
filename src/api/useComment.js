@@ -14,6 +14,4 @@ const useComment = () => {
         getCommentByProduct
     }
 }
-
-
 export default useComment

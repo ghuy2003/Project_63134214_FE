@@ -23,7 +23,9 @@ function ProductManager() {
 
 
 
-
+    function formatCurrencyVND(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+      } 
         
     const { getAll } = useProduct()
 
@@ -53,8 +55,6 @@ function ProductManager() {
         if(!success || data.status == 'Error') {
             toast.error('Có lỗi xảy ra')
         } else {
-
-            console.log(data.data.items);
             setProduct(data.data.items)
             setLoading(false);
             setTotal(data.data.totalCount)
@@ -95,7 +95,7 @@ function ProductManager() {
         {
             title: 'Price ($)',
             dataIndex: 'prodcutPrice',
-            key: 'prodcutPrice',
+            render: (text) => <p>{formatCurrencyVND(text)}</p>,
         },
         {
             title: 'Number',
@@ -160,7 +160,7 @@ function ProductManager() {
             <Pagination  
                 showSizeChanger
                 onChange={onShowSizeChange} 
-                style={{textAlign: 'center',marginTop: '1.5rem'}} 
+                style={{textAlign: 'center',marginTop: '24px'}} 
                 defaultCurrent={tableParams.pagination.pageIndex} 
                 total={total} 
             />  
