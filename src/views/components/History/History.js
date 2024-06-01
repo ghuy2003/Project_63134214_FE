@@ -90,21 +90,6 @@ function History() {
             dataIndex: 'totalPrice',
             key: 'totalPrice',
         },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space>
-                    <Link to={record.id}>
-                        <Button type='primary' title='Detail Order'>
-                            <FontAwesomeIcon icon={faCircleInfo} />
-                        </Button>
-                    </Link>
-                     
-                </Space>
-            ),
-        },
-        
     ]
     return (
 
