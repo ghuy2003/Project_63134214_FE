@@ -122,7 +122,7 @@ function Navbar() {
                      >
                        <div class="message-body">
                          <a
-                           href="javascript:void(0)"
+                           href="/user-profile"
                            class="d-flex align-items-center gap-2 dropdown-item"
                          >
                            <i class="ti ti-user fs-6"></i>

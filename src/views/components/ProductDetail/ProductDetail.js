@@ -182,7 +182,12 @@ function ProductDetail() {
                                 <div class="input-group quantity mb-5" style={{width: "100px"}}>
                                     <div class="input-group-btn">
                                         <button onClick={() => {
-                                            setCount(count-1)
+                                                if(count <= 2) {
+                                                    setCount(1)
+                                                }else {
+                                                    setCount(count-1)
+                                                }
+
                                             handleDecreamentQuality()
                                         }} class="btn btn-sm btn-minus rounded-circle bg-light border" >
                                             <i class="fa fa-minus"></i>

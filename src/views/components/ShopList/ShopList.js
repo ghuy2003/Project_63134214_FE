@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 import useBranch from "@api/useBranch";
 import StarRating from "@components/Rate/StarRating";
 import { Link } from "react-router-dom";
+function formatCurrencyVND(amount) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+} 
 const ShopList = () => {
   const [dataProduct, setData] = useState([]);
   const [branchProduct, setBranch] = useState([]);
@@ -155,7 +158,7 @@ const ShopList = () => {
                                 <h6 class="mb-2">{items.productName}</h6>
                                 <StarRating rate={items.rate} />
                                 <div class="d-flex mb-2">
-                                  <h5 class="fw-bold me-2">{items.prodcutPrice} $</h5>
+                                  <h5 class="fw-bold me-2">{formatCurrencyVND(items.prodcutPrice)}</h5>
                                 </div>
                               </div>
                             </div>

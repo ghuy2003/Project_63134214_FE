@@ -29,10 +29,10 @@ const App = () => {
   const { routes } = useRoutes();
   const { token } = useUser();
   const [ready, setReady] = useState(false); // set after
-  const renderRoute = (routes) => (
-    <Routes>
-      {routes.map((route) =>
-        "children" in route ? (
+    const renderRoute = (routes) => (
+      <Routes>
+        {routes.map((route) =>
+          "children" in route ? (
           <Route key={route.key} {...route}>
             {renderRoute(route.children)}
           </Route>
@@ -68,7 +68,7 @@ const App = () => {
         {renderRoute(routes)}
         <ScrollToTopButton />
       </Provider>
-      <ToastContainer position="bottom-right" autoClose={3000}/>
+        <ToastContainer position="bottom-right" autoClose={3000}/>
       
     </>
   );

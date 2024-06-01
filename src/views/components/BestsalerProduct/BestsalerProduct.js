@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import fruit from '../../../assets/img/best-product-6.jpg'
+
+function formatCurrencyVND(amount) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+} 
+
 const BestsalerProduct = () => {
   const [bestSale, setBestSale] = useState([]);
   const { getBestSale} = useProduct();
@@ -59,7 +64,7 @@ const BestsalerProduct = () => {
                           <i class="fas fa-star text-primary"></i>
                           <i class="fas fa-star"></i>
                         </div>
-                        <h4 class="mb-3">{items.prodcutPrice} $</h4>
+                        <h4 class="mb-3">{formatCurrencyVND(items.prodcutPrice)}</h4>
                         <a
                           href="#"
                           class="btn border border-secondary rounded-pill px-3 text-primary"

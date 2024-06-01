@@ -7,7 +7,9 @@ import {
 } from "../../services/redux/cartSlice/productSlice";
 
 
-
+function formatCurrencyVND(amount) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+} 
 const CartItem = ({ id, imgSrc, name, price, count }) => {
   const dispatch = useDispatch();
   const handleIncreamentQuality = () => {
@@ -59,7 +61,7 @@ const CartItem = ({ id, imgSrc, name, price, count }) => {
           <p className="mb-0 mt-4">{name}</p>
         </td>
         <td>
-          <p className="mb-0 mt-4">{price + " $"}</p>
+          <p className="mb-0 mt-4">{formatCurrencyVND(price)}</p>
         </td>
         <td>
           <div className="input-group quantity mt-4" style={{ width: "100px" }}>
@@ -87,7 +89,7 @@ const CartItem = ({ id, imgSrc, name, price, count }) => {
           </div>
         </td>
         <td>
-          <p className="mb-0 mt-4">{(price * count).toFixed(2) + " $"}</p>
+          <p className="mb-0 mt-4">{formatCurrencyVND((price * count).toFixed(2))}</p>
         </td>
         <td>
           <button

@@ -21,6 +21,11 @@ const useAuth = () => {
 		data: data
 	})
 
+	const getUserById = (data) => createGetRequest({
+		endpoint: '/getbyId',
+		params: data
+	})
+
 	const getUserDetail = (data) => createGetRequest({
 		endpoint: '/getUserDetail',
 		params: data
@@ -32,7 +37,8 @@ const useAuth = () => {
 		cancel,
 		changpassWord,
 		getUser,
-		getUserDetail
+		getUserDetail,
+		getUserById
 	}
 }
 

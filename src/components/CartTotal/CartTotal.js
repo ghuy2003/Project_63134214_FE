@@ -1,10 +1,13 @@
+import useUser from "@store/useUser";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+function formatCurrencyVND(amount) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+} 
 const CartTotal = () => {
   const totalCost = useSelector((state) => state.products.totalCost);
-
+  const t = useUser();
   return (
     <>
       <div class="row g-4 justify-content-end">
@@ -17,20 +20,15 @@ const CartTotal = () => {
               </h1>
               <div class="d-flex justify-content-between mb-4">
                 <h5 class="mb-0 me-4">Subtotal:</h5>
-                <p class="mb-0">{totalCost + "$"}</p>
+                <p class="mb-0">{formatCurrencyVND(totalCost)}</p>
               </div>
-              <div class="d-flex justify-content-between">
-                <h5 class="mb-0 me-4">Shipping</h5>
-                <div class="">
-                  <p class="mb-0">Flat rate: $0.00</p>
-                </div>
-              </div>
-              <p class="mb-0 text-end">Shipping to Ukraine.</p>
             </div>
             <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
               <h5 class="mb-0 ps-4 me-4">Total</h5>
-              <p class="mb-0 pe-4">{totalCost + "$"}</p>
+              <p class="mb-0 pe-4">{formatCurrencyVND(totalCost)}</p>
             </div>
+
+            {t.username ? (
             <Link to="/checkout">
               <button
                 class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
@@ -39,6 +37,19 @@ const CartTotal = () => {
                 Proceed Checkout
               </button>
             </Link>
+              ) : (
+                <Link to="/login">
+              <button
+                class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                type="button"
+              >
+                Proceed Checkout
+              </button>
+            </Link>
+              )}
+
+
+            
           </div>
         </div>
       </div>

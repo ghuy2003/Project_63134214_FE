@@ -22,6 +22,9 @@ import DetailOrder from "@views/components/Dashboard/OrderManager/DetailOrder";
 import ForgotPass from "@views/components/Login/ForgotPass";
 import UserManager from "@views/components/Dashboard/UserManager/UserManager";
 import DetailAccount from "@views/components/Dashboard/UserManager/DetailAccount";
+import LayoutUser from "@views/layouts/LayoutUser";
+import ProfileUser from "@views/components/ProfileUser/ProfileUser";
+import History from "@views/components/History/History";
 const ICON_SIZE = "15px";
 const useRoutes = () => {
   const t = useTranslate();
@@ -127,6 +130,7 @@ const useRoutes = () => {
         <ForgotPass />
       </LayoutClient>
     },
+    
 
     {
       key: "/dashboard",
@@ -206,6 +210,24 @@ const useRoutes = () => {
       </Layout>,
      
     },
+
+    {
+      key: "/user-profile",
+      label: "UserProfile",
+      path: "/user-profile",
+      element: <LayoutUser>
+        <ProfileUser />
+      </LayoutUser>
+    },
+    {
+      key: "/dashboard/history-cart",
+      label: "History",
+      path: "/dashboard/history-cart",
+      element: <LayoutUser>
+        <History />
+      </LayoutUser>
+    },
+
     {
       key: "/dashboard/branch/edit/:id",
       label: "Branch",

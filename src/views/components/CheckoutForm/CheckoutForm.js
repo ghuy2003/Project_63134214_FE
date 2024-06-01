@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CHOXACNHAN } from "../../../constants/orderStatusConstant";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import useUser from "@store/useUser";
 
 const CheckoutForm = () => {
   const productList = useSelector((state) => state.products.productList.map(items => {
@@ -18,7 +20,7 @@ const CheckoutForm = () => {
 
 
   const {create} = useOrder();
-
+  const {token} = useUser();
 
   const [totalPriceAfterAddShipping, setTotalPriceAfterAddShipping] =
     useState(totalCost);
@@ -31,9 +33,10 @@ const CheckoutForm = () => {
     createAccount: false,
     shipToDifferentAddress: false,
     orderNotes: "",
-    totalPrice: 0,
+    totalPrice: totalCost,
     Carts: productList,
-    Status: CHOXACNHAN
+    Status: CHOXACNHAN,
+    UserId: jwtDecode(token).user_id
   });
 
   const handleInputChange = (event) => {
