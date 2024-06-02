@@ -9,7 +9,7 @@ const HTTP_STATUS = Object.freeze({
 
 const PROTOCOL = 'https'
 const HOST = 'localhost'
-const PORT = '44391'
+const PORT = '44365'
 
 const LANG = Object.freeze({
 	vi: 'Tiếng Việt',
