@@ -6,6 +6,12 @@ const { default: useOrder } = require("@api/useOrder")
 const { Table, Pagination, Space, Button } = require("antd")
 const { useState, useEffect } = require("react")
 const { toast } = require("react-toastify")
+
+
+function formatCurrencyVND(amount) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+  } 
+
 const OrderManager = () => {
     const {getAll} = useOrder()
     const [orders, setOrder] = useState([])
@@ -80,6 +86,9 @@ const OrderManager = () => {
             title: 'Price',
             dataIndex: 'totalPrice',
             key: 'totalPrice',
+            render: (_,data) => {
+                return (<p>{formatCurrencyVND(data.totalPrice)}</p>)
+            }
         },
         {
             title: 'Action',

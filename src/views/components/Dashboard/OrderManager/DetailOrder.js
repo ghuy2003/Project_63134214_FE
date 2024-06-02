@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-
+function formatCurrencyVND(amount) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+} 
 function DetailOrder() {
     const params = useParams();
     const {getDetail,edit} = useOrder();
@@ -60,7 +62,7 @@ function DetailOrder() {
         dataIndex: 'total',
         key: 'age',
         render: (_, record) => (
-          (<p>{record.count * record.price}</p>)
+          (<p>{formatCurrencyVND(record.count * record.price)}</p>)
         )
       },
     ];
@@ -80,7 +82,7 @@ function DetailOrder() {
               <p>Create Date : {order.createat} </p>
               <p>Email : {order.email} </p>
               <p>Address : {order.address} </p>
-              <p>Total : {order.totalPrice} </p>
+              <p>Total : {formatCurrencyVND(order.totalPrice)} </p>
               <p>Status :     <Tag color="volcano">{order.status} </Tag> </p>
             </span>
             </Col>
