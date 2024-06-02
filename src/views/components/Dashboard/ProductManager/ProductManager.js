@@ -12,6 +12,7 @@ import Edit from './Edit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Link, Navigate } from 'react-router-dom';
+import { render } from '@testing-library/react';
 
 
 
@@ -122,6 +123,12 @@ function ProductManager() {
             title: 'Sold',
             dataIndex: 'productSold',
             key: 'productSold',
+        },
+        {
+            title: 'Available',
+            dataIndex: 'Available',
+            key: 'Available',
+            render: (_, record) => <p>{record.productQuanlity - record.productSold >= 0 ? (record.productQuanlity - record.productSold) : 0 }</p>,
         },
         {
 

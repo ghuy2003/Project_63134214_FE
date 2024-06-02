@@ -25,12 +25,24 @@ function Edit() {
 
     const [product, setProduct] = useState({});
 
-    const  {getAllById} = useProduct()
+
+    
+    const  {getAllById,editProduct} = useProduct()
     const {getAllBranch} = useBranch()
     const {getAllOrigin} = useOrigin()
     const [branch, setBranch] = useState([])
-  const [origin, setOrigin] = useState([])
+    const [origin, setOrigin] = useState([])
 
+
+
+    const handleEdit = async () => {
+      const {success,data}  =  await editProduct({...product,id: param.id});
+      if(success) {
+        toast.success(data.message)
+    } else {
+        toast.error(data.message)
+    }
+    }
 
 
   const fetchbranch = async () => {
@@ -81,11 +93,11 @@ function Edit() {
         fetchData()
         fetchOrigin()
         fetchbranch()
-
-
-        console.log(product);
     }, [])
 
+
+
+    
 
     const handleInputChange = (e, keytype,type) => {
 
@@ -104,17 +116,13 @@ function Edit() {
     return (
         
         <>
-
-
       <Form
-    
         layout="horizontal"
         style={{
           maxWidth: '100%',
           paddingTop: '25px'
         }}
       >
-
         <Row gutter={[10,10]}>
             <Col span={8}>
                 <Form.Item label="Name">
@@ -167,12 +175,6 @@ function Edit() {
         
         
        
-        <Form.Item label="DatePicker">
-          <DatePicker />
-        </Form.Item>
-
-       
-       
       
         {/* <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
           <Upload action="/upload.do" listType="picture-card">
@@ -196,7 +198,7 @@ function Edit() {
         </Form.Item> */}
 
 
-        <Button type="primary">Edit</Button>
+        <Button type="primary" onClick={handleEdit}>Edit</Button>
       </Form>
     </>
     );
