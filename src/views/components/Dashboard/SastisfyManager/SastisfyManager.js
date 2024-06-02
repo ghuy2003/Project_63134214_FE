@@ -20,26 +20,7 @@ const cx = classNames.bind(styles)
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
-const dataSold = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-];
+
 
 const getPath = (x, y, width, height) => {
   return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
@@ -64,12 +45,14 @@ function SastisfyManager() {
     const {get} = useDashboard()
     const [dataBranch,setDatabranch] = useState([])
     const [dataDashboard,setdataDashboard] = useState({})
+    const [dataSoldOut,setDataSoutOut] = useState([]);
 
     const fetchDashboard = async () => {
       const {success,data} = await get();
       if(success) {
         setDatabranch(data.data.listBranch)
         setdataDashboard(data.data)
+        setDataSoutOut(data.data.listOrders);
       }
     }
     useEffect(() => {
@@ -130,6 +113,8 @@ function SastisfyManager() {
 
 
 
+    console.log(dataSoldOut);
+
     
 
 
@@ -186,17 +171,40 @@ function SastisfyManager() {
         </div>
 
 
-      
-
-
         <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div><h4 class="mb-0">Products</h4>
+                </div>
+                <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
+                  <img width="25" height="25" src="https://img.icons8.com/dusk/64/product.png" alt="product"/>
+                  </div>
+                  </div>
+                  <div>
+                    
+                    <h1 class="fw-bold">
+                      {dataDashboard.dataProduct}
+                    </h1>
+                    <p class="mb-0">
+                    Fresh</p>
+                    </div>
+                    </div>
+                  </div>
+                <div>
+            </div>
+
+        </div>
+
+
+        <div className='mt-6 col-xl-12 col-lg-6 col-md-12 col-12'>
       <span>
         Số lượng sản phẩm đã bán
       </span>
       <BarChart
       width={500}
       height={300}
-      data={dataSold}
+      data={dataSoldOut}
       margin={{
         top: 20,
         right: 30,
@@ -205,10 +213,10 @@ function SastisfyManager() {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="key" />
       <YAxis />
-      <Bar dataKey="uv" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
-        {dataSold.map((entry, index) => (
+      <Bar dataKey="value" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+        {dataSoldOut.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={colors[index % 20]} />
         ))}
       </Bar>
@@ -240,30 +248,7 @@ function SastisfyManager() {
 
 
 
-        <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div><h4 class="mb-0">Products</h4>
-                </div>
-                <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
-                  <img width="25" height="25" src="https://img.icons8.com/dusk/64/product.png" alt="product"/>
-                  </div>
-                  </div>
-                  <div>
-                    
-                    <h1 class="fw-bold">
-                      {dataDashboard.dataProduct}
-                    </h1>
-                    <p class="mb-0">
-                    Fresh</p>
-                    </div>
-                    </div>
-                  </div>
-                <div>
-            </div>
-
-        </div>
+       
 
         <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
           <span>

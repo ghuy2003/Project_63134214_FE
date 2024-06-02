@@ -1,7 +1,7 @@
 import { data } from 'jquery'
 import useRequest from './useRequest'
 const useProduct = () => {
-	const { createPostRequest, createGetRequest, createDeleteRequest, cancel } = useRequest('Product')
+	const { createPostRequest, createPutRequest, createGetRequest, createDeleteRequest, cancel } = useRequest('Product')
 	const getAll = (data) => createPostRequest({
 		endpoint: '/getall',
 		data: data
@@ -24,11 +24,17 @@ const useProduct = () => {
 		endpoint: '/delete',
 		params: params
 	})
+
+	const editProduct = (params) => createPutRequest({
+		endpoint: '/Edit',
+		data: params
+	})
 	
 	return {
 		getAll,
 		getBestSale,
         getAllById,
+		editProduct,
 		createProduct,
 		deleteProduct
 	}

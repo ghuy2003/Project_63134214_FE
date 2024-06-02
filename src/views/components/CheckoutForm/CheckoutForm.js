@@ -8,14 +8,23 @@ import { CHOXACNHAN } from "../../../constants/orderStatusConstant";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import useUser from "@store/useUser";
-
+function formatCurrencyVND(amount) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+} 
+  
 const CheckoutForm = () => {
   const productList = useSelector((state) => state.products.productList.map(items => {
+    console.log(items);
     return {
+      price: items.price,
+      imgSrc: items.imgSrc,
       count: items.count,
-      ProductId: items.id
+      ProductId: items.id,
+      name: items.name
     }
   }));
+
+  console.log(productList)
   const totalCost = useSelector((state) => state.products.totalCost);
 
 
@@ -414,9 +423,9 @@ const CheckoutForm = () => {
                             </div>
                           </th>
                           <td class="py-5">{product.name}</td>
-                          <td class="py-5">{product.price}</td>
+                          <td class="py-5">{formatCurrencyVND(product.price)}</td>
                           <td class="py-5">{product.count}</td>
-                          <td class="py-5">${product.count * product.price}</td>
+                          <td class="py-5">{formatCurrencyVND(product.count * product.price)}</td>
                         </tr>
                       ))}
 
@@ -429,7 +438,7 @@ const CheckoutForm = () => {
                         </td>
                         <td class="py-5">
                           <div class="py-3 border-bottom border-top">
-                            <p class="mb-0 text-dark">${totalCost}</p>
+                            <p class="mb-0 text-dark">{formatCurrencyVND(totalCost)}</p>
                           </div>
                         </td>
                       </tr>
@@ -462,7 +471,7 @@ const CheckoutForm = () => {
                               onChange={handleShippingChange}
                             />
                             <label class="form-check-label" for="Shipping-2">
-                              Flat rate: $15.00
+                              Flat rate: {formatCurrencyVND(15000)}
                             </label>
                           </div>
                           <div class="form-check text-start">
@@ -475,7 +484,7 @@ const CheckoutForm = () => {
                               onChange={handleShippingChange}
                             />
                             <label class="form-check-label" for="Shipping-3">
-                              Local Pickup: $8.00
+                              Local Pickup: {formatCurrencyVND(8000)}
                             </label>
                           </div>
                         </td>
@@ -492,7 +501,7 @@ const CheckoutForm = () => {
                         <td class="py-5">
                           <div class="py-3 border-bottom border-top">
                             <p class="mb-0 text-dark">
-                              ${totalPriceAfterAddShipping}
+                              {formatCurrencyVND(totalPriceAfterAddShipping)}
                             </p>
                           </div>
                         </td>
