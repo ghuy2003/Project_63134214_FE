@@ -1,11 +1,15 @@
+/* eslint-disable no-undef */
 /*!
   * Bootstrap component-functions.js v5.2.3 (https://getbootstrap.com/)
   * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
+  // eslint-disable-next-line no-unused-expressions
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('../dom/event-handler'), require('./index')) :
+  // eslint-disable-next-line no-undef
   typeof define === 'function' && define.amd ? define(['exports', '../dom/event-handler', './index'], factory) :
+  // eslint-disable-next-line no-restricted-globals
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ComponentFunctions = {}, global.EventHandler, global.Index));
 })(this, (function (exports, EventHandler, index) { 'use strict';
 

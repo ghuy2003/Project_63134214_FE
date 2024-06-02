@@ -9,6 +9,7 @@ import { Chart as ChartJS,  CategoryScale,
   Tooltip,
   Filler,
   Legend, ArcElement } from 'chart.js';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 import { Line } from 'react-chartjs-2';
 import useDashboard from '@api/useDashboard';
@@ -18,7 +19,47 @@ import styles from './Sastis.module.scss'
 const cx = classNames.bind(styles)
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
+const dataSold = [
+  {
+    name: 'Page A',
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: 'Page B',
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: 'Page C',
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+];
 
+const getPath = (x, y, width, height) => {
+  return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
+  ${x + width / 2}, ${y}
+  C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
+  Z`;
+};
+
+
+const TriangleBar = (props) => {
+  const { fill, x, y, width, height } = props;
+
+  return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+};
+
+
+
+function formatCurrencyVND(amount) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+} 
 function SastisfyManager() {
     const {get} = useDashboard()
     const [dataBranch,setDatabranch] = useState([])
@@ -39,7 +80,7 @@ function SastisfyManager() {
       labels: dataBranch.map(items => items["key"]),
       datasets: [
         {
-          label: 'Count ',
+          label: 'Count',
           data: dataBranch.map(items => items["value"]),
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -59,6 +100,36 @@ function SastisfyManager() {
         },
       ],
     };
+
+
+
+    const dataPer = {
+      labels: dataBranch.map(items => items["key"]),
+      datasets: [
+        {
+          label: 'Count',
+          data: dataBranch.map(items => items["value"]),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(122, 103, 83, 0.2)',
+
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(122, 103, 83, 1)',
+
+          ],
+          borderWidth: 1,
+        },
+      ],
+    };
+
+
+
     
 
 
@@ -119,7 +190,31 @@ function SastisfyManager() {
 
 
         <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
-          <div class="card">
+      <span>
+        Số lượng sản phẩm đã bán
+      </span>
+      <BarChart
+      width={500}
+      height={300}
+      data={dataSold}
+      margin={{
+        top: 20,
+        right: 30,
+        left: 20,
+        bottom: 5,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Bar dataKey="uv" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+        {dataSold.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+        ))}
+      </Bar>
+    </BarChart>
+
+          {/* <div class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <div><h4 class="mb-0">Product Sold</h4>
@@ -139,7 +234,7 @@ function SastisfyManager() {
                     </div>
                   </div>
                 <div>
-            </div>
+            </div> */}
 
         </div>
 
@@ -171,10 +266,18 @@ function SastisfyManager() {
         </div>
 
         <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
+          <span>
+            Số lượng sản phẩm branch
+          </span>
           <Pie data={data} />
         </div>
 
-        <div className='mt-6 col-xl-4 col-lg-6 col-md-12 col-12'>
+        <div className='mt-6 col-xl-6 col-lg-6 col-md-12 col-12'>
+          <span>
+            Tỉ lệ trạng thái đơn hàng
+          </span>
+
+
           <td class="align-middle text-dark">
             <div class="float-start me-3">{(dataDashboard.orderSuccess * 100).toFixed(2)}%</div>
             <div class="mt-2">
@@ -193,7 +296,7 @@ function SastisfyManager() {
                     <h5 class="card-title mb-9 fw-semibold">Yearly Breakup</h5>
                     <div class="row align-items-center">
                       <div class="col-8">
-                        <h4 class="fw-semibold mb-3">${dataDashboard.totalByYear}</h4>
+                        <h4 class="fw-semibold mb-3">{formatCurrencyVND(dataDashboard.totalByYear)}</h4>
                         <div class="d-flex align-items-center mb-3">
                           <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
                             <i class="ti ti-arrow-up-left text-success"></i>

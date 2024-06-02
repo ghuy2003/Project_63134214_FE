@@ -4,8 +4,11 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
+  // eslint-disable-next-line no-unused-expressions
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  // eslint-disable-next-line no-undef
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  // eslint-disable-next-line no-undef, no-restricted-globals
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Index = {}));
 })(this, (function (exports) { 'use strict';
 
